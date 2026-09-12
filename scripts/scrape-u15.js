@@ -1,74 +1,63 @@
-import fs from "node:fs";
+import fs from "node:fs/promises";
 import * as cheerio from "cheerio";
 
-const AJAX_URL = "https://www.junghaie.de/ajax-hockeydata-filter.php";
+const BASE_URL = "https://www.junghaie.de";
+const SCHEDULE_URL = `${BASE_URL}/spielplan.menuid31.html`;
+const AJAX_URL = `${BASE_URL}/ajax-hockeydata-filter.php`;
 
 const leagues = [
   {
     name: "U15 Regionalliga A",
-    page: "https://www.junghaie.de/spielplan.menuid31.html",
+    menu: "index.php?menuid=32",
   },
   {
     name: "U15 Regionalliga B",
-    page: "https://www.junghaie.de/spielplan.menuid31.html",
+    menu: "index.php?menuid=32",
   },
 ];
 
 function parseDateTime(date, time) {
   if (!date) return null;
 
-  const [day, month, year] = date.split(".");
-  const [hour = "00", minute = "00"] = (time || "00:00").split(":");
+  const match = date.match(/^(\d{2})\.(\d{2})\.(\d{4})$/);
+  if (!match) return null;
 
-  return `${year}-${month}-${day}T${hour}:${minute}:00+02:00`;
+  const [, day, month, year] = match;
+  const cleanTime = /^\d{2}:\d{2}$/.test(time || "") ? time : "00:00";
+
+  return `${year}-${month}-${day}T${cleanTime}:00`;
+}
+
+function cleanText(value) {
+  return String(value || "")
+    .replace(/\s+/g, " ")
+    .replace(/\+/g, " ")
+    .trim();
 }
 
 function parseGames(html, leagueName) {
   const $ = cheerio.load(html);
   const games = [];
 
-  $("table tbody tr").each((_, row) => {
-    const date = $(row)
-      .find(".-hd-los-schedule-scheduled-date")
-      .attr("value") ||
-      $(row)
-        .find(".-hd-los-schedule-scheduled-date")
-        .text()
-        .trim();
+  // Hockeydata liefert je nach Anfrage entweder die
+  // "nextgames"-Tabelle oder den vollständigen Spielplan.
+  $("table tr").each((_, row) => {
+    const cells = $(row)
+      .find("td")
+      .map((_, cell) => cleanText($(cell).text()))
+      .get();
 
-    const time = $(row)
-      .find(".-hd-los-schedule-scheduled-time")
-      .attr("value") ||
-      $(row)
-        .find(".-hd-los-schedule-scheduled-time")
-        .text()
-        .trim();
+    if (cells.length < 10) return;
 
-    const home = $(row)
-      .find(".-hd-los-schedule-home-team-name")
-      .attr("value") ||
-      $(row)
-        .find(".-hd-los-schedule-home-team-name")
-        .text()
-        .trim();
+    const date = cells[0];
+    const time = cells[1];
+    const home = cells[2];
+    const homeScore = cells[4];
+    const awayScore = cells[6];
+    const away = cells[9];
 
-    const away = $(row)
-      .find(".-hd-los-schedule-away-team-name")
-      .attr("value") ||
-      $(row)
-        .find(".-hd-los-schedule-away-team-name")
-        .text()
-        .trim();
-
-    const homeScore = $(row)
-      .find(".-hd-los-schedule-home-team-score")
-      .attr("value");
-
-    const awayScore = $(row)
-      .find(".-hd-los-schedule-away-team-score")
-      .attr("value");
-
-    if (!date || !home || !away) return;
+    if (!/^\d{2}\.\d{2}\.\d{4}$/.test(date)) return;
+    if (!home || !away) return;
 
     games.push({
       date,
@@ -77,13 +66,13 @@ function parseGames(html, leagueName) {
       home,
       away,
       homeScore:
-        !homeScore || homeScore === "-"
-          ? null
-          : Number(homeScore),
+        homeScore && homeScore !== "-"
+          ? Number(homeScore)
+          : null,
       awayScore:
-        !awayScore || awayScore === "-"
-          ? null
-          : Number(awayScore),
+        awayScore && awayScore !== "-"
+          ? Number(awayScore)
+          : null,
       league: leagueName,
     });
   });
@@ -91,30 +80,44 @@ function parseGames(html, leagueName) {
   return games;
 }
 
-async function getSessionCookie() {
-  const response = await fetch(leagues[0].page);
+async function createSession() {
+  const response = await fetch(SCHEDULE_URL, {
+    headers: {
+      "User-Agent": "Mozilla/5.0",
+      Accept: "text/html,application/xhtml+xml",
+    },
+  });
 
-  const cookies =
-    typeof response.headers.getSetCookie === "function"
-      ? response.headers.getSetCookie()
-      : [];
+  if (!response.ok) {
+    throw new Error(`Junghaie-Seite konnte nicht geladen werden: ${response.status}`);
+  }
 
-  if (cookies.length > 0) {
-    return cookies
-      .map((cookie) => cookie.split(";")[0])
+  let cookie = "";
+
+  if (typeof response.headers.getSetCookie === "function") {
+    const cookies = response.headers.getSetCookie();
+    cookie = cookies
+      .map((value) => value.split(";")[0])
       .join("; ");
+  } else {
+    const value = response.headers.get("set-cookie");
+    if (value) {
+      cookie = value.split(";")[0];
+    }
   }
 
-  const cookie = response.headers.get("set-cookie");
+  console.log(`PHP-Session aufgebaut: ${cookie ? "ja" : "nein"}`);
 
-  if (cookie) {
-    return cookie.split(";")[0];
-  }
-
-  return "";
+  return cookie;
 }
 
-async function fetchLeague(league, cookie) {
+async function requestLeague(cookie, league) {
+  /*
+   * Dieser var0 entspricht dem Container, den die Junghaie-Seite
+   * an Hockeydata übergibt.
+   *
+   * Wichtig: kein PHPSESSID fest eintragen.
+   */
   const var0 =
     '<div class="-hd-los -hd-los-schedule" style=""></div>';
 
@@ -122,7 +125,7 @@ async function fetchLeague(league, cookie) {
     var0,
     var1: "nextgames",
     var2: league.name,
-    var3: "index.php?menuid=32",
+    var3: league.menu,
   });
 
   const response = await fetch(AJAX_URL, {
@@ -131,55 +134,77 @@ async function fetchLeague(league, cookie) {
       Accept: "*/*",
       "Accept-Language": "de-DE,de;q=0.9,en;q=0.8",
       "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-      Origin: "https://www.junghaie.de",
-      Referer: league.page,
+      Origin: BASE_URL,
+      Referer: SCHEDULE_URL,
+      "User-Agent": "Mozilla/5.0",
       "X-Requested-With": "XMLHttpRequest",
-      "User-Agent":
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/140 Safari/537.36",
-      ...(cookie ? { Cookie: cookie } : {}),
+      Cookie: cookie,
     },
     body,
   });
 
+  if (!response.ok) {
+    throw new Error(
+      `${league.name}: HTTP ${response.status}`
+    );
+  }
+
   const html = await response.text();
 
-  console.log(`${league.name}: HTTP ${response.status}`);
-  console.log(`${league.name}: Antwort:`, html.slice(0, 250));
+  console.log(
+    `${league.name}: Serverantwort:`,
+    html.substring(0, 200).replace(/\s+/g, " ")
+  );
 
-  return parseGames(html, league.name);
+  return html;
 }
 
 async function main() {
-  const cookie = await getSessionCookie();
+  const cookie = await createSession();
 
-  console.log("PHP-Session aufgebaut:", cookie ? "ja" : "nein");
-
-  let allGames = [];
+  const allGames = [];
 
   for (const league of leagues) {
-    const games = await fetchLeague(league, cookie);
+    try {
+      const html = await requestLeague(cookie, league);
+      const games = parseGames(html, league.name);
 
-    console.log(
-      `${league.name}: ${games.length} Spiele gefunden`
-    );
+      console.log(
+        `${league.name}: ${games.length} Spiele gefunden`
+      );
 
-    allGames.push(...games);
+      allGames.push(...games);
+    } catch (error) {
+      console.error(
+        `${league.name}: ${error.message}`
+      );
+    }
   }
 
-  allGames.sort((a, b) =>
-    (a.datetime || "").localeCompare(b.datetime || "")
+  // Doppelte Spiele entfernen
+  const uniqueGames = Array.from(
+    new Map(
+      allGames.map((game) => [
+        `${game.league}|${game.datetime}|${game.home}|${game.away}`,
+        game,
+      ])
+    ).values()
   );
 
-  fs.mkdirSync("data", { recursive: true });
+  uniqueGames.sort((a, b) =>
+    String(a.datetime).localeCompare(String(b.datetime))
+  );
 
-  fs.writeFileSync(
+  await fs.mkdir("data", { recursive: true });
+
+  await fs.writeFile(
     "data/games.json",
-    JSON.stringify(allGames, null, 2),
+    JSON.stringify(uniqueGames, null, 2) + "\n",
     "utf8"
   );
 
   console.log(
-    `Gesamt: ${allGames.length} Spiele gespeichert.`
+    `Fertig: ${uniqueGames.length} Spiele insgesamt gespeichert.`
   );
 }
 
