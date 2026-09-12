@@ -1,1 +1,312 @@
-[]
+[
+  {
+    "date": "13.09.2026",
+    "time": "17:30",
+    "datetime": "2026-09-13T17:30:00",
+    "home": "Kölner Junghaie 1b",
+    "away": "Iserlohner EC 1b",
+    "homeScore": null,
+    "awayScore": null,
+    "league": "U15"
+  },
+  {
+    "date": "19.09.2026",
+    "time": "19:45",
+    "datetime": "2026-09-19T19:45:00",
+    "home": "Kölner Junghaie",
+    "away": "Düsseldorfer EG",
+    "homeScore": null,
+    "awayScore": null,
+    "league": "U15"
+  },
+  {
+    "date": "20.09.2026",
+    "time": "17:00",
+    "datetime": "2026-09-20T17:00:00",
+    "home": "Krefelder EV",
+    "away": "Kölner Junghaie",
+    "homeScore": null,
+    "awayScore": null,
+    "league": "U15"
+  },
+  {
+    "date": "26.09.2026",
+    "time": "12:15",
+    "datetime": "2026-09-26T12:15:00",
+    "home": "Iserlohner EC",
+    "away": "Kölner Junghaie",
+    "homeScore": null,
+    "awayScore": null,
+    "league": "U15"
+  },
+  {
+    "date": "27.09.2026",
+    "time": "14:00",
+    "datetime": "2026-09-27T14:00:00",
+    "home": "Krefelder EV",
+    "away": "Kölner Junghaie",
+    "homeScore": null,
+    "awayScore": null,
+    "league": "U15"
+  },
+  {
+    "date": "27.09.2026",
+    "time": "17:30",
+    "datetime": "2026-09-27T17:30:00",
+    "home": "Kölner Junghaie 1b",
+    "away": "EJ Kassel",
+    "homeScore": null,
+    "awayScore": null,
+    "league": "U15"
+  },
+  {
+    "date": "03.10.2026",
+    "time": "11:00",
+    "datetime": "2026-10-03T11:00:00",
+    "home": "EJ Kassel",
+    "away": "Kölner Junghaie 1b",
+    "homeScore": null,
+    "awayScore": null,
+    "league": "U15"
+  },
+  {
+    "date": "03.10.2026",
+    "time": "19:15",
+    "datetime": "2026-10-03T19:15:00",
+    "home": "Kölner Junghaie",
+    "away": "Iserlohner EC",
+    "homeScore": null,
+    "awayScore": null,
+    "league": "U15"
+  },
+  {
+    "date": "04.10.2026",
+    "time": "17:30",
+    "datetime": "2026-10-04T17:30:00",
+    "home": "Kölner Junghaie",
+    "away": "Iserlohner EC",
+    "homeScore": null,
+    "awayScore": null,
+    "league": "U15"
+  },
+  {
+    "date": "10.10.2026",
+    "time": "16:30",
+    "datetime": "2026-10-10T16:30:00",
+    "home": "Düsseldorfer EG",
+    "away": "Kölner Junghaie",
+    "homeScore": null,
+    "awayScore": null,
+    "league": "U15"
+  },
+  {
+    "date": "11.10.2026",
+    "time": "17:30",
+    "datetime": "2026-10-11T17:30:00",
+    "home": "Kölner Junghaie",
+    "away": "Düsseldorfer EG",
+    "homeScore": null,
+    "awayScore": null,
+    "league": "U15"
+  },
+  {
+    "date": "17.10.2026",
+    "time": "19:30",
+    "datetime": "2026-10-17T19:30:00",
+    "home": "Krefelder EV 1b",
+    "away": "Kölner Junghaie 1b",
+    "homeScore": null,
+    "awayScore": null,
+    "league": "U15"
+  },
+  {
+    "date": "18.10.2026",
+    "time": "09:00",
+    "datetime": "2026-10-18T09:00:00",
+    "home": "Iserlohner EC",
+    "away": "Kölner Junghaie",
+    "homeScore": null,
+    "awayScore": null,
+    "league": "U15"
+  },
+  {
+    "date": "21.10.2026",
+    "time": "18:30",
+    "datetime": "2026-10-21T18:30:00",
+    "home": "Kölner Junghaie",
+    "away": "Krefelder EV",
+    "homeScore": null,
+    "awayScore": null,
+    "league": "U15"
+  },
+  {
+    "date": "26.10.2026",
+    "time": "18:00",
+    "datetime": "2026-10-26T18:00:00",
+    "home": "Kölner Junghaie 1b",
+    "away": "Düsseldorfer EG 1b",
+    "homeScore": null,
+    "awayScore": null,
+    "league": "U15"
+  },
+  {
+    "date": "27.10.2026",
+    "time": "18:30",
+    "datetime": "2026-10-27T18:30:00",
+    "home": "Düsseldorfer EG",
+    "away": "Kölner Junghaie",
+    "homeScore": null,
+    "awayScore": null,
+    "league": "U15"
+  },
+  {
+    "date": "29.10.2026",
+    "time": "18:00",
+    "datetime": "2026-10-29T18:00:00",
+    "home": "Kölner Junghaie 1b",
+    "away": "Iserlohner EC 1b",
+    "homeScore": null,
+    "awayScore": null,
+    "league": "U15"
+  },
+  {
+    "date": "01.11.2026",
+    "time": "18:15",
+    "datetime": "2026-11-01T18:15:00",
+    "home": "Kölner Junghaie",
+    "away": "Krefelder EV",
+    "homeScore": null,
+    "awayScore": null,
+    "league": "U15"
+  },
+  {
+    "date": "15.11.2026",
+    "time": "18:00",
+    "datetime": "2026-11-15T18:00:00",
+    "home": "EHC Troisdorf",
+    "away": "Kölner Junghaie 1b",
+    "homeScore": null,
+    "awayScore": null,
+    "league": "U15"
+  },
+  {
+    "date": "27.11.2026",
+    "time": "19:30",
+    "datetime": "2026-11-27T19:30:00",
+    "home": "EV Duisburg",
+    "away": "Kölner Junghaie 1b",
+    "homeScore": null,
+    "awayScore": null,
+    "league": "U15"
+  },
+  {
+    "date": "29.11.2026",
+    "time": "16:30",
+    "datetime": "2026-11-29T16:30:00",
+    "home": "Herner EV",
+    "away": "Kölner Junghaie 1b",
+    "homeScore": null,
+    "awayScore": null,
+    "league": "U15"
+  },
+  {
+    "date": "13.12.2026",
+    "time": "17:30",
+    "datetime": "2026-12-13T17:30:00",
+    "home": "Kölner Junghaie 1b",
+    "away": "EJ Kassel",
+    "homeScore": null,
+    "awayScore": null,
+    "league": "U15"
+  },
+  {
+    "date": "06.01.2027",
+    "time": "18:30",
+    "datetime": "2027-01-06T18:30:00",
+    "home": "Kölner Junghaie 1b",
+    "away": "Düsseldorfer EG 1b",
+    "homeScore": null,
+    "awayScore": null,
+    "league": "U15"
+  },
+  {
+    "date": "17.01.2027",
+    "time": "09:00",
+    "datetime": "2027-01-17T09:00:00",
+    "home": "Iserlohner EC 1b",
+    "away": "Kölner Junghaie 1b",
+    "homeScore": null,
+    "awayScore": null,
+    "league": "U15"
+  },
+  {
+    "date": "24.01.2027",
+    "time": "17:30",
+    "datetime": "2027-01-24T17:30:00",
+    "home": "Kölner Junghaie 1b",
+    "away": "EHC Troisdorf",
+    "homeScore": null,
+    "awayScore": null,
+    "league": "U15"
+  },
+  {
+    "date": "31.01.2027",
+    "time": "09:30",
+    "datetime": "2027-01-31T09:30:00",
+    "home": "Herner EV",
+    "away": "Kölner Junghaie 1b",
+    "homeScore": null,
+    "awayScore": null,
+    "league": "U15"
+  },
+  {
+    "date": "12.02.2027",
+    "time": "18:00",
+    "datetime": "2027-02-12T18:00:00",
+    "home": "Kölner Junghaie 1b",
+    "away": "Herner EV",
+    "homeScore": null,
+    "awayScore": null,
+    "league": "U15"
+  },
+  {
+    "date": "14.02.2027",
+    "time": "17:30",
+    "datetime": "2027-02-14T17:30:00",
+    "home": "Kölner Junghaie 1b",
+    "away": "Krefelder EV 1b",
+    "homeScore": null,
+    "awayScore": null,
+    "league": "U15"
+  },
+  {
+    "date": "20.02.2027",
+    "time": "13:30",
+    "datetime": "2027-02-20T13:30:00",
+    "home": "Düsseldorfer EG 1b",
+    "away": "Kölner Junghaie 1b",
+    "homeScore": null,
+    "awayScore": null,
+    "league": "U15"
+  },
+  {
+    "date": "14.03.2027",
+    "time": "17:30",
+    "datetime": "2027-03-14T17:30:00",
+    "home": "Kölner Junghaie 1b",
+    "away": "Krefelder EV 1b",
+    "homeScore": null,
+    "awayScore": null,
+    "league": "U15"
+  },
+  {
+    "date": "27.03.2027",
+    "time": "10:00",
+    "datetime": "2027-03-27T10:00:00",
+    "home": "EV Duisburg",
+    "away": "Kölner Junghaie 1b",
+    "homeScore": null,
+    "awayScore": null,
+    "league": "U15"
+  }
+]
