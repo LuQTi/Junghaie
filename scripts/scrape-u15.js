@@ -1,23 +1,40 @@
 import * as cheerio from 'cheerio';
 import { mkdir, writeFile } from 'node:fs/promises';
 
-const ENDPOINT = 'https://www.junghaie.de/ajax-hockeydata-filter.php';
-const REFERER = 'https://www.junghaie.de/spielplan.menuid31.html';
+const ENDPOINT =
+  'https://www.junghaie.de/ajax-hockeydata-filter.php';
+
+const REFERER =
+  'https://www.junghaie.de/spielplan.menuid31.html';
 
 const leagues = [
-  { name: 'U15 Regionalliga A', menuId: 32 },
-  { name: 'U15 Regionalliga B', menuId: 32 }
+  {
+    name: 'U15 Regionalliga A',
+    menuId: 32
+  },
+  {
+    name: 'U15 Regionalliga B',
+    menuId: 32
+  }
 ];
 
 function value($, row, selector) {
-  return $(row).find(selector).attr('value')?.trim() ?? '';
+  return $(row)
+    .find(selector)
+    .attr('value')
+    ?.trim() ?? '';
 }
 
 function parseDateTime(date, time) {
-  // Hockeydata liefert DD.MM.YYYY und HH:MM.
   const [day, month, year] = date.split('.');
-  if (!day || !month || !year) return null;
-  return `${year}-${month}-${day}${time ? `T${time}:00` : ''}`;
+
+  if (!day || !month || !year) {
+    return null;
+  }
+
+  return `${year}-${month}-${day}${
+    time ? `T${time}:00` : ''
+  }`;
 }
 
 function parseGames(html, leagueName) {
@@ -25,15 +42,45 @@ function parseGames(html, leagueName) {
   const games = [];
 
   $('.-hd-los-schedule-row').each((_, row) => {
-    const date = value($, row, '.-hd-los-schedule-scheduled-date');
-    const time = value($, row, '.-hd-los-schedule-scheduled-time');
-    const home = value($, row, '.-hd-los-schedule-home-team-name');
-    const away = value($, row, '.-hd-los-schedule-away-team-name');
+    const date = value(
+      $,
+      row,
+      '.-hd-los-schedule-scheduled-date'
+    );
 
-    if (!date || !home || !away) return;
+    const time = value(
+      $,
+      row,
+      '.-hd-los-schedule-scheduled-time'
+    );
 
-    const homeScoreRaw = value($, row, '.-hd-los-schedule-home-team-score');
-    const awayScoreRaw = value($, row, '.-hd-los-schedule-away-team-score');
+    const home = value(
+      $,
+      row,
+      '.-hd-los-schedule-home-team-name'
+    );
+
+    const away = value(
+      $,
+      row,
+      '.-hd-los-schedule-away-team-name'
+    );
+
+    if (!date || !home || !away) {
+      return;
+    }
+
+    const homeScoreRaw = value(
+      $,
+      row,
+      '.-hd-los-schedule-home-team-score'
+    );
+
+    const awayScoreRaw = value(
+      $,
+      row,
+      '.-hd-los-schedule-away-team-score'
+    );
 
     games.push({
       date,
@@ -41,8 +88,14 @@ function parseGames(html, leagueName) {
       datetime: parseDateTime(date, time),
       home,
       away,
-      homeScore: homeScoreRaw === '' ? null : Number(homeScoreRaw),
-      awayScore: awayScoreRaw === '' ? null : Number(awayScoreRaw),
+      homeScore:
+        homeScoreRaw === ''
+          ? null
+          : Number(homeScoreRaw),
+      awayScore:
+        awayScoreRaw === ''
+          ? null
+          : Number(awayScoreRaw),
       league: leagueName
     });
   });
@@ -50,47 +103,148 @@ function parseGames(html, leagueName) {
   return games;
 }
 
-async function fetchLeague(league) {
+
+// ---------------------------------------------------------
+// 1. Session bei junghaie.de aufbauen
+// ---------------------------------------------------------
+
+async function createSession() {
+  const response = await fetch(REFERER, {
+    headers: {
+      'User-Agent':
+        'Mozilla/5.0 (compatible; JunghaieGamesBot/1.0)'
+    }
+  });
+
+  if (!response.ok) {
+    throw new Error(
+      `Junghaie-Seite konnte nicht geladen werden: HTTP ${response.status}`
+    );
+  }
+
+  let cookies = [];
+
+  if (typeof response.headers.getSetCookie === 'function') {
+    cookies = response.headers.getSetCookie();
+  } else {
+    const cookie = response.headers.get('set-cookie');
+
+    if (cookie) {
+      cookies = [cookie];
+    }
+  }
+
+  const sessionCookies = cookies
+    .map(cookie => cookie.split(';')[0])
+    .filter(Boolean);
+
+  return sessionCookies.join('; ');
+}
+
+
+// ---------------------------------------------------------
+// 2. AJAX-Request ausführen
+// ---------------------------------------------------------
+
+async function fetchLeague(league, cookie) {
   const body = new URLSearchParams({
-    var0: '<div class="-hd-los -hd-los-schedule -hd-loading"></div>',
+    // EXAKT wie aus deinem Chrome-cURL:
+    var0:
+      '<div class="-hd-los -hd-los-schedule -hd-loading" style=""></div>',
+
     var1: 'nextgames',
+
     var2: league.name,
+
     var3: `index.php?menuid=${league.menuId}`
   });
 
   const response = await fetch(ENDPOINT, {
     method: 'POST',
+
     headers: {
       'Accept': '*/*',
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Origin': 'https://www.junghaie.de',
-      'Referer': REFERER,
-      'X-Requested-With': 'XMLHttpRequest',
-      'User-Agent': 'Mozilla/5.0 (compatible; JunghaieGamesBot/1.0)'
+
+      'Accept-Language':
+        'de,de-DE;q=0.9,en;q=0.8',
+
+      'Content-Type':
+        'application/x-www-form-urlencoded',
+
+      'Origin':
+        'https://www.junghaie.de',
+
+      'Referer':
+        REFERER,
+
+      'X-Requested-With':
+        'XMLHttpRequest',
+
+      'User-Agent':
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/150 Safari/537.36',
+
+      ...(cookie
+        ? { 'Cookie': cookie }
+        : {})
     },
+
     body
   });
 
   if (!response.ok) {
-    throw new Error(`${league.name}: HTTP ${response.status}`);
+    throw new Error(
+      `${league.name}: HTTP ${response.status}`
+    );
   }
 
   const html = await response.text();
-  const games = parseGames(html, league.name);
+
+  console.log(
+    `${league.name}: Serverantwort:`,
+    html.slice(0, 200)
+  );
+
+  const games = parseGames(
+    html,
+    league.name
+  );
 
   if (games.length === 0) {
     throw new Error(
-      `${league.name}: Keine Spiele gefunden. Response-Anfang: ${html.slice(0, 300)}`
+      `${league.name}: Keine Spiele gefunden.`
     );
   }
 
   return games;
 }
 
-const allGames = (await Promise.all(leagues.map(fetchLeague))).flat();
 
-// Doppelte Einträge entfernen und chronologisch sortieren.
+// ---------------------------------------------------------
+// 3. Hauptprogramm
+// ---------------------------------------------------------
+
+const cookie = await createSession();
+
+console.log(
+  'PHP-Session aufgebaut:',
+  cookie ? 'ja' : 'nein'
+);
+
+const allGames = (
+  await Promise.all(
+    leagues.map(league =>
+      fetchLeague(league, cookie)
+    )
+  )
+).flat();
+
+
+// ---------------------------------------------------------
+// 4. Duplikate entfernen
+// ---------------------------------------------------------
+
 const unique = new Map();
+
 for (const game of allGames) {
   const key = [
     game.datetime,
@@ -98,26 +252,49 @@ for (const game of allGames) {
     game.away,
     game.league
   ].join('|');
+
   unique.set(key, game);
 }
 
-const games = [...unique.values()].sort((a, b) =>
-  (a.datetime ?? '').localeCompare(b.datetime ?? '')
-);
 
-await mkdir('data', { recursive: true });
+// ---------------------------------------------------------
+// 5. Sortieren
+// ---------------------------------------------------------
+
+const games = [...unique.values()]
+  .sort((a, b) =>
+    (a.datetime ?? '')
+      .localeCompare(b.datetime ?? '')
+  );
+
+
+// ---------------------------------------------------------
+// 6. JSON schreiben
+// ---------------------------------------------------------
+
+await mkdir('data', {
+  recursive: true
+});
+
 await writeFile(
   'data/games.json',
   JSON.stringify(
     {
-      generatedAt: new Date().toISOString(),
-      source: 'https://www.junghaie.de/spielplan.menuid31.html',
+      generatedAt:
+        new Date().toISOString(),
+
+      source:
+        REFERER,
+
       games
     },
     null,
     2
   ) + '\n',
+
   'utf8'
 );
 
-console.log(`Gespeichert: ${games.length} Spiele`);
+console.log(
+  `Gespeichert: ${games.length} Spiele`
+);
