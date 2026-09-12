@@ -1,176 +1,520 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <title>Junghaie U15 Spiele</title>
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111827">
+  <title>Kölner Junghaie – Spielplan</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-      background: #f5f5f5;
-      color: #111;
+    :root{
+      --bg:#f3f4f6;
+      --card:#ffffff;
+      --text:#111827;
+      --muted:#6b7280;
+      --line:#e5e7eb;
+      --dark:#111827;
+      --dark2:#1f2937;
+      --accent:#c8102e;
+      --accent-soft:#fce8ec;
+      --green:#087443;
+      --green-soft:#e8f7ef;
+      --blue:#175cd3;
+      --blue-soft:#eaf2ff;
+      --shadow:0 10px 30px rgba(17,24,39,.08);
+      --radius:18px;
     }
 
-    main {
-      max-width: 900px;
-      margin: 0 auto;
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      color:var(--text);
+      background:linear-gradient(180deg,#111827 0 260px,var(--bg) 260px 100%);
+    }
+    .wrap{max-width:1120px;margin:0 auto;padding:28px 18px 60px}
+
+    header{
+      color:#fff;
+      padding:18px 0 42px;
+    }
+    .eyebrow{
+      font-size:.78rem;
+      font-weight:800;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      opacity:.7;
+    }
+    h1{
+      margin:8px 0 8px;
+      font-size:clamp(2rem,5vw,3.25rem);
+      line-height:1;
+      letter-spacing:-.04em;
+    }
+    .subtitle{margin:0;color:#d1d5db;font-size:1rem}
+
+    .panel{
+      background:var(--card);
+      border:1px solid rgba(255,255,255,.5);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:18px;
+      margin-top:-12px;
     }
 
-    h1 {
-      margin-bottom: 20px;
+    .topline{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:center;
+      flex-wrap:wrap;
+      margin-bottom:15px;
+    }
+    .meta{color:var(--muted);font-size:.9rem}
+    .count{
+      font-weight:800;
+      background:#f3f4f6;
+      padding:7px 11px;
+      border-radius:999px;
+      white-space:nowrap;
     }
 
-    .game {
-      background: white;
-      border-radius: 10px;
-      padding: 16px;
-      margin-bottom: 12px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    .filter-title{
+      font-size:.78rem;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:var(--muted);
+      margin:5px 0 8px;
     }
 
-    .date {
-      font-weight: bold;
-      margin-bottom: 8px;
+    .filters{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    button{
+      appearance:none;
+      border:1px solid var(--line);
+      background:#fff;
+      color:var(--text);
+      border-radius:999px;
+      padding:9px 14px;
+      font:inherit;
+      font-size:.9rem;
+      font-weight:700;
+      cursor:pointer;
+      transition:.16s ease;
+    }
+    button:hover{transform:translateY(-1px);border-color:#c4c9d1}
+    button.active{
+      background:var(--dark);
+      color:#fff;
+      border-color:var(--dark);
+    }
+    button.category{
+      padding-inline:16px;
+    }
+    button.category.active{
+      background:var(--accent);
+      border-color:var(--accent);
     }
 
-    .teams {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      font-size: 18px;
+    .subfilters{
+      margin-top:13px;
+      padding-top:13px;
+      border-top:1px solid var(--line);
     }
 
-    .score {
-      font-weight: bold;
-      white-space: nowrap;
+    .games{
+      margin-top:20px;
+      display:grid;
+      gap:12px;
     }
 
-    .league {
-      margin-top: 8px;
-      color: #666;
-      font-size: 14px;
+    .game{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:16px;
+      overflow:hidden;
+      box-shadow:0 3px 12px rgba(17,24,39,.04);
+      display:grid;
+      grid-template-columns:150px 1fr auto;
+      align-items:stretch;
     }
 
-    .error {
-      background: #fff0f0;
-      padding: 15px;
-      border-radius: 8px;
+    .game-date{
+      background:#f9fafb;
+      border-right:1px solid var(--line);
+      padding:18px 14px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+    }
+    .day{
+      font-size:1.65rem;
+      font-weight:900;
+      line-height:1;
+    }
+    .month{
+      margin-top:4px;
+      text-transform:uppercase;
+      font-size:.75rem;
+      font-weight:800;
+      color:var(--muted);
+    }
+    .time{
+      margin-top:10px;
+      font-size:.86rem;
+      font-weight:800;
+      color:var(--dark2);
+    }
+
+    .game-main{padding:17px 18px}
+    .badges{
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      margin-bottom:9px;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      border-radius:999px;
+      padding:5px 9px;
+      font-size:.72rem;
+      font-weight:800;
+      background:#f3f4f6;
+      color:#4b5563;
+    }
+    .badge.home{background:var(--green-soft);color:var(--green)}
+    .badge.away{background:var(--blue-soft);color:var(--blue)}
+    .badge.team{background:var(--accent-soft);color:#9f1239}
+
+    .match{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-size:1.08rem;
+      font-weight:850;
+      line-height:1.25;
+    }
+    .versus{
+      color:#9ca3af;
+      font-size:.85rem;
+      font-weight:700;
+    }
+    .league{
+      color:var(--muted);
+      margin-top:8px;
+      font-size:.82rem;
+    }
+
+    .score{
+      min-width:92px;
+      padding:0 18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-left:1px solid var(--line);
+      font-size:1.45rem;
+      font-weight:900;
+      white-space:nowrap;
+    }
+
+    .empty{
+      background:#fff;
+      border:1px dashed #cfd4dc;
+      border-radius:16px;
+      padding:42px 20px;
+      text-align:center;
+      color:var(--muted);
+    }
+    .empty strong{display:block;color:var(--text);margin-bottom:5px}
+
+    footer{
+      text-align:center;
+      color:#9ca3af;
+      font-size:.78rem;
+      margin-top:28px;
+    }
+
+    @media (max-width:700px){
+      body{background:linear-gradient(180deg,#111827 0 235px,var(--bg) 235px 100%)}
+      .wrap{padding-inline:12px}
+      header{padding-bottom:35px}
+      .panel{padding:14px}
+      .game{grid-template-columns:82px 1fr}
+      .game-date{padding:13px 8px}
+      .day{font-size:1.4rem}
+      .game-main{padding:14px}
+      .match{display:block;font-size:1rem}
+      .versus{display:inline-block;margin:4px 0;color:#9ca3af}
+      .score{
+        grid-column:1 / -1;
+        border-left:0;
+        border-top:1px solid var(--line);
+        min-height:46px;
+        font-size:1.15rem;
+      }
     }
   </style>
 </head>
 
 <body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Kölner Junghaie</div>
+    <h1>Spielplan</h1>
+    <p class="subtitle">Alle Spiele auf einen Blick – Nachwuchs & Frauen</p>
+  </header>
 
-<main>
+  <section class="panel">
+    <div class="topline">
+      <div class="meta" id="meta">Spieldaten werden geladen …</div>
+      <div class="count" id="count">– Spiele</div>
+    </div>
 
-  <h1>🏒 Kölner Junghaie U15</h1>
+    <div class="filter-title">Bereich</div>
+    <div class="filters" id="categoryFilters">
+      <button class="category active" data-category="all">Alle</button>
+      <button class="category" data-category="youth">Nachwuchs</button>
+      <button class="category" data-category="women">Frauen</button>
+    </div>
 
-  <div id="games">
-    Spiele werden geladen ...
-  </div>
+    <div class="subfilters">
+      <div class="filter-title">Mannschaft</div>
+      <div class="filters" id="teamFilters"></div>
+    </div>
+  </section>
 
-</main>
+  <main class="games" id="games"></main>
+
+  <footer>
+    Spieldaten werden automatisch über den GitHub-Actions-Scraper aktualisiert.
+  </footer>
+</div>
 
 <script>
-async function loadGames() {
-  const container = document.getElementById("games");
+  let allGames = [];
+  let category = 'all';
+  let selectedTeam = 'all';
 
-  try {
-    const response = await fetch(
-      "./data/games.json?" + Date.now()
-    );
+  const YOUTH_TEAMS = ['U20','U17','U15 A','U15 B','U13 A','U13 B'];
+  const WOMEN_HINTS = ['frau','women','damen'];
 
-    if (!response.ok) {
-      throw new Error(
-        "games.json konnte nicht geladen werden."
-      );
+  function clean(value) {
+    return String(value ?? '').trim();
+  }
+
+  function getTeam(game) {
+    const explicit = clean(game.team);
+    if (explicit) return explicit;
+
+    const league = clean(game.league);
+    const text = league.toLowerCase();
+
+    if (text.includes('u20')) return 'U20';
+    if (text.includes('u17')) return 'U17';
+    if (text.includes('u15') && text.includes('a')) return 'U15 A';
+    if (text.includes('u15') && text.includes('b')) return 'U15 B';
+    if (text.includes('u13') && text.includes('a')) return 'U13 A';
+    if (text.includes('u13') && text.includes('b')) return 'U13 B';
+
+    return explicit || league || 'Sonstige';
+  }
+
+  function getCategory(game) {
+    const team = getTeam(game);
+    const league = clean(game.league).toLowerCase();
+    if (YOUTH_TEAMS.includes(team) || /\bu(13|15|17|20)\b/.test(league)) return 'youth';
+    if (WOMEN_HINTS.some(x => league.includes(x)) || WOMEN_HINTS.some(x => team.toLowerCase().includes(x))) return 'women';
+    return 'other';
+  }
+
+  function isJunghaie(name) {
+    return /junghaie/i.test(clean(name));
+  }
+
+  function getLocation(game) {
+    const home = isJunghaie(game.home);
+    const away = isJunghaie(game.away);
+    if (home && !away) return 'home';
+    if (away && !home) return 'away';
+    return 'other';
+  }
+
+  function parseDate(game) {
+    const raw = clean(game.datetime);
+    if (raw) {
+      const d = new Date(raw);
+      if (!Number.isNaN(d.getTime())) return d;
     }
 
-    const games = await response.json();
+    const m = clean(game.date).match(/^(\\d{2})\\.(\\d{2})\\.(\\d{4})$/);
+    if (m) {
+      const time = clean(game.time) || '00:00';
+      return new Date(`${m[3]}-${m[2]}-${m[1]}T${time}:00`);
+    }
+    return null;
+  }
 
-    if (!Array.isArray(games) || games.length === 0) {
-      container.innerHTML =
-        "<p>Keine Spiele gefunden.</p>";
+  function scoreText(game) {
+    const hs = Number(game.homeScore);
+    const as = Number(game.awayScore);
+    return Number.isFinite(hs) && Number.isFinite(as) ? `${hs}:${as}` : '';
+  }
 
+  function renderTeamFilters() {
+    const teams = [...new Set(allGames.map(getTeam))]
+      .filter(Boolean)
+      .sort((a,b) => {
+        const order = ['U20','U17','U15 A','U15 B','U13 A','U13 B'];
+        const ai = order.indexOf(a), bi = order.indexOf(b);
+        if (ai !== -1 || bi !== -1) return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
+        return a.localeCompare(b,'de');
+      });
+
+    const root = document.querySelector('#teamFilters');
+    root.innerHTML = '';
+
+    const add = (label, value, active) => {
+      const b = document.createElement('button');
+      b.textContent = label;
+      b.dataset.team = value;
+      if (active) b.classList.add('active');
+      b.addEventListener('click', () => {
+        selectedTeam = value;
+        renderTeamFilters();
+        render();
+      });
+      root.appendChild(b);
+    };
+
+    add('Alle Mannschaften', 'all', selectedTeam === 'all');
+    teams.forEach(team => add(team, team, selectedTeam === team));
+  }
+
+  function render() {
+    const filtered = allGames
+      .filter(game => category === 'all' || getCategory(game) === category)
+      .filter(game => selectedTeam === 'all' || getTeam(game) === selectedTeam)
+      .sort((a,b) => {
+        const da = parseDate(a), db = parseDate(b);
+        return (da ? da.getTime() : Infinity) - (db ? db.getTime() : Infinity);
+      });
+
+    document.querySelector('#count').textContent =
+      `${filtered.length} ${filtered.length === 1 ? 'Spiel' : 'Spiele'}`;
+
+    const root = document.querySelector('#games');
+    root.innerHTML = '';
+
+    if (!filtered.length) {
+      root.innerHTML = `<div class="empty">
+        <strong>Keine Spiele gefunden</strong>
+        Für diese Filterkombination sind keine Spieldaten vorhanden.
+      </div>`;
       return;
     }
 
-    container.innerHTML = "";
+    filtered.forEach(game => {
+      const d = parseDate(game);
+      const location = getLocation(game);
+      const team = getTeam(game);
+      const score = scoreText(game);
 
-    for (const game of games) {
-      const element =
-        document.createElement("div");
+      const article = document.createElement('article');
+      article.className = 'game';
 
-      element.className = "game";
+      const day = d ? d.toLocaleDateString('de-DE',{day:'2-digit'}) : clean(game.date).slice(0,2);
+      const month = d ? d.toLocaleDateString('de-DE',{month:'short'}) : '';
+      const time = d ? d.toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'}) : clean(game.time);
 
-      const score =
-        game.homeScore !== null &&
-        game.awayScore !== null
-          ? `${game.homeScore} : ${game.awayScore}`
-          : "–";
-
-      const time =
-        game.time
-          ? ` · ${game.time} Uhr`
-          : "";
-
-      element.innerHTML = `
-        <div class="date">
-          ${escapeHtml(game.date)}${time}
+      article.innerHTML = `
+        <div class="game-date">
+          <div class="day">${escapeHtml(day)}</div>
+          <div class="month">${escapeHtml(month)}</div>
+          <div class="time">${escapeHtml(time)}${time ? ' Uhr' : ''}</div>
         </div>
 
-        <div class="teams">
-          <span>
-            ${escapeHtml(game.home)}
-          </span>
+        <div class="game-main">
+          <div class="badges">
+            <span class="badge team">${escapeHtml(team)}</span>
+            ${location === 'home' ? '<span class="badge home">Heimspiel</span>' : ''}
+            ${location === 'away' ? '<span class="badge away">Auswärtsspiel</span>' : ''}
+          </div>
 
-          <span class="score">
-            ${escapeHtml(score)}
-          </span>
+          <div class="match">
+            <span>${escapeHtml(game.home)}</span>
+            <span class="versus">vs.</span>
+            <span>${escapeHtml(game.away)}</span>
+          </div>
 
-          <span>
-            ${escapeHtml(game.away)}
-          </span>
+          ${clean(game.league) ? `<div class="league">${escapeHtml(game.league)}</div>` : ''}
         </div>
 
-        <div class="league">
-          ${escapeHtml(game.league || "U15")}
-        </div>
+        <div class="score">${score || '–'}</div>
       `;
 
-      container.appendChild(element);
+      root.appendChild(article);
+    });
+  }
+
+  function escapeHtml(value) {
+    return String(value ?? '').replace(/[&<>"']/g, c => ({
+      '&':'&amp;',
+      '<':'&lt;',
+      '>':'&gt;',
+      '"':'&quot;',
+      "'":'&#39;'
+    }[c]));
+  }
+
+  document.querySelectorAll('#categoryFilters button').forEach(button => {
+    button.addEventListener('click', () => {
+      category = button.dataset.category;
+      selectedTeam = 'all';
+
+      document.querySelectorAll('#categoryFilters button')
+        .forEach(b => b.classList.toggle('active', b === button));
+
+      renderTeamFilters();
+      render();
+    });
+  });
+
+  async function main() {
+    const res = await fetch('./data/games.json', {cache:'no-store'});
+    if (!res.ok) throw new Error('games.json konnte nicht geladen werden.');
+
+    const data = await res.json();
+    allGames = Array.isArray(data) ? data : (Array.isArray(data.games) ? data.games : []);
+
+    if (!allGames.length) {
+      document.querySelector('#meta').textContent = 'Keine Spieldaten vorhanden.';
+      renderTeamFilters();
+      render();
+      return;
     }
 
-  } catch (error) {
-    console.error(error);
+    const generatedAt = data.generatedAt ? new Date(data.generatedAt) : null;
+    document.querySelector('#meta').textContent =
+      generatedAt && !Number.isNaN(generatedAt.getTime())
+        ? `Zuletzt aktualisiert: ${generatedAt.toLocaleString('de-DE')}`
+        : 'Automatisch aktualisierte Spieldaten';
 
-    container.innerHTML = `
-      <div class="error">
-        Die Spiele konnten nicht geladen werden.
-      </div>
-    `;
+    renderTeamFilters();
+    render();
   }
-}
 
-function escapeHtml(value) {
-  return String(value ?? "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-}
-
-loadGames();
+  main().catch(err => {
+    console.error(err);
+    document.querySelector('#meta').textContent = err.message;
+    document.querySelector('#games').innerHTML =
+      `<div class="empty"><strong>Spieldaten konnten nicht geladen werden</strong>${escapeHtml(err.message)}</div>`;
+  });
 </script>
-
 </body>
 </html>
