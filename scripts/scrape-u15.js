@@ -41,46 +41,38 @@ function parseGames(html, leagueName) {
   const $ = cheerio.load(html);
   const games = [];
 
-  $('.-hd-los-schedule-row').each((_, row) => {
-    const date = value(
-      $,
-      row,
-      '.-hd-los-schedule-scheduled-date'
-    );
+  $('table.hockeydata_nextgames tbody tr').each((_, row) => {
+    const cells = $(row)
+      .find('td')
+      .map((_, cell) => $(cell).text().trim())
+      .get();
 
-    const time = value(
-      $,
-      row,
-      '.-hd-los-schedule-scheduled-time'
-    );
+    // Erwartet:
+    // 0 = Datum
+    // 1 = Uhrzeit
+    // 2 = Heim
+    // 3 = Heimlogo
+    // 4 = Heim-Tore
+    // 5 = :
+    // 6 = Gast-Tore
+    // 7 = leer
+    // 8 = Gastlogo
+    // 9 = Gast
 
-    const home = value(
-      $,
-      row,
-      '.-hd-los-schedule-home-team-name'
-    );
+    if (cells.length < 10) {
+      return;
+    }
 
-    const away = value(
-      $,
-      row,
-      '.-hd-los-schedule-away-team-name'
-    );
+    const date = cells[0];
+    const time = cells[1];
+    const home = cells[2];
+    const homeScore = cells[4];
+    const awayScore = cells[6];
+    const away = cells[9];
 
     if (!date || !home || !away) {
       return;
     }
-
-    const homeScoreRaw = value(
-      $,
-      row,
-      '.-hd-los-schedule-home-team-score'
-    );
-
-    const awayScoreRaw = value(
-      $,
-      row,
-      '.-hd-los-schedule-away-team-score'
-    );
 
     games.push({
       date,
@@ -89,20 +81,19 @@ function parseGames(html, leagueName) {
       home,
       away,
       homeScore:
-        homeScoreRaw === ''
+        homeScore === '-' || homeScore === ''
           ? null
-          : Number(homeScoreRaw),
+          : Number(homeScore),
       awayScore:
-        awayScoreRaw === ''
+        awayScore === '-' || awayScore === ''
           ? null
-          : Number(awayScoreRaw),
+          : Number(awayScore),
       league: leagueName
     });
   });
 
   return games;
 }
-
 
 // ---------------------------------------------------------
 // 1. Session bei junghaie.de aufbauen
