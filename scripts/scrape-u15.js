@@ -1,184 +1,161 @@
 import fs from "node:fs/promises";
-import * as cheerio from "cheerio";
+import { chromium } from "playwright";
 
-const BASE_URL = "https://www.junghaie.de";
-const SCHEDULE_URL = `${BASE_URL}/spielplan.menuid31.html`;
-const AJAX_URL = `${BASE_URL}/ajax-hockeydata-filter.php`;
-
-const leagues = [
+const teams = [
   {
     name: "U15 Regionalliga A",
-    menu: "index.php?menuid=32",
+    url: "https://www.junghaie.de/spielplan.menuid31.html",
+    selector: ".-hd-los-schedule"
   },
   {
     name: "U15 Regionalliga B",
-    menu: "index.php?menuid=32",
-  },
+    url: "https://www.junghaie.de/spielplan.menuid31.html",
+    selector: ".-hd-los-schedule"
+  }
 ];
 
 function parseDateTime(date, time) {
-  if (!date) return null;
-
   const match = date.match(/^(\d{2})\.(\d{2})\.(\d{4})$/);
+
   if (!match) return null;
 
   const [, day, month, year] = match;
-  const cleanTime = /^\d{2}:\d{2}$/.test(time || "") ? time : "00:00";
 
-  return `${year}-${month}-${day}T${cleanTime}:00`;
+  return `${year}-${month}-${day}T${time || "00:00"}:00`;
 }
 
-function cleanText(value) {
-  return String(value || "")
-    .replace(/\s+/g, " ")
-    .replace(/\+/g, " ")
-    .trim();
-}
+async function scrapeLeague(page, leagueName, index) {
+  console.log(`\n=== ${leagueName} ===`);
 
-function parseGames(html, leagueName) {
-  const $ = cheerio.load(html);
-  const games = [];
-
-  // Hockeydata liefert je nach Anfrage entweder die
-  // "nextgames"-Tabelle oder den vollständigen Spielplan.
-  $("table tr").each((_, row) => {
-    const cells = $(row)
-      .find("td")
-      .map((_, cell) => cleanText($(cell).text()))
-      .get();
-
-    if (cells.length < 10) return;
-
-    const date = cells[0];
-    const time = cells[1];
-    const home = cells[2];
-    const homeScore = cells[4];
-    const awayScore = cells[6];
-    const away = cells[9];
-
-    if (!/^\d{2}\.\d{2}\.\d{4}$/.test(date)) return;
-    if (!home || !away) return;
-
-    games.push({
-      date,
-      time: time || null,
-      datetime: parseDateTime(date, time),
-      home,
-      away,
-      homeScore:
-        homeScore && homeScore !== "-"
-          ? Number(homeScore)
-          : null,
-      awayScore:
-        awayScore && awayScore !== "-"
-          ? Number(awayScore)
-          : null,
-      league: leagueName,
-    });
-  });
-
-  return games;
-}
-
-async function createSession() {
-  const response = await fetch(SCHEDULE_URL, {
-    headers: {
-      "User-Agent": "Mozilla/5.0",
-      Accept: "text/html,application/xhtml+xml",
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error(`Junghaie-Seite konnte nicht geladen werden: ${response.status}`);
-  }
-
-  let cookie = "";
-
-  if (typeof response.headers.getSetCookie === "function") {
-    const cookies = response.headers.getSetCookie();
-    cookie = cookies
-      .map((value) => value.split(";")[0])
-      .join("; ");
-  } else {
-    const value = response.headers.get("set-cookie");
-    if (value) {
-      cookie = value.split(";")[0];
+  await page.goto(
+    "https://www.junghaie.de/spielplan.menuid31.html",
+    {
+      waitUntil: "domcontentloaded",
+      timeout: 60000
     }
+  );
+
+  // Hockeydata braucht etwas Zeit zum Nachladen.
+  await page.waitForTimeout(5000);
+
+  const schedules = page.locator(".-hd-los-schedule");
+
+  const count = await schedules.count();
+
+  console.log(`Gefundene Spielplan-Container: ${count}`);
+
+  if (count === 0) {
+    throw new Error(`${leagueName}: Kein Hockeydata-Spielplan gefunden.`);
   }
 
-  console.log(`PHP-Session aufgebaut: ${cookie ? "ja" : "nein"}`);
-
-  return cookie;
-}
-
-async function requestLeague(cookie, league) {
   /*
-   * Dieser var0 entspricht dem Container, den die Junghaie-Seite
-   * an Hockeydata übergibt.
-   *
-   * Wichtig: kein PHPSESSID fest eintragen.
+   * Auf der Seite gibt es zwei U15-Spielpläne:
+   * 0 = Regionalliga A
+   * 1 = Regionalliga B
    */
-  const var0 =
-    '<div class="-hd-los -hd-los-schedule" style=""></div>';
+  const schedule = schedules.nth(index);
 
-  const body = new URLSearchParams({
-    var0,
-    var1: "nextgames",
-    var2: league.name,
-    var3: league.menu,
+  await schedule.waitFor({ state: "visible", timeout: 30000 });
+
+  const games = await schedule.locator("tbody tr").evaluateAll((rows) => {
+    return rows.map((row) => {
+      const get = (selector) => {
+        const element = row.querySelector(selector);
+        if (!element) return "";
+
+        return (
+          element.getAttribute("value") ||
+          element.textContent ||
+          ""
+        )
+          .replace(/\+/g, " ")
+          .replace(/\s+/g, " ")
+          .trim();
+      };
+
+      const date = get(".-hd-los-schedule-scheduled-date");
+      const time = get(".-hd-los-schedule-scheduled-time");
+      const home = get(".-hd-los-schedule-home-team-name");
+      const away = get(".-hd-los-schedule-away-team-name");
+
+      const homeScoreRaw = get(
+        ".-hd-los-schedule-home-team-score"
+      );
+
+      const awayScoreRaw = get(
+        ".-hd-los-schedule-away-team-score"
+      );
+
+      if (!date || !home || !away) {
+        return null;
+      }
+
+      return {
+        date,
+        time: time || null,
+        home,
+        away,
+        homeScore:
+          homeScoreRaw && homeScoreRaw !== "-"
+            ? Number(homeScoreRaw)
+            : null,
+        awayScore:
+          awayScoreRaw && awayScoreRaw !== "-"
+            ? Number(awayScoreRaw)
+            : null
+      };
+    }).filter(Boolean);
   });
 
-  const response = await fetch(AJAX_URL, {
-    method: "POST",
-    headers: {
-      Accept: "*/*",
-      "Accept-Language": "de-DE,de;q=0.9,en;q=0.8",
-      "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-      Origin: BASE_URL,
-      Referer: SCHEDULE_URL,
-      "User-Agent": "Mozilla/5.0",
-      "X-Requested-With": "XMLHttpRequest",
-      Cookie: cookie,
-    },
-    body,
-  });
+  const result = games.map((game) => ({
+    ...game,
+    datetime: parseDateTime(game.date, game.time),
+    league: leagueName
+  }));
 
-  if (!response.ok) {
+  console.log(`${leagueName}: ${result.length} Spiele gefunden`);
+
+  if (result.length === 0) {
     throw new Error(
-      `${league.name}: HTTP ${response.status}`
+      `${leagueName}: Spielplan ist leer – Hockeydata wurde möglicherweise noch nicht geladen.`
     );
   }
 
-  const html = await response.text();
-
-  console.log(
-    `${league.name}: Serverantwort:`,
-    html.substring(0, 200).replace(/\s+/g, " ")
-  );
-
-  return html;
+  return result;
 }
 
 async function main() {
-  const cookie = await createSession();
+  const browser = await chromium.launch({
+    headless: true
+  });
+
+  const page = await browser.newPage({
+    locale: "de-DE",
+    userAgent:
+      "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 " +
+      "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+  });
 
   const allGames = [];
 
-  for (const league of leagues) {
-    try {
-      const html = await requestLeague(cookie, league);
-      const games = parseGames(html, league.name);
+  try {
+    const aGames = await scrapeLeague(
+      page,
+      "U15 Regionalliga A",
+      0
+    );
 
-      console.log(
-        `${league.name}: ${games.length} Spiele gefunden`
-      );
+    allGames.push(...aGames);
 
-      allGames.push(...games);
-    } catch (error) {
-      console.error(
-        `${league.name}: ${error.message}`
-      );
-    }
+    const bGames = await scrapeLeague(
+      page,
+      "U15 Regionalliga B",
+      1
+    );
+
+    allGames.push(...bGames);
+  } finally {
+    await browser.close();
   }
 
   // Doppelte Spiele entfernen
@@ -186,7 +163,7 @@ async function main() {
     new Map(
       allGames.map((game) => [
         `${game.league}|${game.datetime}|${game.home}|${game.away}`,
-        game,
+        game
       ])
     ).values()
   );
@@ -204,11 +181,12 @@ async function main() {
   );
 
   console.log(
-    `Fertig: ${uniqueGames.length} Spiele insgesamt gespeichert.`
+    `\nFERTIG: ${uniqueGames.length} Spiele gespeichert.`
   );
 }
 
 main().catch((error) => {
+  console.error("\nFEHLER:");
   console.error(error);
   process.exit(1);
 });
