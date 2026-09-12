@@ -1,90 +1,214 @@
+```html
 <!doctype html>
 <html lang="de">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#111827">
+
   <title>Kölner Junghaie – Spielplan</title>
+
   <style>
     :root{
-      --bg:#f3f4f6;
+      --bg:#f5f6f8;
       --card:#ffffff;
       --text:#111827;
       --muted:#6b7280;
       --line:#e5e7eb;
+
       --dark:#111827;
-      --dark2:#1f2937;
+      --dark-hover:#1f2937;
+
       --accent:#c8102e;
-      --accent-soft:#fce8ec;
+      --accent-dark:#a80d27;
+      --accent-soft:#fff0f3;
+
       --green:#087443;
-      --green-soft:#e8f7ef;
+      --green-soft:#eaf8f0;
+
       --blue:#175cd3;
-      --blue-soft:#eaf2ff;
-      --shadow:0 10px 30px rgba(17,24,39,.08);
+      --blue-soft:#edf4ff;
+
+      --shadow:0 8px 30px rgba(17,24,39,.07);
+      --shadow-hover:0 14px 35px rgba(17,24,39,.11);
+
       --radius:18px;
     }
 
-    *{box-sizing:border-box}
+    *{
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
     body{
       margin:0;
-      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
       color:var(--text);
-      background:linear-gradient(180deg,#111827 0 260px,var(--bg) 260px 100%);
+
+      background:
+        linear-gradient(
+          180deg,
+          #111827 0,
+          #111827 310px,
+          var(--bg) 310px,
+          var(--bg) 100%
+        );
     }
-    .wrap{max-width:1120px;margin:0 auto;padding:28px 18px 60px}
+
+    .wrap{
+      width:min(1180px, calc(100% - 32px));
+      margin:0 auto;
+      padding:32px 0 70px;
+    }
+
+    /* =========================
+       HEADER
+    ========================= */
 
     header{
-      color:#fff;
-      padding:18px 0 42px;
+      color:white;
+      padding:12px 4px 52px;
     }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:24px;
+    }
+
+    .brand-mark{
+      width:42px;
+      height:42px;
+      border-radius:13px;
+
+      display:grid;
+      place-items:center;
+
+      background:var(--accent);
+
+      font-weight:900;
+      font-size:18px;
+
+      box-shadow:
+        0 8px 20px rgba(200,16,46,.3);
+    }
+
+    .brand-text{
+      font-size:.82rem;
+      font-weight:800;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:#d1d5db;
+    }
+
     .eyebrow{
       font-size:.78rem;
       font-weight:800;
-      letter-spacing:.12em;
+      letter-spacing:.14em;
       text-transform:uppercase;
-      opacity:.7;
+      color:#9ca3af;
     }
+
     h1{
-      margin:8px 0 8px;
-      font-size:clamp(2rem,5vw,3.25rem);
-      line-height:1;
-      letter-spacing:-.04em;
+      margin:7px 0 10px;
+
+      font-size:
+        clamp(2.4rem, 7vw, 4.2rem);
+
+      line-height:.95;
+      letter-spacing:-.055em;
     }
-    .subtitle{margin:0;color:#d1d5db;font-size:1rem}
+
+    .subtitle{
+      margin:0;
+      max-width:620px;
+
+      color:#cbd5e1;
+
+      font-size:
+        clamp(.95rem, 2vw, 1.08rem);
+
+      line-height:1.6;
+    }
+
+    /* =========================
+       FILTER PANEL
+    ========================= */
 
     .panel{
+      position:relative;
+
       background:var(--card);
-      border:1px solid rgba(255,255,255,.5);
-      border-radius:var(--radius);
+
+      border:1px solid rgba(255,255,255,.7);
+      border-radius:22px;
+
       box-shadow:var(--shadow);
-      padding:18px;
-      margin-top:-12px;
+
+      padding:22px;
+
+      margin-top:-20px;
     }
 
-    .topline{
+    .panel-top{
       display:flex;
       justify-content:space-between;
-      gap:12px;
       align-items:center;
-      flex-wrap:wrap;
-      margin-bottom:15px;
+      gap:15px;
+
+      margin-bottom:20px;
     }
-    .meta{color:var(--muted);font-size:.9rem}
+
+    .meta{
+      color:var(--muted);
+      font-size:.84rem;
+    }
+
     .count{
-      font-weight:800;
+      display:flex;
+      align-items:center;
+      gap:6px;
+
+      padding:8px 13px;
+
       background:#f3f4f6;
-      padding:7px 11px;
+
       border-radius:999px;
+
+      font-size:.85rem;
+      font-weight:800;
+
       white-space:nowrap;
     }
 
+    .filter-group + .filter-group{
+      margin-top:18px;
+      padding-top:18px;
+      border-top:1px solid var(--line);
+    }
+
     .filter-title{
-      font-size:.78rem;
-      font-weight:800;
+      margin-bottom:9px;
+
+      color:#6b7280;
+
+      font-size:.7rem;
+      font-weight:900;
+
+      letter-spacing:.1em;
       text-transform:uppercase;
-      letter-spacing:.08em;
-      color:var(--muted);
-      margin:5px 0 8px;
     }
 
     .filters{
@@ -92,429 +216,1345 @@
       flex-wrap:wrap;
       gap:8px;
     }
+
     button{
       appearance:none;
+
       border:1px solid var(--line);
-      background:#fff;
+      background:white;
+
       color:var(--text);
+
       border-radius:999px;
+
       padding:9px 14px;
+
       font:inherit;
-      font-size:.9rem;
-      font-weight:700;
+      font-size:.86rem;
+      font-weight:750;
+
       cursor:pointer;
-      transition:.16s ease;
+
+      transition:
+        background .16s ease,
+        color .16s ease,
+        border-color .16s ease,
+        transform .16s ease,
+        box-shadow .16s ease;
     }
-    button:hover{transform:translateY(-1px);border-color:#c4c9d1}
+
+    button:hover{
+      transform:translateY(-1px);
+      border-color:#c9ced6;
+    }
+
     button.active{
       background:var(--dark);
-      color:#fff;
       border-color:var(--dark);
+      color:white;
+
+      box-shadow:
+        0 5px 14px rgba(17,24,39,.16);
     }
-    button.category{
-      padding-inline:16px;
-    }
+
     button.category.active{
       background:var(--accent);
       border-color:var(--accent);
+
+      box-shadow:
+        0 5px 14px rgba(200,16,46,.18);
     }
 
-    .subfilters{
-      margin-top:13px;
-      padding-top:13px;
-      border-top:1px solid var(--line);
+    button.location-home.active{
+      background:var(--green);
+      border-color:var(--green);
     }
+
+    button.location-away.active{
+      background:var(--blue);
+      border-color:var(--blue);
+    }
+
+    /* =========================
+       GAMES
+    ========================= */
 
     .games{
-      margin-top:20px;
       display:grid;
-      gap:12px;
+      gap:13px;
+
+      margin-top:22px;
     }
 
     .game{
-      background:#fff;
-      border:1px solid var(--line);
-      border-radius:16px;
-      overflow:hidden;
-      box-shadow:0 3px 12px rgba(17,24,39,.04);
       display:grid;
-      grid-template-columns:150px 1fr auto;
-      align-items:stretch;
+      grid-template-columns:145px minmax(0,1fr) 100px;
+
+      overflow:hidden;
+
+      background:white;
+
+      border:1px solid var(--line);
+      border-radius:18px;
+
+      box-shadow:
+        0 3px 12px rgba(17,24,39,.035);
+
+      transition:
+        transform .18s ease,
+        box-shadow .18s ease,
+        border-color .18s ease;
     }
+
+    .game:hover{
+      transform:translateY(-2px);
+
+      box-shadow:var(--shadow-hover);
+
+      border-color:#d9dde3;
+    }
+
+    /* DATE */
 
     .game-date{
-      background:#f9fafb;
-      border-right:1px solid var(--line);
-      padding:18px 14px;
       display:flex;
       flex-direction:column;
-      justify-content:center;
       align-items:center;
+      justify-content:center;
+
+      padding:17px 12px;
+
       text-align:center;
-    }
-    .day{
-      font-size:1.65rem;
-      font-weight:900;
-      line-height:1;
-    }
-    .month{
-      margin-top:4px;
-      text-transform:uppercase;
-      font-size:.75rem;
-      font-weight:800;
-      color:var(--muted);
-    }
-    .time{
-      margin-top:10px;
-      font-size:.86rem;
-      font-weight:800;
-      color:var(--dark2);
+
+      background:#f9fafb;
+
+      border-right:1px solid var(--line);
     }
 
-    .game-main{padding:17px 18px}
+    .day{
+      font-size:1.8rem;
+      font-weight:950;
+      line-height:1;
+      letter-spacing:-.04em;
+    }
+
+    .month{
+      margin-top:5px;
+
+      color:var(--muted);
+
+      font-size:.72rem;
+      font-weight:900;
+
+      text-transform:uppercase;
+      letter-spacing:.06em;
+    }
+
+    .time{
+      margin-top:10px;
+
+      color:#374151;
+
+      font-size:.78rem;
+      font-weight:850;
+    }
+
+    /* MAIN */
+
+    .game-main{
+      min-width:0;
+      padding:17px 20px;
+    }
+
     .badges{
       display:flex;
       flex-wrap:wrap;
       gap:6px;
-      margin-bottom:9px;
+
+      margin-bottom:10px;
     }
+
     .badge{
       display:inline-flex;
       align-items:center;
+
       border-radius:999px;
+
       padding:5px 9px;
-      font-size:.72rem;
-      font-weight:800;
+
       background:#f3f4f6;
+
       color:#4b5563;
+
+      font-size:.68rem;
+      font-weight:850;
     }
-    .badge.home{background:var(--green-soft);color:var(--green)}
-    .badge.away{background:var(--blue-soft);color:var(--blue)}
-    .badge.team{background:var(--accent-soft);color:#9f1239}
+
+    .badge.team{
+      background:var(--accent-soft);
+      color:#9f1239;
+    }
+
+    .badge.home{
+      background:var(--green-soft);
+      color:var(--green);
+    }
+
+    .badge.away{
+      background:var(--blue-soft);
+      color:var(--blue);
+    }
 
     .match{
-      display:flex;
+      display:grid;
+      grid-template-columns:
+        minmax(0,1fr)
+        auto
+        minmax(0,1fr);
+
       align-items:center;
       gap:12px;
-      font-size:1.08rem;
+
+      font-size:1.04rem;
       font-weight:850;
-      line-height:1.25;
-    }
-    .versus{
-      color:#9ca3af;
-      font-size:.85rem;
-      font-weight:700;
-    }
-    .league{
-      color:var(--muted);
-      margin-top:8px;
-      font-size:.82rem;
+
+      line-height:1.3;
     }
 
+    .match-team{
+      min-width:0;
+    }
+
+    .match-team.home-team{
+      text-align:right;
+    }
+
+    .match-team.away-team{
+      text-align:left;
+    }
+
+    .team-name{
+      display:block;
+
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .versus{
+      color:#9ca3af;
+
+      font-size:.72rem;
+      font-weight:800;
+
+      text-transform:uppercase;
+    }
+
+    .league{
+      margin-top:8px;
+
+      color:var(--muted);
+
+      font-size:.78rem;
+      line-height:1.4;
+    }
+
+    /* SCORE */
+
     .score{
-      min-width:92px;
-      padding:0 18px;
       display:flex;
       align-items:center;
       justify-content:center;
+
+      min-width:100px;
+
+      padding:15px;
+
       border-left:1px solid var(--line);
-      font-size:1.45rem;
-      font-weight:900;
+
+      font-size:1.35rem;
+      font-weight:950;
+
       white-space:nowrap;
     }
 
+    .score.played{
+      background:#fafafa;
+    }
+
+    /* EMPTY */
+
     .empty{
-      background:#fff;
+      background:white;
+
       border:1px dashed #cfd4dc;
-      border-radius:16px;
-      padding:42px 20px;
+      border-radius:18px;
+
+      padding:50px 20px;
+
       text-align:center;
+
       color:var(--muted);
     }
-    .empty strong{display:block;color:var(--text);margin-bottom:5px}
 
-    footer{
-      text-align:center;
-      color:#9ca3af;
-      font-size:.78rem;
-      margin-top:28px;
+    .empty-icon{
+      width:46px;
+      height:46px;
+
+      margin:0 auto 12px;
+
+      display:grid;
+      place-items:center;
+
+      border-radius:50%;
+
+      background:#f3f4f6;
+
+      font-size:20px;
     }
 
-    @media (max-width:700px){
-      body{background:linear-gradient(180deg,#111827 0 235px,var(--bg) 235px 100%)}
-      .wrap{padding-inline:12px}
-      header{padding-bottom:35px}
-      .panel{padding:14px}
-      .game{grid-template-columns:82px 1fr}
-      .game-date{padding:13px 8px}
-      .day{font-size:1.4rem}
-      .game-main{padding:14px}
-      .match{display:block;font-size:1rem}
-      .versus{display:inline-block;margin:4px 0;color:#9ca3af}
+    .empty strong{
+      display:block;
+
+      margin-bottom:5px;
+
+      color:var(--text);
+
+      font-size:1rem;
+    }
+
+    /* FOOTER */
+
+    footer{
+      margin-top:28px;
+
+      color:#9ca3af;
+
+      font-size:.75rem;
+
+      text-align:center;
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media(max-width:700px){
+
+      body{
+        background:
+          linear-gradient(
+            180deg,
+            #111827 0,
+            #111827 270px,
+            var(--bg) 270px,
+            var(--bg) 100%
+          );
+      }
+
+      .wrap{
+        width:min(100% - 20px, 1180px);
+        padding-top:20px;
+      }
+
+      header{
+        padding-bottom:45px;
+      }
+
+      .brand{
+        margin-bottom:20px;
+      }
+
+      .panel{
+        padding:16px;
+        border-radius:18px;
+      }
+
+      .panel-top{
+        align-items:flex-start;
+        flex-direction:column;
+        gap:9px;
+      }
+
+      .game{
+        grid-template-columns:78px minmax(0,1fr);
+      }
+
+      .game-date{
+        padding:14px 7px;
+      }
+
+      .day{
+        font-size:1.35rem;
+      }
+
+      .month{
+        font-size:.67rem;
+      }
+
+      .time{
+        font-size:.7rem;
+      }
+
+      .game-main{
+        padding:14px;
+      }
+
+      .match{
+        grid-template-columns:1fr;
+        gap:3px;
+
+        font-size:.95rem;
+      }
+
+      .match-team.home-team,
+      .match-team.away-team{
+        text-align:left;
+      }
+
+      .versus{
+        order:2;
+      }
+
+      .match-team.home-team{
+        order:1;
+      }
+
+      .match-team.away-team{
+        order:3;
+      }
+
       .score{
         grid-column:1 / -1;
+
+        min-width:0;
+        min-height:48px;
+
         border-left:0;
         border-top:1px solid var(--line);
-        min-height:46px;
-        font-size:1.15rem;
+
+        font-size:1.1rem;
+      }
+    }
+
+    @media(max-width:430px){
+
+      h1{
+        font-size:2.55rem;
+      }
+
+      .subtitle{
+        font-size:.9rem;
+      }
+
+      button{
+        padding:8px 11px;
+        font-size:.8rem;
+      }
+
+      .game-main{
+        padding:12px;
+      }
+
+      .badge{
+        font-size:.63rem;
+      }
+
+      .league{
+        font-size:.72rem;
       }
     }
   </style>
 </head>
 
 <body>
+
 <div class="wrap">
+
   <header>
-    <div class="eyebrow">Kölner Junghaie</div>
+
+    <div class="brand">
+      <div class="brand-mark">KJ</div>
+      <div class="brand-text">Kölner Junghaie</div>
+    </div>
+
+    <div class="eyebrow">Saison & Termine</div>
+
     <h1>Spielplan</h1>
-    <p class="subtitle">Alle Spiele auf einen Blick – Nachwuchs & Frauen</p>
+
+    <p class="subtitle">
+      Alle Spiele der Nachwuchs- und Frauenmannschaften
+      übersichtlich auf einen Blick.
+    </p>
+
   </header>
 
+
   <section class="panel">
-    <div class="topline">
-      <div class="meta" id="meta">Spieldaten werden geladen …</div>
-      <div class="count" id="count">– Spiele</div>
+
+    <div class="panel-top">
+
+      <div class="meta" id="meta">
+        Spieldaten werden geladen …
+      </div>
+
+      <div class="count" id="count">
+        – Spiele
+      </div>
+
     </div>
 
-    <div class="filter-title">Bereich</div>
-    <div class="filters" id="categoryFilters">
-      <button class="category active" data-category="all">Alle</button>
-      <button class="category" data-category="youth">Nachwuchs</button>
-      <button class="category" data-category="women">Frauen</button>
+
+    <!-- BEREICH -->
+
+    <div class="filter-group">
+
+      <div class="filter-title">
+        Bereich
+      </div>
+
+      <div class="filters" id="categoryFilters">
+
+        <button
+          class="category active"
+          data-category="all">
+          Alle
+        </button>
+
+        <button
+          class="category"
+          data-category="youth">
+          Nachwuchs
+        </button>
+
+        <button
+          class="category"
+          data-category="women">
+          Frauen
+        </button>
+
+      </div>
+
     </div>
 
-    <div class="subfilters">
-      <div class="filter-title">Mannschaft</div>
+
+    <!-- MANNSCHAFT -->
+
+    <div class="filter-group">
+
+      <div class="filter-title">
+        Mannschaft
+      </div>
+
       <div class="filters" id="teamFilters"></div>
+
     </div>
+
+
+    <!-- SPIELORT -->
+
+    <div class="filter-group">
+
+      <div class="filter-title">
+        Spielort
+      </div>
+
+      <div class="filters" id="locationFilters">
+
+        <button
+          class="active"
+          data-location="all">
+          Alle Spiele
+        </button>
+
+        <button
+          class="location-home"
+          data-location="home">
+          🏠 Heimspiele
+        </button>
+
+        <button
+          class="location-away"
+          data-location="away">
+          ✈ Auswärtsspiele
+        </button>
+
+      </div>
+
+    </div>
+
   </section>
 
+
   <main class="games" id="games"></main>
+
 
   <footer>
     Spieldaten werden automatisch über den GitHub-Actions-Scraper aktualisiert.
   </footer>
+
 </div>
 
+
 <script>
+
   let allGames = [];
+
   let category = 'all';
   let selectedTeam = 'all';
+  let selectedLocation = 'all';
 
-  const YOUTH_TEAMS = ['U20','U17','U15 A','U15 B','U13 A','U13 B'];
-  const WOMEN_HINTS = ['frau','women','damen'];
 
-  function clean(value) {
+  const YOUTH_TEAMS = [
+    'U20',
+    'U17',
+    'U15 A',
+    'U15 B',
+    'U13 A',
+    'U13 B'
+  ];
+
+  const WOMEN_HINTS = [
+    'frau',
+    'women',
+    'damen'
+  ];
+
+
+  /* =========================
+     HILFSFUNKTIONEN
+  ========================= */
+
+  function clean(value){
     return String(value ?? '').trim();
   }
 
-  function getTeam(game) {
+
+  function getTeam(game){
+
     const explicit = clean(game.team);
-    if (explicit) return explicit;
+
+    if(explicit){
+      return explicit;
+    }
 
     const league = clean(game.league);
     const text = league.toLowerCase();
 
-    if (text.includes('u20')) return 'U20';
-    if (text.includes('u17')) return 'U17';
-    if (text.includes('u15') && text.includes('a')) return 'U15 A';
-    if (text.includes('u15') && text.includes('b')) return 'U15 B';
-    if (text.includes('u13') && text.includes('a')) return 'U13 A';
-    if (text.includes('u13') && text.includes('b')) return 'U13 B';
+
+    if(text.includes('u20')) return 'U20';
+    if(text.includes('u17')) return 'U17';
+
+    if(text.includes('u15') && text.includes('a')){
+      return 'U15 A';
+    }
+
+    if(text.includes('u15') && text.includes('b')){
+      return 'U15 B';
+    }
+
+    if(text.includes('u13') && text.includes('a')){
+      return 'U13 A';
+    }
+
+    if(text.includes('u13') && text.includes('b')){
+      return 'U13 B';
+    }
 
     return explicit || league || 'Sonstige';
   }
 
-  function getCategory(game) {
+
+  function getCategory(game){
+
     const team = getTeam(game);
-    const league = clean(game.league).toLowerCase();
-    if (YOUTH_TEAMS.includes(team) || /\bu(13|15|17|20)\b/.test(league)) return 'youth';
-    if (WOMEN_HINTS.some(x => league.includes(x)) || WOMEN_HINTS.some(x => team.toLowerCase().includes(x))) return 'women';
+
+    const league =
+      clean(game.league).toLowerCase();
+
+
+    if(
+      YOUTH_TEAMS.includes(team) ||
+      /\bu(13|15|17|20)\b/.test(league)
+    ){
+      return 'youth';
+    }
+
+
+    if(
+      WOMEN_HINTS.some(
+        x => league.includes(x)
+      ) ||
+      WOMEN_HINTS.some(
+        x => team.toLowerCase().includes(x)
+      )
+    ){
+      return 'women';
+    }
+
+
     return 'other';
   }
 
-  function isJunghaie(name) {
-    return /junghaie/i.test(clean(name));
+
+  function isJunghaie(name){
+
+    return /junghaie/i.test(
+      clean(name)
+    );
   }
 
-  function getLocation(game) {
+
+  function getLocation(game){
+
     const home = isJunghaie(game.home);
     const away = isJunghaie(game.away);
-    if (home && !away) return 'home';
-    if (away && !home) return 'away';
+
+
+    if(home && !away){
+      return 'home';
+    }
+
+
+    if(away && !home){
+      return 'away';
+    }
+
+
     return 'other';
   }
 
-  function parseDate(game) {
+
+  function parseDate(game){
+
     const raw = clean(game.datetime);
-    if (raw) {
+
+
+    if(raw){
+
       const d = new Date(raw);
-      if (!Number.isNaN(d.getTime())) return d;
+
+      if(!Number.isNaN(d.getTime())){
+        return d;
+      }
+
     }
 
-    const m = clean(game.date).match(/^(\\d{2})\\.(\\d{2})\\.(\\d{4})$/);
-    if (m) {
-      const time = clean(game.time) || '00:00';
-      return new Date(`${m[3]}-${m[2]}-${m[1]}T${time}:00`);
+
+    const m =
+      clean(game.date)
+      .match(/^(\d{2})\.(\d{2})\.(\d{4})$/);
+
+
+    if(m){
+
+      const time =
+        clean(game.time) || '00:00';
+
+
+      return new Date(
+        `${m[3]}-${m[2]}-${m[1]}T${time}:00`
+      );
+
     }
+
+
     return null;
   }
 
-  function scoreText(game) {
+
+  function scoreText(game){
+
     const hs = Number(game.homeScore);
     const as = Number(game.awayScore);
-    return Number.isFinite(hs) && Number.isFinite(as) ? `${hs}:${as}` : '';
+
+
+    if(
+      Number.isFinite(hs) &&
+      Number.isFinite(as)
+    ){
+      return `${hs}:${as}`;
+    }
+
+
+    return '';
   }
 
-  function renderTeamFilters() {
-    const teams = [...new Set(allGames.map(getTeam))]
-      .filter(Boolean)
-      .sort((a,b) => {
-        const order = ['U20','U17','U15 A','U15 B','U13 A','U13 B'];
-        const ai = order.indexOf(a), bi = order.indexOf(b);
-        if (ai !== -1 || bi !== -1) return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
-        return a.localeCompare(b,'de');
-      });
 
-    const root = document.querySelector('#teamFilters');
+  function escapeHtml(value){
+
+    return String(value ?? '')
+      .replace(/[&<>"']/g, c => ({
+        '&':'&amp;',
+        '<':'&lt;',
+        '>':'&gt;',
+        '"':'&quot;',
+        "'":'&#39;'
+      }[c]));
+
+  }
+
+
+  /* =========================
+     TEAM FILTERS
+  ========================= */
+
+  function renderTeamFilters(){
+
+    const teams = [
+      ...new Set(
+        allGames.map(getTeam)
+      )
+    ]
+    .filter(Boolean)
+    .sort((a,b) => {
+
+      const order = [
+        'U20',
+        'U17',
+        'U15 A',
+        'U15 B',
+        'U13 A',
+        'U13 B'
+      ];
+
+
+      const ai = order.indexOf(a);
+      const bi = order.indexOf(b);
+
+
+      if(ai !== -1 || bi !== -1){
+
+        return (
+          (ai === -1 ? 99 : ai) -
+          (bi === -1 ? 99 : bi)
+        );
+
+      }
+
+
+      return a.localeCompare(
+        b,
+        'de'
+      );
+
+    });
+
+
+    const root =
+      document.querySelector(
+        '#teamFilters'
+      );
+
+
     root.innerHTML = '';
 
-    const add = (label, value, active) => {
-      const b = document.createElement('button');
-      b.textContent = label;
-      b.dataset.team = value;
-      if (active) b.classList.add('active');
-      b.addEventListener('click', () => {
-        selectedTeam = value;
-        renderTeamFilters();
-        render();
-      });
-      root.appendChild(b);
+
+    const add = (
+      label,
+      value,
+      active
+    ) => {
+
+      const button =
+        document.createElement(
+          'button'
+        );
+
+
+      button.textContent = label;
+
+      button.dataset.team = value;
+
+
+      if(active){
+        button.classList.add(
+          'active'
+        );
+      }
+
+
+      button.addEventListener(
+        'click',
+        () => {
+
+          selectedTeam = value;
+
+          renderTeamFilters();
+
+          render();
+
+        }
+      );
+
+
+      root.appendChild(button);
+
     };
 
-    add('Alle Mannschaften', 'all', selectedTeam === 'all');
-    teams.forEach(team => add(team, team, selectedTeam === team));
+
+    add(
+      'Alle Mannschaften',
+      'all',
+      selectedTeam === 'all'
+    );
+
+
+    teams.forEach(team => {
+
+      add(
+        team,
+        team,
+        selectedTeam === team
+      );
+
+    });
+
   }
 
-  function render() {
-    const filtered = allGames
-      .filter(game => category === 'all' || getCategory(game) === category)
-      .filter(game => selectedTeam === 'all' || getTeam(game) === selectedTeam)
-      .sort((a,b) => {
-        const da = parseDate(a), db = parseDate(b);
-        return (da ? da.getTime() : Infinity) - (db ? db.getTime() : Infinity);
-      });
 
-    document.querySelector('#count').textContent =
-      `${filtered.length} ${filtered.length === 1 ? 'Spiel' : 'Spiele'}`;
+  /* =========================
+     SPIELE RENDERN
+  ========================= */
 
-    const root = document.querySelector('#games');
+  function render(){
+
+    const filtered =
+      allGames
+
+        .filter(game =>
+          category === 'all' ||
+          getCategory(game) === category
+        )
+
+        .filter(game =>
+          selectedTeam === 'all' ||
+          getTeam(game) === selectedTeam
+        )
+
+        .filter(game =>
+          selectedLocation === 'all' ||
+          getLocation(game) === selectedLocation
+        )
+
+        .sort((a,b) => {
+
+          const da = parseDate(a);
+          const db = parseDate(b);
+
+          return (
+            (da ? da.getTime() : Infinity) -
+            (db ? db.getTime() : Infinity)
+          );
+
+        });
+
+
+    document.querySelector(
+      '#count'
+    ).textContent =
+      `${filtered.length} ${
+        filtered.length === 1
+          ? 'Spiel'
+          : 'Spiele'
+      }`;
+
+
+    const root =
+      document.querySelector(
+        '#games'
+      );
+
+
     root.innerHTML = '';
 
-    if (!filtered.length) {
-      root.innerHTML = `<div class="empty">
-        <strong>Keine Spiele gefunden</strong>
-        Für diese Filterkombination sind keine Spieldaten vorhanden.
-      </div>`;
-      return;
-    }
 
-    filtered.forEach(game => {
-      const d = parseDate(game);
-      const location = getLocation(game);
-      const team = getTeam(game);
-      const score = scoreText(game);
+    if(!filtered.length){
 
-      const article = document.createElement('article');
-      article.className = 'game';
+      root.innerHTML = `
 
-      const day = d ? d.toLocaleDateString('de-DE',{day:'2-digit'}) : clean(game.date).slice(0,2);
-      const month = d ? d.toLocaleDateString('de-DE',{month:'short'}) : '';
-      const time = d ? d.toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'}) : clean(game.time);
+        <div class="empty">
 
-      article.innerHTML = `
-        <div class="game-date">
-          <div class="day">${escapeHtml(day)}</div>
-          <div class="month">${escapeHtml(month)}</div>
-          <div class="time">${escapeHtml(time)}${time ? ' Uhr' : ''}</div>
-        </div>
-
-        <div class="game-main">
-          <div class="badges">
-            <span class="badge team">${escapeHtml(team)}</span>
-            ${location === 'home' ? '<span class="badge home">Heimspiel</span>' : ''}
-            ${location === 'away' ? '<span class="badge away">Auswärtsspiel</span>' : ''}
+          <div class="empty-icon">
+            🏒
           </div>
 
-          <div class="match">
-            <span>${escapeHtml(game.home)}</span>
-            <span class="versus">vs.</span>
-            <span>${escapeHtml(game.away)}</span>
-          </div>
+          <strong>
+            Keine Spiele gefunden
+          </strong>
 
-          ${clean(game.league) ? `<div class="league">${escapeHtml(game.league)}</div>` : ''}
+          Für diese Filterkombination
+          sind keine Spieldaten vorhanden.
+
         </div>
 
-        <div class="score">${score || '–'}</div>
       `;
 
-      root.appendChild(article);
-    });
-  }
-
-  function escapeHtml(value) {
-    return String(value ?? '').replace(/[&<>"']/g, c => ({
-      '&':'&amp;',
-      '<':'&lt;',
-      '>':'&gt;',
-      '"':'&quot;',
-      "'":'&#39;'
-    }[c]));
-  }
-
-  document.querySelectorAll('#categoryFilters button').forEach(button => {
-    button.addEventListener('click', () => {
-      category = button.dataset.category;
-      selectedTeam = 'all';
-
-      document.querySelectorAll('#categoryFilters button')
-        .forEach(b => b.classList.toggle('active', b === button));
-
-      renderTeamFilters();
-      render();
-    });
-  });
-
-  async function main() {
-    const res = await fetch('./data/games.json', {cache:'no-store'});
-    if (!res.ok) throw new Error('games.json konnte nicht geladen werden.');
-
-    const data = await res.json();
-    allGames = Array.isArray(data) ? data : (Array.isArray(data.games) ? data.games : []);
-
-    if (!allGames.length) {
-      document.querySelector('#meta').textContent = 'Keine Spieldaten vorhanden.';
-      renderTeamFilters();
-      render();
       return;
+
     }
 
-    const generatedAt = data.generatedAt ? new Date(data.generatedAt) : null;
-    document.querySelector('#meta').textContent =
-      generatedAt && !Number.isNaN(generatedAt.getTime())
-        ? `Zuletzt aktualisiert: ${generatedAt.toLocaleString('de-DE')}`
-        : 'Automatisch aktualisierte Spieldaten';
 
-    renderTeamFilters();
-    render();
+    filtered.forEach(game => {
+
+      const d = parseDate(game);
+
+      const location =
+        getLocation(game);
+
+      const team =
+        getTeam(game);
+
+      const score =
+        scoreText(game);
+
+
+      const article =
+        document.createElement(
+          'article'
+        );
+
+
+      article.className = 'game';
+
+
+      const day =
+        d
+          ? d.toLocaleDateString(
+              'de-DE',
+              {day:'2-digit'}
+            )
+          : clean(game.date).slice(0,2);
+
+
+      const month =
+        d
+          ? d.toLocaleDateString(
+              'de-DE',
+              {month:'short'}
+            )
+          : '';
+
+
+      const time =
+        d
+          ? d.toLocaleTimeString(
+              'de-DE',
+              {
+                hour:'2-digit',
+                minute:'2-digit'
+              }
+            )
+          : clean(game.time);
+
+
+      const locationBadge =
+        location === 'home'
+          ? `
+            <span class="badge home">
+              🏠 Heimspiel
+            </span>
+          `
+          : location === 'away'
+          ? `
+            <span class="badge away">
+              ✈ Auswärtsspiel
+            </span>
+          `
+          : '';
+
+
+      article.innerHTML = `
+
+        <div class="game-date">
+
+          <div class="day">
+            ${escapeHtml(day)}
+          </div>
+
+          <div class="month">
+            ${escapeHtml(month)}
+          </div>
+
+          <div class="time">
+            ${
+              escapeHtml(time)
+            }${time ? ' Uhr' : ''}
+          </div>
+
+        </div>
+
+
+        <div class="game-main">
+
+          <div class="badges">
+
+            <span class="badge team">
+              ${escapeHtml(team)}
+            </span>
+
+            ${locationBadge}
+
+          </div>
+
+
+          <div class="match">
+
+            <div class="match-team home-team">
+              <span class="team-name">
+                ${escapeHtml(game.home)}
+              </span>
+            </div>
+
+            <span class="versus">
+              vs.
+            </span>
+
+            <div class="match-team away-team">
+              <span class="team-name">
+                ${escapeHtml(game.away)}
+              </span>
+            </div>
+
+          </div>
+
+
+          ${
+            clean(game.league)
+              ? `
+                <div class="league">
+                  ${escapeHtml(game.league)}
+                </div>
+              `
+              : ''
+          }
+
+        </div>
+
+
+        <div class="score ${
+          score ? 'played' : ''
+        }">
+
+          ${score || '–'}
+
+        </div>
+
+      `;
+
+
+      root.appendChild(article);
+
+    });
+
   }
 
-  main().catch(err => {
-    console.error(err);
-    document.querySelector('#meta').textContent = err.message;
-    document.querySelector('#games').innerHTML =
-      `<div class="empty"><strong>Spieldaten konnten nicht geladen werden</strong>${escapeHtml(err.message)}</div>`;
-  });
+
+  /* =========================
+     BEREICH FILTER
+  ========================= */
+
+  document
+    .querySelectorAll(
+      '#categoryFilters button'
+    )
+    .forEach(button => {
+
+      button.addEventListener(
+        'click',
+        () => {
+
+          category =
+            button.dataset.category;
+
+          selectedTeam = 'all';
+
+
+          document
+            .querySelectorAll(
+              '#categoryFilters button'
+            )
+            .forEach(b =>
+              b.classList.toggle(
+                'active',
+                b === button
+              )
+            );
+
+
+          renderTeamFilters();
+
+          render();
+
+        }
+      );
+
+    });
+
+
+  /* =========================
+     SPIELORT FILTER
+  ========================= */
+
+  document
+    .querySelectorAll(
+      '#locationFilters button'
+    )
+    .forEach(button => {
+
+      button.addEventListener(
+        'click',
+        () => {
+
+          selectedLocation =
+            button.dataset.location;
+
+
+          document
+            .querySelectorAll(
+              '#locationFilters button'
+            )
+            .forEach(b =>
+              b.classList.toggle(
+                'active',
+                b === button
+              )
+            );
+
+
+          render();
+
+        }
+      );
+
+    });
+
+
+  /* =========================
+     DATEN LADEN
+  ========================= */
+
+  async function main(){
+
+    try{
+
+      const res =
+        await fetch(
+          './data/games.json',
+          {
+            cache:'no-store'
+          }
+        );
+
+
+      if(!res.ok){
+
+        throw new Error(
+          'games.json konnte nicht geladen werden.'
+        );
+
+      }
+
+
+      const data =
+        await res.json();
+
+
+      allGames =
+        Array.isArray(data)
+          ? data
+          : (
+              Array.isArray(data.games)
+                ? data.games
+                : []
+            );
+
+
+      if(!allGames.length){
+
+        document.querySelector(
+          '#meta'
+        ).textContent =
+          'Keine Spieldaten vorhanden.';
+
+        renderTeamFilters();
+
+        render();
+
+        return;
+
+      }
+
+
+      const generatedAt =
+        data.generatedAt
+          ? new Date(data.generatedAt)
+          : null;
+
+
+      document.querySelector(
+        '#meta'
+      ).textContent =
+
+        generatedAt &&
+        !Number.isNaN(
+          generatedAt.getTime()
+        )
+
+          ? `Zuletzt aktualisiert: ${
+              generatedAt.toLocaleString(
+                'de-DE'
+              )
+            }`
+
+          : 'Automatisch aktualisierte Spieldaten';
+
+
+      renderTeamFilters();
+
+      render();
+
+    }
+
+    catch(err){
+
+      console.error(err);
+
+
+      document.querySelector(
+        '#meta'
+      ).textContent =
+        err.message;
+
+
+      document.querySelector(
+        '#games'
+      ).innerHTML = `
+
+        <div class="empty">
+
+          <div class="empty-icon">
+            ⚠️
+          </div>
+
+          <strong>
+            Spieldaten konnten nicht geladen werden
+          </strong>
+
+          ${escapeHtml(err.message)}
+
+        </div>
+
+      `;
+
+    }
+
+  }
+
+
+  main();
+
 </script>
+
 </body>
 </html>
+```
