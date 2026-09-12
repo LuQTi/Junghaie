@@ -1,67 +1,176 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Kölner Junghaie – Spiele</title>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Junghaie U15 Spiele</title>
+
   <style>
-    body { font-family: system-ui, sans-serif; max-width: 1000px; margin: 0 auto; padding: 24px; }
-    h1 { margin-bottom: 8px; }
-    .meta { color: #666; margin-bottom: 24px; }
-    .game { border: 1px solid #ddd; border-radius: 10px; padding: 14px; margin: 10px 0; }
-    .teams { font-size: 1.05rem; font-weight: 600; }
-    .date { color: #666; margin-bottom: 5px; }
-    .league { display: inline-block; margin-top: 8px; font-size: .85rem; color: #555; }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f5f5f5;
+      color: #111;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .game {
+      background: white;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .date {
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .teams {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      font-size: 18px;
+    }
+
+    .score {
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .league {
+      margin-top: 8px;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .error {
+      background: #fff0f0;
+      padding: 15px;
+      border-radius: 8px;
+    }
   </style>
 </head>
+
 <body>
-  <h1>Kölner Junghaie – Spiele</h1>
-  <div class="meta" id="meta">Lade Spieldaten …</div>
-  <main id="games"></main>
+
+<main>
+
+  <h1>🏒 Kölner Junghaie U15</h1>
+
+  <div id="games">
+    Spiele werden geladen ...
+  </div>
+
+</main>
 
 <script>
-async function main() {
-  const res = await fetch('./data/games.json');
-  if (!res.ok) throw new Error('games.json konnte nicht geladen werden.');
-  const data = await res.json();
+async function loadGames() {
+  const container = document.getElementById("games");
 
-  document.querySelector('#meta').textContent =
-    data.games.length + ' Spiele · zuletzt aktualisiert ' +
-    new Date(data.generatedAt).toLocaleString('de-DE');
+  try {
+    const response = await fetch(
+      "./data/games.json?" + Date.now()
+    );
 
-  const root = document.querySelector('#games');
+    if (!response.ok) {
+      throw new Error(
+        "games.json konnte nicht geladen werden."
+      );
+    }
 
-  for (const game of data.games) {
-    const el = document.createElement('article');
-    el.className = 'game';
+    const games = await response.json();
 
-    const date = new Date(game.datetime);
-    const when = isNaN(date) ? `${game.date} ${game.time ?? ''}` :
-      date.toLocaleString('de-DE', { dateStyle: 'medium', timeStyle: 'short' });
+    if (!Array.isArray(games) || games.length === 0) {
+      container.innerHTML =
+        "<p>Keine Spiele gefunden.</p>";
 
-    const score =
-      Number.isFinite(game.homeScore) && Number.isFinite(game.awayScore)
-        ? ` · ${game.homeScore}:${game.awayScore}`
-        : '';
+      return;
+    }
 
-    el.innerHTML = `
-      <div class="date">${when}${score}</div>
-      <div class="teams">${escapeHtml(game.home)} – ${escapeHtml(game.away)}</div>
-      <div class="league">${escapeHtml(game.league)}</div>
+    container.innerHTML = "";
+
+    for (const game of games) {
+      const element =
+        document.createElement("div");
+
+      element.className = "game";
+
+      const score =
+        game.homeScore !== null &&
+        game.awayScore !== null
+          ? `${game.homeScore} : ${game.awayScore}`
+          : "–";
+
+      const time =
+        game.time
+          ? ` · ${game.time} Uhr`
+          : "";
+
+      element.innerHTML = `
+        <div class="date">
+          ${escapeHtml(game.date)}${time}
+        </div>
+
+        <div class="teams">
+          <span>
+            ${escapeHtml(game.home)}
+          </span>
+
+          <span class="score">
+            ${escapeHtml(score)}
+          </span>
+
+          <span>
+            ${escapeHtml(game.away)}
+          </span>
+        </div>
+
+        <div class="league">
+          ${escapeHtml(game.league || "U15")}
+        </div>
+      `;
+
+      container.appendChild(element);
+    }
+
+  } catch (error) {
+    console.error(error);
+
+    container.innerHTML = `
+      <div class="error">
+        Die Spiele konnten nicht geladen werden.
+      </div>
     `;
-    root.appendChild(el);
   }
 }
 
 function escapeHtml(value) {
-  return String(value).replace(/[&<>"']/g, c => ({
-    '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
-  }[c]));
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }
 
-main().catch(err => {
-  document.querySelector('#meta').textContent = err.message;
-});
+loadGames();
 </script>
+
 </body>
 </html>
