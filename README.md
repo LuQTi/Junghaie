@@ -1,25 +1,39 @@
-# Kölner Junghaie – Spielplan
+# Kölner Junghaie U15 Spiele
 
-Der Scraper lädt die U15-Spielpläne über den AJAX-Endpunkt der Junghaie,
-parst die Hockeydata-HTML-Antwort und schreibt `data/games.json`.
+Die Website zeigt die Spiele der U15 der Kölner Junghaie.
 
-## Lokal
+Die Spielplandaten werden automatisch von
 
-```bash
-npm install
-npm run scrape
-```
+https://www.junghaie.de/spielplan.menuid31.html
 
-Danach kann `index.html` über einen kleinen lokalen Webserver geöffnet werden,
-z. B.:
+abgerufen.
 
-```bash
-npx serve .
-```
+## Automatische Aktualisierung
 
-## GitHub Pages
+GitHub Actions führt den Scraper jede Nacht aus.
 
-Repository auf GitHub pushen und unter **Settings → Pages** die gewünschte
-GitHub-Pages-Quelle konfigurieren.
+Der Scraper:
 
-Die GitHub Action aktualisiert die Spieldaten automatisch alle 6 Stunden.
+1. startet Chromium
+2. öffnet die Junghaie-Spielplanseite
+3. wartet auf das Laden von Hockeydata
+4. liest die Spielplandaten
+5. entfernt Duplikate
+6. sortiert die Spiele
+7. schreibt `data/games.json`
+
+Die Website selbst benötigt keinen Server.
+
+## Manuell starten
+
+In GitHub:
+
+Actions → Update Junghaie games → Run workflow
+
+## Dateien
+
+- `index.html` – Website
+- `data/games.json` – aktuelle Spieldaten
+- `scripts/scrape-u15.js` – Scraper
+- `.github/workflows/update-games.yml` – nächtliche Aktualisierung
+- `package.json` – Node-/Playwright-Abhängigkeiten
