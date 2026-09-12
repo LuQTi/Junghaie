@@ -28,7 +28,7 @@ jobs:
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
 
-      - name: Scrape games
+      - name: Scrape all games
         run: npm run scrape
 
       - name: Show games.json
