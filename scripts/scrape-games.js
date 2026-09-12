@@ -500,17 +500,6 @@ async function scrapePage(browser, config) {
      * ---------------------------------------------------------
      */
 
-    for (const response of responses) {
-      const html = response.body;
-
-      const dom = new DOMParser();
-
-      /*
-       * DOMParser ist im Node-Prozess nicht vorhanden.
-       * Deshalb machen wir die Response später über die Seite.
-       */
-    }
-
     /*
      * AJAX-Responses zur Browser-Seite übertragen und dort
      * mit denselben Regeln auswerten.
