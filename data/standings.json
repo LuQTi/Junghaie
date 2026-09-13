@@ -1,0 +1,63 @@
+{
+  "generatedAt": "2026-09-13T08:43:46.524Z",
+  "source": "https://www.junghaie.de/tabelle-spielergebnisse.menuid24.html",
+  "league": "U20 DNL",
+  "standings": [
+    {
+      "rank": 1,
+      "team": "Eisbären Juniors Berlin",
+      "games": 5,
+      "goalDifference": "+7",
+      "points": 10
+    },
+    {
+      "rank": 2,
+      "team": "Kölner Junghaie",
+      "games": 3,
+      "goalDifference": "+31",
+      "points": 9
+    },
+    {
+      "rank": 3,
+      "team": "Jungadler Mannheim",
+      "games": 3,
+      "goalDifference": "+8",
+      "points": 9
+    },
+    {
+      "rank": 4,
+      "team": "EC Bad Tölz",
+      "games": 4,
+      "goalDifference": "+0",
+      "points": 9
+    },
+    {
+      "rank": 5,
+      "team": "Düsseldorfer EG",
+      "games": 3,
+      "goalDifference": "+12",
+      "points": 6
+    },
+    {
+      "rank": 6,
+      "team": "Augsburger EV",
+      "games": 4,
+      "goalDifference": "-2",
+      "points": 3
+    },
+    {
+      "rank": 7,
+      "team": "Iserlohner EC",
+      "games": 5,
+      "goalDifference": "-10",
+      "points": 2
+    },
+    {
+      "rank": 8,
+      "team": "EV Füssen",
+      "games": 5,
+      "goalDifference": "-46",
+      "points": 0
+    }
+  ]
+}

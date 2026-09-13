@@ -1,0 +1,36 @@
+{
+  "generatedAt": "2026-09-13T08:43:46.524Z",
+  "source": "https://www.junghaie.de/tabelle-spielergebnisse.menuid24.html",
+  "results": [
+    {
+      "date": "12.09.2026",
+      "time": "12:15",
+      "datetime": "2026-09-12T12:15:00.000Z",
+      "home": "Iserlohner EC",
+      "away": "Kölner Junghaie",
+      "homeScore": 1,
+      "awayScore": 4,
+      "location": "away"
+    },
+    {
+      "date": "06.09.2026",
+      "time": "12:00",
+      "datetime": "2026-09-06T12:00:00.000Z",
+      "home": "Kölner Junghaie",
+      "away": "EV Füssen",
+      "homeScore": 15,
+      "awayScore": 3,
+      "location": "home"
+    },
+    {
+      "date": "05.09.2026",
+      "time": "17:00",
+      "datetime": "2026-09-05T17:00:00.000Z",
+      "home": "Kölner Junghaie",
+      "away": "EV Füssen",
+      "homeScore": 17,
+      "awayScore": 1,
+      "location": "home"
+    }
+  ]
+}
