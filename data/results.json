@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-13T09:22:46.946Z",
+  "generatedAt": "2026-09-13T09:36:55.982Z",
   "source": "https://www.junghaie.de/",
   "results": [
     {
@@ -54,7 +54,7 @@
       "away": "EV Duisburg",
       "homeScore": 17,
       "awayScore": 1,
-      "team": "U15 A",
+      "team": "U15 B",
       "location": "home"
     },
     {
@@ -120,7 +120,7 @@
       "away": "Kölner Junghaie 1b",
       "homeScore": 0,
       "awayScore": 11,
-      "team": "U15 A",
+      "team": "U15 B",
       "location": "away"
     }
   ]
