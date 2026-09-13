@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-13T08:56:28.390Z",
+  "generatedAt": "2026-09-13T09:22:46.946Z",
   "source": "https://www.junghaie.de/",
   "results": [
     {
@@ -10,7 +10,6 @@
       "away": "ES Weißwasser",
       "homeScore": 10,
       "awayScore": 0,
-      "detectedTeam": null,
       "team": "U17",
       "location": "home"
     },
@@ -22,8 +21,7 @@
       "away": "Kölner Junghaie 1b",
       "homeScore": 3,
       "awayScore": 24,
-      "detectedTeam": null,
-      "team": null,
+      "team": "U13 B",
       "location": "away"
     },
     {
@@ -34,7 +32,6 @@
       "away": "Kölner Junghaie",
       "homeScore": 1,
       "awayScore": 4,
-      "detectedTeam": null,
       "team": "U20",
       "location": "away"
     },
@@ -46,8 +43,7 @@
       "away": "Krefelder EV",
       "homeScore": 8,
       "awayScore": 4,
-      "detectedTeam": null,
-      "team": null,
+      "team": "U13 A",
       "location": "home"
     },
     {
@@ -58,8 +54,7 @@
       "away": "EV Duisburg",
       "homeScore": 17,
       "awayScore": 1,
-      "detectedTeam": null,
-      "team": null,
+      "team": "U15 A",
       "location": "home"
     },
     {
@@ -70,7 +65,6 @@
       "away": "EV Füssen",
       "homeScore": 15,
       "awayScore": 3,
-      "detectedTeam": null,
       "team": "U20",
       "location": "home"
     },
@@ -82,7 +76,6 @@
       "away": "Kölner Junghaie",
       "homeScore": 2,
       "awayScore": 9,
-      "detectedTeam": null,
       "team": "U17",
       "location": "away"
     },
@@ -94,7 +87,6 @@
       "away": "Kölner Junghaie",
       "homeScore": 0,
       "awayScore": 5,
-      "detectedTeam": null,
       "team": "U17",
       "location": "away"
     },
@@ -106,8 +98,7 @@
       "away": "Kölner Junghaie",
       "homeScore": 2,
       "awayScore": 8,
-      "detectedTeam": null,
-      "team": null,
+      "team": "U13 A",
       "location": "away"
     },
     {
@@ -118,7 +109,6 @@
       "away": "EV Füssen",
       "homeScore": 17,
       "awayScore": 1,
-      "detectedTeam": null,
       "team": "U20",
       "location": "home"
     },
@@ -130,8 +120,7 @@
       "away": "Kölner Junghaie 1b",
       "homeScore": 0,
       "awayScore": 11,
-      "detectedTeam": null,
-      "team": null,
+      "team": "U15 A",
       "location": "away"
     }
   ]

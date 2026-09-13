@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-13T08:56:28.390Z",
+  "generatedAt": "2026-09-13T09:22:46.946Z",
   "source": "https://www.junghaie.de/",
   "games": [
     {
@@ -10,8 +10,8 @@
       "away": "Kölner Junghaie",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": "U20"
+      "team": "U20",
+      "location": "away"
     },
     {
       "date": "13.09.2026",
@@ -19,10 +19,10 @@
       "datetime": "2026-09-13T12:00:00.000Z",
       "home": "Kölner Junghaie",
       "away": "ES Weißwasser",
-      "homeScore": null,
-      "awayScore": null,
-      "location": "home",
-      "team": "U17"
+      "homeScore": 0,
+      "awayScore": 0,
+      "team": "U17",
+      "location": "home"
     },
     {
       "date": "13.09.2026",
@@ -32,8 +32,8 @@
       "away": "Iserlohner EC 1b",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": null
+      "team": "U15 B",
+      "location": "home"
     },
     {
       "date": "19.09.2026",
@@ -43,8 +43,8 @@
       "away": "Kölner Junghaie",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": "U17"
+      "team": "U17",
+      "location": "away"
     },
     {
       "date": "19.09.2026",
@@ -54,8 +54,8 @@
       "away": "Augsburger EV",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": "U20"
+      "team": "U20",
+      "location": "home"
     },
     {
       "date": "19.09.2026",
@@ -65,8 +65,8 @@
       "away": "Düsseldorfer EG",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": null
+      "team": "U15 A",
+      "location": "home"
     },
     {
       "date": "20.09.2026",
@@ -76,8 +76,8 @@
       "away": "KEC \"Die Haie\" 1c",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 3"
+      "team": "Frauen 3",
+      "location": null
     },
     {
       "date": "20.09.2026",
@@ -87,8 +87,8 @@
       "away": "Augsburger EV",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": "U20"
+      "team": "U20",
+      "location": "home"
     },
     {
       "date": "20.09.2026",
@@ -98,8 +98,8 @@
       "away": "Düsseldorfer EG",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": "U17"
+      "team": "U17",
+      "location": "home"
     },
     {
       "date": "20.09.2026",
@@ -109,8 +109,8 @@
       "away": "Kölner Junghaie",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": null
+      "team": "U15 A",
+      "location": "away"
     },
     {
       "date": "20.09.2026",
@@ -120,8 +120,8 @@
       "away": "EV Duisburg",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": null
+      "team": "U13 B",
+      "location": "home"
     },
     {
       "date": "26.09.2026",
@@ -131,8 +131,8 @@
       "away": "Kölner Junghaie",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": null
+      "team": "U15 A",
+      "location": "away"
     },
     {
       "date": "26.09.2026",
@@ -142,8 +142,8 @@
       "away": "Kölner Junghaie",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": "U20"
+      "team": "U20",
+      "location": "away"
     },
     {
       "date": "26.09.2026",
@@ -153,8 +153,8 @@
       "away": "Kölner Junghaie",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": "U17"
+      "team": "U17",
+      "location": "away"
     },
     {
       "date": "26.09.2026",
@@ -164,8 +164,8 @@
       "away": "FASS Berlin",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 1"
+      "team": "Frauen 1",
+      "location": null
     },
     {
       "date": "26.09.2026",
@@ -175,8 +175,8 @@
       "away": "Kölner Junghaie",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": null
+      "team": "U13 A",
+      "location": "away"
     },
     {
       "date": "27.09.2026",
@@ -186,8 +186,8 @@
       "away": "Kölner Junghaie",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": "U17"
+      "team": "U17",
+      "location": "away"
     },
     {
       "date": "27.09.2026",
@@ -197,8 +197,8 @@
       "away": "Kölner Junghaie",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": null
+      "team": "U15 A",
+      "location": "away"
     },
     {
       "date": "27.09.2026",
@@ -208,8 +208,8 @@
       "away": "Jungadler Mannheim",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": "U20"
+      "team": "U20",
+      "location": "home"
     },
     {
       "date": "27.09.2026",
@@ -219,8 +219,8 @@
       "away": "EJ Kassel",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": null
+      "team": "U15 B",
+      "location": "home"
     },
     {
       "date": "03.10.2026",
@@ -230,8 +230,8 @@
       "away": "Kölner Junghaie 1b",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": null
+      "team": "U15 B",
+      "location": "away"
     },
     {
       "date": "03.10.2026",
@@ -241,8 +241,8 @@
       "away": "Kölner Junghaie",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": "U17"
+      "team": "U17",
+      "location": "away"
     },
     {
       "date": "03.10.2026",
@@ -252,8 +252,8 @@
       "away": "Iserlohner EC",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": null
+      "team": "U13 A",
+      "location": "home"
     },
     {
       "date": "03.10.2026",
@@ -263,8 +263,8 @@
       "away": "Kölner Junghaie",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": "U20"
+      "team": "U20",
+      "location": "away"
     },
     {
       "date": "03.10.2026",
@@ -274,8 +274,8 @@
       "away": "Iserlohner EC",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": null
+      "team": "U15 A",
+      "location": "home"
     },
     {
       "date": "04.10.2026",
@@ -285,8 +285,8 @@
       "away": "Kölner Junghaie",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": "U20"
+      "team": "U20",
+      "location": "away"
     },
     {
       "date": "04.10.2026",
@@ -296,8 +296,8 @@
       "away": "Iserlohner EC",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": "U17"
+      "team": "U17",
+      "location": "home"
     },
     {
       "date": "04.10.2026",
@@ -307,8 +307,8 @@
       "away": "EJ Kassel",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": null
+      "team": "U13 B",
+      "location": "home"
     },
     {
       "date": "04.10.2026",
@@ -318,8 +318,8 @@
       "away": "Iserlohner EC",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": null
+      "team": "U15 A",
+      "location": "home"
     },
     {
       "date": "10.10.2026",
@@ -329,8 +329,8 @@
       "away": "Kölner Junghaie",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": null
+      "team": "U13 A",
+      "location": "away"
     },
     {
       "date": "10.10.2026",
@@ -340,8 +340,8 @@
       "away": "Kölner Junghaie",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": "U20"
+      "team": "U20",
+      "location": "away"
     },
     {
       "date": "10.10.2026",
@@ -351,8 +351,8 @@
       "away": "Eisbären Juniors Berlin",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": "U17"
+      "team": "U17",
+      "location": "home"
     },
     {
       "date": "10.10.2026",
@@ -362,8 +362,8 @@
       "away": "Kölner Junghaie",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": null
+      "team": "U15 A",
+      "location": "away"
     },
     {
       "date": "10.10.2026",
@@ -373,8 +373,8 @@
       "away": "ESV Bergisch Gladbach 1b",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 3"
+      "team": "Frauen 3",
+      "location": null
     },
     {
       "date": "11.10.2026",
@@ -384,8 +384,8 @@
       "away": "Kölner Junghaie",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": "U20"
+      "team": "U20",
+      "location": "away"
     },
     {
       "date": "11.10.2026",
@@ -395,8 +395,8 @@
       "away": "Eisbären Juniors Berlin",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": "U17"
+      "team": "U17",
+      "location": "home"
     },
     {
       "date": "11.10.2026",
@@ -406,8 +406,8 @@
       "away": "Düsseldorfer EG",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": null
+      "team": "U15 A",
+      "location": "home"
     },
     {
       "date": "17.10.2026",
@@ -417,8 +417,8 @@
       "away": "Kölner Junghaie",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": "U17"
+      "team": "U17",
+      "location": "away"
     },
     {
       "date": "17.10.2026",
@@ -428,8 +428,8 @@
       "away": "Düsseldorfer EG",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": "U20"
+      "team": "U20",
+      "location": "home"
     },
     {
       "date": "17.10.2026",
@@ -439,8 +439,8 @@
       "away": "Kölner Junghaie 1b",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": null
+      "team": "U15 B",
+      "location": "away"
     },
     {
       "date": "18.10.2026",
@@ -450,8 +450,8 @@
       "away": "Kölner Junghaie",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": null
+      "team": "U15 A",
+      "location": "away"
     },
     {
       "date": "18.10.2026",
@@ -461,8 +461,8 @@
       "away": "Düsseldorfer EG",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": "U20"
+      "team": "U20",
+      "location": "home"
     },
     {
       "date": "18.10.2026",
@@ -472,8 +472,8 @@
       "away": "Krefelder EV",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": "U17"
+      "team": "U17",
+      "location": "home"
     },
     {
       "date": "21.10.2026",
@@ -483,8 +483,8 @@
       "away": "Krefelder EV",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": null
+      "team": "U15 A",
+      "location": "home"
     },
     {
       "date": "24.10.2026",
@@ -494,8 +494,8 @@
       "away": "KEC \"Die Haie\"",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 1"
+      "team": "Frauen 1",
+      "location": null
     },
     {
       "date": "24.10.2026",
@@ -505,8 +505,8 @@
       "away": "Kölner Junghaie",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": null
+      "team": "U13 A",
+      "location": "away"
     },
     {
       "date": "25.10.2026",
@@ -516,8 +516,8 @@
       "away": "Düsseldorfer EG",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": null
+      "team": "U13 A",
+      "location": "home"
     },
     {
       "date": "25.10.2026",
@@ -527,8 +527,8 @@
       "away": "EHC Troisdorf",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": null
+      "team": "U13 B",
+      "location": "home"
     },
     {
       "date": "26.10.2026",
@@ -538,8 +538,8 @@
       "away": "Düsseldorfer EG 1b",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": null
+      "team": "U15 B",
+      "location": "home"
     },
     {
       "date": "27.10.2026",
@@ -549,8 +549,8 @@
       "away": "Kölner Junghaie",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": null
+      "team": "U15 A",
+      "location": "away"
     },
     {
       "date": "29.10.2026",
@@ -560,8 +560,8 @@
       "away": "Iserlohner EC 1b",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": null
+      "team": "U15 B",
+      "location": "home"
     },
     {
       "date": "31.10.2026",
@@ -571,8 +571,8 @@
       "away": "Kölner Junghaie",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": null
+      "team": "U13 A",
+      "location": "away"
     },
     {
       "date": "31.10.2026",
@@ -582,8 +582,8 @@
       "away": "DSC Krefeld",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 3"
+      "team": "Frauen 3",
+      "location": null
     },
     {
       "date": "01.11.2026",
@@ -593,8 +593,8 @@
       "away": "KEC \"Die Haie\"",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 1"
+      "team": "Frauen 1",
+      "location": null
     },
     {
       "date": "01.11.2026",
@@ -604,8 +604,8 @@
       "away": "Krefelder EV",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": null
+      "team": "U15 A",
+      "location": "home"
     },
     {
       "date": "07.11.2026",
@@ -615,8 +615,8 @@
       "away": "EC Bergisch Land",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 1"
+      "team": "Frauen 1",
+      "location": null
     },
     {
       "date": "08.11.2026",
@@ -626,8 +626,8 @@
       "away": "Iserlohner EC 1b",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": null
+      "team": "U13 B",
+      "location": "home"
     },
     {
       "date": "08.11.2026",
@@ -637,8 +637,8 @@
       "away": "KEC \"Die Haie\" 1c",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 3"
+      "team": "Frauen 3",
+      "location": null
     },
     {
       "date": "09.11.2026",
@@ -648,8 +648,8 @@
       "away": "KEC \"Die Haie\" 1b",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 2"
+      "team": "Frauen 2",
+      "location": null
     },
     {
       "date": "14.11.2026",
@@ -659,8 +659,8 @@
       "away": "Kölner Junghaie 1b",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": null
+      "team": "U13 B",
+      "location": "away"
     },
     {
       "date": "14.11.2026",
@@ -670,8 +670,8 @@
       "away": "KEC \"Die Haie\"",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 1"
+      "team": "Frauen 1",
+      "location": null
     },
     {
       "date": "14.11.2026",
@@ -681,8 +681,8 @@
       "away": "TSVE Bielefeld",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 3"
+      "team": "Frauen 3",
+      "location": null
     },
     {
       "date": "15.11.2026",
@@ -692,8 +692,8 @@
       "away": "Iserlohner EC",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": null
+      "team": "U13 A",
+      "location": "home"
     },
     {
       "date": "15.11.2026",
@@ -703,8 +703,8 @@
       "away": "Kölner Junghaie 1b",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": null
+      "team": "U15 B",
+      "location": "away"
     },
     {
       "date": "21.11.2026",
@@ -714,8 +714,8 @@
       "away": "Kölner Junghaie 1b",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": null
+      "team": "U13 B",
+      "location": "away"
     },
     {
       "date": "21.11.2026",
@@ -725,8 +725,8 @@
       "away": "Tornado Women Luxembourg",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 2"
+      "team": "Frauen 2",
+      "location": null
     },
     {
       "date": "22.11.2026",
@@ -736,8 +736,8 @@
       "away": "Düsseldorfer EG",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": null
+      "team": "U13 A",
+      "location": "home"
     },
     {
       "date": "27.11.2026",
@@ -747,8 +747,8 @@
       "away": "Kölner Junghaie 1b",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": null
+      "team": "U15 B",
+      "location": "away"
     },
     {
       "date": "28.11.2026",
@@ -758,8 +758,8 @@
       "away": "Kölner Junghaie",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": null
+      "team": "U13 A",
+      "location": "away"
     },
     {
       "date": "28.11.2026",
@@ -769,8 +769,8 @@
       "away": "Ratinger Ice Aliens",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 2"
+      "team": "Frauen 2",
+      "location": null
     },
     {
       "date": "29.11.2026",
@@ -780,8 +780,8 @@
       "away": "Kölner Junghaie 1b",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": null
+      "team": "U15 B",
+      "location": "away"
     },
     {
       "date": "29.11.2026",
@@ -791,8 +791,8 @@
       "away": "Krefelder EV 1b",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": null
+      "team": "U13 B",
+      "location": "home"
     },
     {
       "date": "29.11.2026",
@@ -802,8 +802,8 @@
       "away": "KEC \"Die Haie\" 1b",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 2"
+      "team": "Frauen 2",
+      "location": null
     },
     {
       "date": "05.12.2026",
@@ -813,8 +813,8 @@
       "away": "Soester EG",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 1"
+      "team": "Frauen 1",
+      "location": null
     },
     {
       "date": "06.12.2026",
@@ -824,8 +824,8 @@
       "away": "Krefelder EV",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": null
+      "team": "U13 A",
+      "location": "home"
     },
     {
       "date": "06.12.2026",
@@ -835,8 +835,8 @@
       "away": "KEC \"Die Haie\" 1b",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 2"
+      "team": "Frauen 2",
+      "location": null
     },
     {
       "date": "12.12.2026",
@@ -846,8 +846,8 @@
       "away": "Eisadler Dortmund",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 2"
+      "team": "Frauen 2",
+      "location": null
     },
     {
       "date": "13.12.2026",
@@ -857,8 +857,8 @@
       "away": "KEC \"Die Haie\"",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 1"
+      "team": "Frauen 1",
+      "location": null
     },
     {
       "date": "13.12.2026",
@@ -868,8 +868,8 @@
       "away": "Kölner Junghaie 1b",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": null
+      "team": "U13 B",
+      "location": "away"
     },
     {
       "date": "13.12.2026",
@@ -879,8 +879,8 @@
       "away": "EJ Kassel",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": null
+      "team": "U15 B",
+      "location": "home"
     },
     {
       "date": "19.12.2026",
@@ -890,8 +890,8 @@
       "away": "KEC \"Die Haie\" 1c",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 3"
+      "team": "Frauen 3",
+      "location": null
     },
     {
       "date": "19.12.2026",
@@ -901,8 +901,8 @@
       "away": "Dinslakener Kobras",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 1"
+      "team": "Frauen 1",
+      "location": null
     },
     {
       "date": "20.12.2026",
@@ -912,8 +912,8 @@
       "away": "Düsseldorfer EG 1b",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": null
+      "team": "U13 B",
+      "location": "home"
     },
     {
       "date": "03.01.2027",
@@ -923,8 +923,8 @@
       "away": "Iserlohner EC",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": null
+      "team": "U13 A",
+      "location": "home"
     },
     {
       "date": "05.01.2027",
@@ -934,8 +934,8 @@
       "away": "Düsseldorfer EG",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": null
+      "team": "U13 A",
+      "location": "home"
     },
     {
       "date": "06.01.2027",
@@ -945,8 +945,8 @@
       "away": "Düsseldorfer EG 1b",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": null
+      "team": "U15 B",
+      "location": "home"
     },
     {
       "date": "09.01.2027",
@@ -956,8 +956,8 @@
       "away": "Kölner Junghaie",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": null
+      "team": "U13 A",
+      "location": "away"
     },
     {
       "date": "09.01.2027",
@@ -967,8 +967,8 @@
       "away": "ESV Grizzlys Bergkamen",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 3"
+      "team": "Frauen 3",
+      "location": null
     },
     {
       "date": "10.01.2027",
@@ -978,8 +978,8 @@
       "away": "Krefelder EV",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": null
+      "team": "U13 A",
+      "location": "home"
     },
     {
       "date": "10.01.2027",
@@ -989,8 +989,8 @@
       "away": "KEC \"Die Haie\" 1b",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 2"
+      "team": "Frauen 2",
+      "location": null
     },
     {
       "date": "16.01.2027",
@@ -1000,8 +1000,8 @@
       "away": "Kölner Junghaie",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": null
+      "team": "U13 A",
+      "location": "away"
     },
     {
       "date": "16.01.2027",
@@ -1011,8 +1011,8 @@
       "away": "ESC Darmstadt",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 2"
+      "team": "Frauen 2",
+      "location": null
     },
     {
       "date": "17.01.2027",
@@ -1022,8 +1022,8 @@
       "away": "Kölner Junghaie 1b",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": null
+      "team": "U15 B",
+      "location": "away"
     },
     {
       "date": "17.01.2027",
@@ -1033,8 +1033,8 @@
       "away": "Herforder EV",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": null
+      "team": "U13 B",
+      "location": "home"
     },
     {
       "date": "17.01.2027",
@@ -1044,8 +1044,8 @@
       "away": "KEC \"Die Haie\" 1c",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 3"
+      "team": "Frauen 3",
+      "location": null
     },
     {
       "date": "23.01.2027",
@@ -1055,8 +1055,8 @@
       "away": "Kölner Junghaie 1b",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": null
+      "team": "U13 B",
+      "location": "away"
     },
     {
       "date": "23.01.2027",
@@ -1066,8 +1066,8 @@
       "away": "Düsseldorfer EG",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 1"
+      "team": "Frauen 1",
+      "location": null
     },
     {
       "date": "24.01.2027",
@@ -1077,8 +1077,8 @@
       "away": "EHC Troisdorf",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": null
+      "team": "U15 B",
+      "location": "home"
     },
     {
       "date": "30.01.2027",
@@ -1088,8 +1088,8 @@
       "away": "KEC \"Die Haie\" 1b",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 2"
+      "team": "Frauen 2",
+      "location": null
     },
     {
       "date": "31.01.2027",
@@ -1099,8 +1099,8 @@
       "away": "Kölner Junghaie 1b",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": null
+      "team": "U15 B",
+      "location": "away"
     },
     {
       "date": "31.01.2027",
@@ -1110,8 +1110,8 @@
       "away": "Düsseldorfer EG",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": null
+      "team": "U13 A",
+      "location": "home"
     },
     {
       "date": "31.01.2027",
@@ -1121,8 +1121,8 @@
       "away": "KEC \"Die Haie\" 1c",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 3"
+      "team": "Frauen 3",
+      "location": null
     },
     {
       "date": "06.02.2027",
@@ -1132,8 +1132,8 @@
       "away": "Kölner Junghaie",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": null
+      "team": "U13 A",
+      "location": "away"
     },
     {
       "date": "12.02.2027",
@@ -1143,8 +1143,8 @@
       "away": "Herner EV",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": null
+      "team": "U15 B",
+      "location": "home"
     },
     {
       "date": "13.02.2027",
@@ -1154,8 +1154,8 @@
       "away": "DEC Düsseldorfer Devils",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 2"
+      "team": "Frauen 2",
+      "location": null
     },
     {
       "date": "14.02.2027",
@@ -1165,8 +1165,8 @@
       "away": "Kölner Junghaie 1b",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": null
+      "team": "U13 B",
+      "location": "away"
     },
     {
       "date": "14.02.2027",
@@ -1176,8 +1176,8 @@
       "away": "Krefelder EV 1b",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": null
+      "team": "U15 B",
+      "location": "home"
     },
     {
       "date": "14.02.2027",
@@ -1187,8 +1187,8 @@
       "away": "KEC \"Die Haie\"",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 1"
+      "team": "Frauen 1",
+      "location": null
     },
     {
       "date": "20.02.2027",
@@ -1198,8 +1198,8 @@
       "away": "Kölner Junghaie 1b",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": null
+      "team": "U15 B",
+      "location": "away"
     },
     {
       "date": "20.02.2027",
@@ -1209,8 +1209,8 @@
       "away": "KEC \"Die Haie\" 1b",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 2"
+      "team": "Frauen 2",
+      "location": null
     },
     {
       "date": "20.02.2027",
@@ -1220,8 +1220,8 @@
       "away": "Sharks Woman Mechelen",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 1"
+      "team": "Frauen 1",
+      "location": null
     },
     {
       "date": "21.02.2027",
@@ -1231,8 +1231,8 @@
       "away": "Kölner Junghaie",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": null
+      "team": "U13 A",
+      "location": "away"
     },
     {
       "date": "21.02.2027",
@@ -1242,8 +1242,8 @@
       "away": "KEC \"Die Haie\" 1b",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 2"
+      "team": "Frauen 2",
+      "location": null
     },
     {
       "date": "27.02.2027",
@@ -1253,8 +1253,8 @@
       "away": "Kölner Junghaie",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": null
+      "team": "U13 A",
+      "location": "away"
     },
     {
       "date": "27.02.2027",
@@ -1264,8 +1264,8 @@
       "away": "EHC Gelsenkirchen",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 3"
+      "team": "Frauen 3",
+      "location": null
     },
     {
       "date": "27.02.2027",
@@ -1275,8 +1275,8 @@
       "away": "KEC \"Die Haie\"",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 1"
+      "team": "Frauen 1",
+      "location": null
     },
     {
       "date": "28.02.2027",
@@ -1286,8 +1286,8 @@
       "away": "ESC Darmstadt",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": null
+      "team": "U13 B",
+      "location": "home"
     },
     {
       "date": "06.03.2027",
@@ -1297,8 +1297,8 @@
       "away": "Kölner Junghaie",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": null
+      "team": "U13 A",
+      "location": "away"
     },
     {
       "date": "06.03.2027",
@@ -1308,8 +1308,8 @@
       "away": "EJ Kassel Huskies Ladies",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 2"
+      "team": "Frauen 2",
+      "location": null
     },
     {
       "date": "07.03.2027",
@@ -1319,8 +1319,8 @@
       "away": "Krefelder EV",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": null
+      "team": "U13 A",
+      "location": "home"
     },
     {
       "date": "07.03.2027",
@@ -1330,8 +1330,8 @@
       "away": "KEC \"Die Haie\"",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 1"
+      "team": "Frauen 1",
+      "location": null
     },
     {
       "date": "13.03.2027",
@@ -1341,8 +1341,8 @@
       "away": "Kölner Junghaie 1b",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": null
+      "team": "U13 B",
+      "location": "away"
     },
     {
       "date": "13.03.2027",
@@ -1352,8 +1352,8 @@
       "away": "KEC \"Die Haie\" 1c",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 3"
+      "team": "Frauen 3",
+      "location": null
     },
     {
       "date": "13.03.2027",
@@ -1363,8 +1363,8 @@
       "away": "EC Hannover Indians",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 1"
+      "team": "Frauen 1",
+      "location": null
     },
     {
       "date": "14.03.2027",
@@ -1374,8 +1374,8 @@
       "away": "Herner EV",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": null
+      "team": "U13 B",
+      "location": "home"
     },
     {
       "date": "14.03.2027",
@@ -1385,8 +1385,8 @@
       "away": "Krefelder EV 1b",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": null
+      "team": "U15 B",
+      "location": "home"
     },
     {
       "date": "20.03.2027",
@@ -1396,8 +1396,8 @@
       "away": "Kölner Junghaie 1b",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": null
+      "team": "U13 B",
+      "location": "away"
     },
     {
       "date": "20.03.2027",
@@ -1407,8 +1407,8 @@
       "away": "ESV Bergisch Gladbach",
       "homeScore": null,
       "awayScore": null,
-      "location": null,
-      "team": "Frauen 2"
+      "team": "Frauen 2",
+      "location": null
     },
     {
       "date": "21.03.2027",
@@ -1418,8 +1418,8 @@
       "away": "Kölner Junghaie 1b",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": null
+      "team": "U13 B",
+      "location": "away"
     },
     {
       "date": "23.03.2027",
@@ -1429,8 +1429,8 @@
       "away": "Iserlohner EC",
       "homeScore": null,
       "awayScore": null,
-      "location": "home",
-      "team": null
+      "team": "U13 A",
+      "location": "home"
     },
     {
       "date": "27.03.2027",
@@ -1440,8 +1440,8 @@
       "away": "Kölner Junghaie 1b",
       "homeScore": null,
       "awayScore": null,
-      "location": "away",
-      "team": null
+      "team": "U15 B",
+      "location": "away"
     }
   ]
 }
