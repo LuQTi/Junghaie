@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "scrape": "node scripts/scrape-games.js"
+    "scrape": "node scripts/scrape-data.js"
   },
   "dependencies": {
     "playwright": "^1.55.0"
