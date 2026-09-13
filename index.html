@@ -1,1343 +1,1912 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#111418">
-  <title>Junghaie – Spiele, Ergebnisse & Tabellen</title>
-
-  <style>
-    :root {
-      --bg: #f4f5f7;
-      --card: #fff;
-      --text: #171a1f;
-      --muted: #6b737d;
-      --line: #e1e4e8;
-      --red: #d71920;
-      --dark: #111418;
-      --green: #16804f;
-      --shadow: 0 6px 22px rgba(0, 0, 0, .06);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family:
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
-    }
-
-    .hero {
-      background: var(--dark);
-      color: #fff;
-      padding: 34px 20px 30px;
-    }
-
-    .hero-in,
-    .container {
-      width: min(1180px, calc(100% - 32px));
-      margin: auto;
-    }
-
-    .hero-in {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 24px;
-    }
-
-    .eyebrow {
-      margin: 0 0 5px;
-      color: #bfc4ca;
-      font-size: .75rem;
-      font-weight: 800;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(2.2rem, 6vw, 3.7rem);
-      line-height: .95;
-      letter-spacing: -.05em;
-    }
-
-    .hero p:last-child {
-      margin: 12px 0 0;
-      color: #c8ccd1;
-    }
-
-    .updated {
-      color: #bfc4ca;
-      font-size: .8rem;
-      text-align: right;
-      white-space: nowrap;
-    }
-
-    .filters {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      background: rgba(244, 245, 247, .95);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--line);
-      padding: 12px 0;
-    }
-
-    .filter-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 10px;
-    }
-
-    .filter label {
-      display: block;
-      margin: 0 0 5px 2px;
-      color: var(--muted);
-      font-size: .7rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: .07em;
-    }
-
-    select {
-      width: 100%;
-      padding: 11px 12px;
-      border: 1px solid var(--line);
-      border-radius: 11px;
-      background: #fff;
-      color: var(--text);
-      outline: 0;
-    }
-
-    select:focus {
-      border-color: var(--red);
-      box-shadow: 0 0 0 3px rgba(215, 25, 32, .1);
-    }
-
-    main {
-      padding: 24px 0 50px;
-    }
-
-    section {
-      margin-top: 34px;
-    }
-
-    .head {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      margin-bottom: 13px;
-      gap: 16px;
-    }
-
-    h2 {
-      margin: 0;
-      font-size: 1.35rem;
-      letter-spacing: -.025em;
-    }
-
-    .head p {
-      margin: 3px 0 0;
-      color: var(--muted);
-      font-size: .88rem;
-    }
-
-    .count {
-      color: var(--muted);
-      font-size: .78rem;
-      white-space: nowrap;
-    }
-
-    .cards {
-      display: grid;
-      gap: 10px;
-    }
-
-    .card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      box-shadow: var(--shadow);
-      padding: 15px 17px;
-    }
-
-    .game {
-      display: grid;
-      grid-template-columns: 115px 1fr auto;
-      align-items: center;
-      gap: 18px;
-    }
-
-    .date {
-      font-weight: 800;
-      font-size: .9rem;
-    }
-
-    .time {
-      color: var(--muted);
-      font-size: .78rem;
-      margin-top: 2px;
-    }
-
-    .line {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      min-width: 0;
-    }
-
-    .line + .line {
-      margin-top: 5px;
-    }
-
-    .name {
-      font-weight: 650;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .name.own {
-      font-weight: 850;
-    }
-
-    .badge {
-      display: inline-flex;
-      flex: 0 0 auto;
-      padding: 3px 7px;
-      border-radius: 999px;
-      background: #eceef1;
-      color: #505862;
-      font-size: .67rem;
-      font-weight: 850;
-    }
-
-    .badge.red {
-      background: rgba(215, 25, 32, .09);
-      color: #b51218;
-    }
-
-    .meta {
-      text-align: right;
-      color: var(--muted);
-      font-size: .74rem;
-      font-weight: 800;
-      white-space: nowrap;
-    }
-
-    .result {
-      display: grid;
-      grid-template-columns: 115px 1fr auto;
-      align-items: center;
-      gap: 18px;
-    }
-
-    .score {
-      display: inline-flex;
-      justify-content: center;
-      min-width: 72px;
-      padding: 8px 10px;
-      border-radius: 10px;
-      background: var(--dark);
-      color: #fff;
-      font-weight: 900;
-    }
-
-    .result.won .score {
-      background: var(--green);
-    }
-
-    .result.lost .score {
-      background: #b42318;
-    }
-
-    .status {
-      margin-top: 4px;
-      font-size: .7rem;
-      text-transform: uppercase;
-    }
-
-    .status.won {
-      color: var(--green);
-    }
-
-    .status.lost {
-      color: #b42318;
-    }
-
-    .status.draw {
-      color: var(--muted);
-    }
-
-    .tables {
-      display: grid;
-      gap: 16px;
-    }
-
-    .table-wrap {
-      overflow-x: auto;
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      box-shadow: var(--shadow);
-    }
-
-    .table-title {
-      padding: 14px 15px 8px;
-      font-weight: 850;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      min-width: 580px;
-    }
-
-    th,
-    td {
-      padding: 10px 13px;
-      border-bottom: 1px solid var(--line);
-      font-size: .85rem;
-      text-align: left;
-    }
-
-    th {
-      background: #f8f9fa;
-      color: var(--muted);
-      font-size: .68rem;
-      text-transform: uppercase;
-      letter-spacing: .06em;
-    }
-
-    tbody tr:last-child td {
-      border-bottom: 0;
-    }
-
-    tbody tr.own {
-      background: rgba(215, 25, 32, .055);
-    }
-
-    th:first-child,
-    td:first-child {
-      text-align: center;
-      width: 45px;
-    }
-
-    .num {
-      text-align: right;
-    }
-
-    .rank {
-      font-weight: 850;
-    }
-
-    .own .rank {
-      color: var(--red);
-    }
-
-    .empty,
-    .error {
-      background: #fff;
-      border: 1px dashed var(--line);
-      border-radius: 16px;
-      padding: 22px;
-      color: var(--muted);
-      text-align: center;
-    }
-
-    .loading {
-      color: var(--muted);
-      padding: 18px 0;
-    }
-
-    footer {
-      text-align: center;
-      color: var(--muted);
-      font-size: .76rem;
-      padding: 25px 16px 40px;
-    }
-
-    footer a {
-      color: inherit;
-    }
-
-    @media (max-width: 720px) {
-      .hero-in {
-        display: block;
-      }
-
-      .updated {
-        text-align: left;
-        margin-top: 15px;
-      }
-
-      .filter-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .filters {
-        position: static;
-      }
-
-      .game,
-      .result {
-        grid-template-columns: 1fr;
-        gap: 9px;
-      }
-
-      .meta {
-        text-align: left;
-      }
-
-      .result .score {
-        justify-self: start;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Junghaie | Spiele, Ergebnisse & Tabellen</title>
+
+    <meta
+        name="description"
+        content="Spiele, Ergebnisse und Tabellen der Kölner Junghaie und Frauenteams."
+    >
+
+    <style>
+        :root {
+            --black: #090a0c;
+            --black-2: #111317;
+            --black-3: #181b20;
+            --red: #e30613;
+            --red-dark: #b9000b;
+            --red-light: #ff2634;
+
+            --white: #ffffff;
+            --text: #17191d;
+            --muted: #737983;
+
+            --bg: #f2f3f5;
+            --card: #ffffff;
+            --line: #e5e7ea;
+
+            --green: #16834f;
+            --orange: #d97706;
+
+            --radius: 16px;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Helvetica,
+                Arial,
+                sans-serif;
+
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button,
+        select {
+            font: inherit;
+        }
+
+        /* =========================================================
+           HEADER
+        ========================================================= */
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+
+            background:
+                radial-gradient(
+                    circle at 90% 0%,
+                    rgba(227, 6, 19, 0.24),
+                    transparent 34%
+                ),
+                linear-gradient(
+                    135deg,
+                    #070809 0%,
+                    #111317 55%,
+                    #090a0c 100%
+                );
+
+            color: white;
+            padding: 52px 20px 44px;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 4px;
+            background: linear-gradient(
+                90deg,
+                var(--red),
+                var(--red-light),
+                var(--red)
+            );
+        }
+
+        .hero-inner {
+            width: min(1180px, 100%);
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .brand-mark {
+            width: 58px;
+            height: 58px;
+            display: grid;
+            place-items: center;
+
+            border-radius: 15px;
+
+            background: var(--red);
+            box-shadow:
+                0 10px 30px rgba(227, 6, 19, 0.28),
+                inset 0 -4px 0 rgba(0, 0, 0, 0.15);
+
+            font-size: 27px;
+            font-weight: 900;
+            letter-spacing: -2px;
+        }
+
+        .brand-title {
+            margin: 0;
+            font-size: clamp(30px, 5vw, 48px);
+            font-weight: 900;
+            line-height: 0.95;
+            letter-spacing: -1.8px;
+        }
+
+        .brand-subtitle {
+            margin: 9px 0 0;
+            color: rgba(255,255,255,0.68);
+            font-size: 15px;
+        }
+
+        /* =========================================================
+           MAIN
+        ========================================================= */
+
+        .container {
+            width: min(1180px, calc(100% - 32px));
+            margin: 0 auto;
+        }
+
+        main {
+            padding: 28px 0 70px;
+        }
+
+        /* =========================================================
+           FILTERS
+        ========================================================= */
+
+        .filters {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+
+            margin-bottom: 38px;
+        }
+
+        .filter-box {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 15px 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .filter-label {
+            display: block;
+            margin-bottom: 7px;
+
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+        }
+
+        .filter-box select {
+            width: 100%;
+            border: 0;
+            outline: none;
+            background: transparent;
+
+            color: var(--text);
+            font-size: 15px;
+            font-weight: 700;
+
+            cursor: pointer;
+        }
+
+        /* =========================================================
+           SECTIONS
+        ========================================================= */
+
+        .section {
+            margin-bottom: 48px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 20px;
+
+            margin-bottom: 16px;
+        }
+
+        .section-title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+
+        .section-bar {
+            width: 5px;
+            height: 31px;
+            border-radius: 99px;
+            background: var(--red);
+        }
+
+        .section-title {
+            margin: 0;
+            font-size: 25px;
+            line-height: 1.1;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+        }
+
+        .section-count {
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        /* =========================================================
+           GAMES
+        ========================================================= */
+
+        .games-list,
+        .results-list {
+            display: grid;
+            gap: 11px;
+        }
+
+        .game-card,
+        .result-card {
+            display: grid;
+            grid-template-columns: 125px 1fr auto;
+            align-items: center;
+            gap: 20px;
+
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 17px 20px;
+
+            box-shadow: 0 3px 16px rgba(0,0,0,0.035);
+
+            transition:
+                transform 0.16s ease,
+                box-shadow 0.16s ease,
+                border-color 0.16s ease;
+        }
+
+        .game-card:hover,
+        .result-card:hover {
+            transform: translateY(-2px);
+            border-color: #d7d9dc;
+            box-shadow: var(--shadow);
+        }
+
+        .game-date {
+            font-weight: 900;
+            font-size: 15px;
+        }
+
+        .game-time {
+            color: var(--red);
+            font-size: 13px;
+            font-weight: 800;
+            margin-top: 2px;
+        }
+
+        .game-team {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+
+            margin-bottom: 5px;
+
+            color: var(--muted);
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .game-team::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--red);
+        }
+
+        .matchup {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            gap: 14px;
+
+            font-weight: 800;
+        }
+
+        .team-name {
+            min-width: 0;
+        }
+
+        .team-name.home {
+            text-align: right;
+        }
+
+        .team-name.away {
+            text-align: left;
+        }
+
+        .versus {
+            color: #a0a4aa;
+            font-size: 12px;
+            font-weight: 900;
+        }
+
+        .location-badge {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+
+            min-width: 100px;
+            padding: 7px 10px;
+
+            border-radius: 999px;
+
+            background: #f1f2f4;
+            color: #5d636b;
+
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .location-badge.home {
+            background: rgba(227, 6, 19, 0.09);
+            color: var(--red);
+        }
+
+        /* =========================================================
+           RESULTS
+        ========================================================= */
+
+        .result-card {
+            grid-template-columns: 125px 1fr auto;
+        }
+
+        .result-score {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+
+            min-width: 86px;
+            padding: 9px 13px;
+
+            border-radius: 11px;
+
+            background: var(--black);
+            color: white;
+
+            font-size: 19px;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+        }
+
+        .result-score .dash {
+            color: #777d85;
+            font-size: 14px;
+        }
+
+        .result-status {
+            margin-top: 5px;
+            text-align: center;
+
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .result-status.won {
+            color: var(--green);
+        }
+
+        .result-status.lost {
+            color: var(--red);
+        }
+
+        .result-status.draw {
+            color: var(--orange);
+        }
+
+        /* =========================================================
+           TABLES
+        ========================================================= */
+
+        .standings-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .standing-card {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .standing-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 17px 18px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--black),
+                    var(--black-3)
+                );
+
+            color: white;
+        }
+
+        .standing-team {
+            font-size: 18px;
+            font-weight: 900;
+        }
+
+        .standing-category {
+            margin-top: 2px;
+            color: rgba(255,255,255,0.52);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .standing-body {
+            overflow-x: auto;
+        }
+
+        .standing-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .standing-table th {
+            padding: 10px 12px;
+
+            background: #f7f7f8;
+            color: var(--muted);
+
+            text-align: left;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .standing-table th:not(:nth-child(2)),
+        .standing-table td:not(:nth-child(2)) {
+            text-align: center;
+        }
+
+        .standing-table td {
+            padding: 10px 12px;
+            border-top: 1px solid var(--line);
+            white-space: nowrap;
+        }
+
+        .standing-table tr.own-team {
+            background: rgba(227, 6, 19, 0.065);
+            font-weight: 900;
+        }
+
+        .standing-table tr.own-team td:first-child {
+            color: var(--red);
+        }
+
+        .standing-table .rank {
+            width: 38px;
+            font-weight: 900;
+        }
+
+        .standing-table .club {
+            white-space: normal;
+            min-width: 150px;
+        }
+
+        .points {
+            font-weight: 900;
+        }
+
+        /* =========================================================
+           EMPTY / ERROR
+        ========================================================= */
+
+        .empty {
+            padding: 30px;
+            text-align: center;
+
+            background: var(--card);
+            border: 1px dashed #d4d7db;
+            border-radius: var(--radius);
+
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .error {
+            margin-bottom: 30px;
+            padding: 16px 18px;
+
+            background: #fff1f2;
+            border: 1px solid #ffc5ca;
+            border-radius: 13px;
+
+            color: #a40009;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        footer {
+            border-top: 1px solid var(--line);
+            background: white;
+            padding: 25px 0;
+        }
+
+        .footer-inner {
+            width: min(1180px, calc(100% - 32px));
+            margin: 0 auto;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .footer-source {
+            font-weight: 700;
+        }
+
+        .footer-source a {
+            color: var(--red);
+        }
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 850px) {
+            .standings-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .game-card,
+            .result-card {
+                grid-template-columns: 105px 1fr auto;
+                gap: 14px;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .hero {
+                padding: 36px 18px 32px;
+            }
+
+            .brand-mark {
+                width: 48px;
+                height: 48px;
+                border-radius: 13px;
+                font-size: 22px;
+            }
+
+            .brand {
+                gap: 13px;
+            }
+
+            .brand-subtitle {
+                font-size: 13px;
+            }
+
+            .container {
+                width: min(100% - 20px, 1180px);
+            }
+
+            main {
+                padding-top: 18px;
+            }
+
+            .filters {
+                grid-template-columns: 1fr;
+                gap: 9px;
+                margin-bottom: 28px;
+            }
+
+            .filter-box {
+                padding: 12px 14px;
+            }
+
+            .section {
+                margin-bottom: 38px;
+            }
+
+            .section-title {
+                font-size: 21px;
+            }
+
+            .game-card,
+            .result-card {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                padding: 16px;
+            }
+
+            .game-date {
+                display: flex;
+                justify-content: space-between;
+                align-items: baseline;
+            }
+
+            .matchup {
+                grid-template-columns: 1fr auto 1fr;
+                gap: 8px;
+            }
+
+            .location-badge {
+                width: fit-content;
+            }
+
+            .result-score {
+                width: fit-content;
+                justify-self: start;
+            }
+
+            .result-status {
+                text-align: left;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 7px;
+            }
+        }
+
+        @media (max-width: 430px) {
+            .matchup {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .team-name.home,
+            .team-name.away {
+                text-align: center;
+            }
+
+            .versus {
+                display: none;
+            }
+
+            .game-date {
+                display: block;
+            }
+
+            .game-time {
+                display: inline-block;
+                margin-left: 6px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
 <header class="hero">
-  <div class="hero-in">
+    <div class="hero-inner">
 
-    <div>
-      <p class="eyebrow">KEC · Die Haie</p>
-      <h1>Junghaie</h1>
-      <p>
-        Spiele, Ergebnisse und Tabellen der Nachwuchs- und Frauenteams.
-      </p>
+        <div class="brand">
+
+            <div class="brand-mark">
+                JH
+            </div>
+
+            <div>
+                <h1 class="brand-title">Junghaie</h1>
+
+                <p class="brand-subtitle">
+                    Nachwuchs- & Fraueneishockey aus Köln
+                </p>
+            </div>
+
+        </div>
+
     </div>
-
-    <div class="updated" id="updated">
-      Daten werden geladen …
-    </div>
-
-  </div>
 </header>
 
 
-<div class="filters">
-  <div class="container filter-grid">
-
-    <div class="filter">
-      <label for="category">Kategorie</label>
-
-      <select id="category">
-        <option value="all">Alle</option>
-        <option value="youth">Junghaie</option>
-        <option value="women">Frauen</option>
-      </select>
-    </div>
-
-
-    <div class="filter">
-      <label for="team">Team</label>
-
-      <select id="team">
-        <option value="all">Alle</option>
-      </select>
-    </div>
-
-
-    <div class="filter">
-      <label for="location">Spiele</label>
-
-      <select id="location">
-        <option value="all">Alle</option>
-        <option value="home">Heimspiele</option>
-        <option value="away">Auswärtsspiele</option>
-      </select>
-    </div>
-
-  </div>
-</div>
-
-
 <main>
+    <div class="container">
 
-  <div class="container">
+        <!-- FILTER -->
+        <div class="filters">
 
-    <!-- SPIELE -->
-    <section>
+            <div class="filter-box">
+                <label class="filter-label" for="categoryFilter">
+                    Bereich
+                </label>
 
-      <div class="head">
+                <select id="categoryFilter">
+                    <option value="all">Alle</option>
+                    <option value="junghaie">Junghaie</option>
+                    <option value="frauen">Frauen</option>
+                </select>
+            </div>
 
-        <div>
-          <h2>Nächste Spiele</h2>
-          <p>Spieltermine ohne Ergebnis.</p>
+
+            <div class="filter-box">
+                <label class="filter-label" for="teamFilter">
+                    Mannschaft
+                </label>
+
+                <select id="teamFilter">
+                    <option value="all">Alle Mannschaften</option>
+                </select>
+            </div>
+
+
+            <div class="filter-box">
+                <label class="filter-label" for="locationFilter">
+                    Spiele
+                </label>
+
+                <select id="locationFilter">
+                    <option value="all">Heim- & Auswärtsspiele</option>
+                    <option value="home">Nur Heimspiele</option>
+                    <option value="away">Nur Auswärtsspiele</option>
+                </select>
+            </div>
+
         </div>
 
-        <div class="count" id="games-count"></div>
 
-      </div>
-
-      <div id="games" class="cards">
-        <div class="loading">
-          Lade Spiele …
-        </div>
-      </div>
-
-    </section>
+        <!-- ERROR -->
+        <div id="errorBox" class="error hidden"></div>
 
 
-    <!-- ERGEBNISSE -->
-    <section>
+        <!-- NÄCHSTE SPIELE -->
+        <section class="section">
 
-      <div class="head">
+            <div class="section-header">
 
-        <div>
-          <h2>Ergebnisse</h2>
-          <p>Die zuletzt gemeldeten Spielstände.</p>
-        </div>
+                <div class="section-title-wrap">
+                    <div class="section-bar"></div>
 
-        <div class="count" id="results-count"></div>
+                    <h2 class="section-title">
+                        Nächste Spiele
+                    </h2>
+                </div>
 
-      </div>
+                <div
+                    id="gamesCount"
+                    class="section-count"
+                ></div>
 
-      <div id="results" class="cards">
-        <div class="loading">
-          Lade Ergebnisse …
-        </div>
-      </div>
+            </div>
 
-    </section>
+            <div
+                id="gamesList"
+                class="games-list"
+            ></div>
+
+        </section>
 
 
-    <!-- TABELLEN -->
-    <section>
+        <!-- ERGEBNISSE -->
+        <section class="section">
 
-      <div class="head">
+            <div class="section-header">
 
-        <div>
-          <h2>Tabellen</h2>
-          <p>Aktuelle Tabellenstände nach Team.</p>
-        </div>
+                <div class="section-title-wrap">
+                    <div class="section-bar"></div>
 
-        <div class="count" id="tables-count"></div>
+                    <h2 class="section-title">
+                        Ergebnisse
+                    </h2>
+                </div>
 
-      </div>
+                <div
+                    id="resultsCount"
+                    class="section-count"
+                ></div>
 
-      <div id="standings" class="tables">
-        <div class="loading">
-          Lade Tabellen …
-        </div>
-      </div>
+            </div>
 
-    </section>
+            <div
+                id="resultsList"
+                class="results-list"
+            ></div>
 
-  </div>
+        </section>
 
+
+        <!-- TABELLEN -->
+        <section class="section">
+
+            <div class="section-header">
+
+                <div class="section-title-wrap">
+                    <div class="section-bar"></div>
+
+                    <h2 class="section-title">
+                        Tabellen
+                    </h2>
+                </div>
+
+                <div
+                    id="standingsCount"
+                    class="section-count"
+                ></div>
+
+            </div>
+
+            <div
+                id="standingsGrid"
+                class="standings-grid"
+            ></div>
+
+        </section>
+
+    </div>
 </main>
 
 
 <footer>
-  Datenquelle:
-  <a
-    href="https://www.junghaie.de/"
-    target="_blank"
-    rel="noopener"
-  >
-    junghaie.de
-  </a>
+    <div class="footer-inner">
+
+        <div>
+            Junghaie · Spiele, Ergebnisse & Tabellen
+        </div>
+
+        <div class="footer-source">
+            Daten:
+            <a
+                href="https://www.junghaie.de/"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                junghaie.de
+            </a>
+        </div>
+
+    </div>
 </footer>
 
 
 <script>
-
-const state = {
-  games: [],
-  results: [],
-  standings: [],
-  generatedAt: null
-};
+    "use strict";
 
 
-/*
- * Reihenfolge der Teams im Filter und bei den Tabellen
- */
-const TEAM_ORDER = [
-  "U20",
-  "U17",
-  "U15",
-  "U15 A",
-  "U15 B",
-  "U13",
-  "U13 A",
-  "U13 B",
-  "Frauen 1",
-  "Frauen 2",
-  "Frauen 3"
-];
+    /* =========================================================
+       DATA
+    ========================================================= */
+
+    let games = [];
+    let results = [];
+    let standings = [];
 
 
-const $ = id => document.getElementById(id);
+    /* =========================================================
+       DOM
+    ========================================================= */
+
+    const categoryFilter =
+        document.getElementById("categoryFilter");
+
+    const teamFilter =
+        document.getElementById("teamFilter");
+
+    const locationFilter =
+        document.getElementById("locationFilter");
+
+    const gamesList =
+        document.getElementById("gamesList");
+
+    const resultsList =
+        document.getElementById("resultsList");
+
+    const standingsGrid =
+        document.getElementById("standingsGrid");
+
+    const gamesCount =
+        document.getElementById("gamesCount");
+
+    const resultsCount =
+        document.getElementById("resultsCount");
+
+    const standingsCount =
+        document.getElementById("standingsCount");
+
+    const errorBox =
+        document.getElementById("errorBox");
 
 
-/*
- * HTML sicher ausgeben
- */
-function escapeHtml(value) {
+    /* =========================================================
+       HELPERS
+    ========================================================= */
 
-  return String(value ?? "").replace(
-    /[&<>"']/g,
-    character => ({
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#039;"
-    }[character])
-  );
-
-}
-
-
-/*
- * Kategorie anhand des Teams erkennen
- */
-function getCategory(team) {
-
-  return String(team || "").startsWith("Frauen")
-    ? "women"
-    : "youth";
-
-}
-
-
-/*
- * Ist es ein Kölner Team?
- */
-function isOwnTeam(team) {
-
-  return String(team || "").includes("Kölner Junghaie");
-
-}
-
-
-/*
- * Teams sortieren
- */
-function sortTeams(a, b) {
-
-  let ai = TEAM_ORDER.indexOf(a);
-  let bi = TEAM_ORDER.indexOf(b);
-
-  if (ai === -1) ai = 999;
-  if (bi === -1) bi = 999;
-
-  return ai - bi ||
-    String(a).localeCompare(String(b), "de");
-
-}
-
-
-/*
- * Aktuelle Filter anwenden
- */
-function filterItems(items, withLocation = false) {
-
-  const category = $("category").value;
-  const team = $("team").value;
-  const location = $("location").value;
-
-  return items.filter(item => {
-
-    const categoryMatch =
-      category === "all" ||
-      getCategory(item.team) === category;
-
-    const teamMatch =
-      team === "all" ||
-      item.team === team;
-
-    const locationMatch =
-      !withLocation ||
-      location === "all" ||
-      item.location === location;
-
-    return categoryMatch &&
-           teamMatch &&
-           locationMatch;
-
-  });
-
-}
-
-
-/*
- * SPIELE
- *
- * Wichtig:
- * Hier werden absichtlich KEINE Ergebnisse
- * bzw. Spielstände angezeigt.
- */
-function renderGames() {
-
-  let items = filterItems(state.games, true)
-    .filter(game => {
-
-      if (!game.datetime) {
-        return true;
-      }
-
-      return Date.parse(game.datetime) >=
-        Date.now() - (3 * 60 * 60 * 1000);
-
-    })
-    .sort((a, b) =>
-      Date.parse(a.datetime || 0) -
-      Date.parse(b.datetime || 0)
-    );
-
-
-  /*
-   * Falls keine zukünftigen Spiele existieren,
-   * werden alle passenden Spiele angezeigt.
-   */
-  if (!items.length) {
-
-    items = filterItems(state.games, true)
-      .sort((a, b) =>
-        Date.parse(a.datetime || 0) -
-        Date.parse(b.datetime || 0)
-      );
-
-  }
-
-
-  $("games-count").textContent =
-    `${items.length} ${
-      items.length === 1 ? "Spiel" : "Spiele"
-    }`;
-
-
-  if (!items.length) {
-
-    $("games").innerHTML =
-      `<div class="empty">
-        Keine Spiele für die aktuelle Auswahl.
-      </div>`;
-
-    return;
-
-  }
-
-
-  $("games").innerHTML = items.map(game => {
-
-    let location = "";
-
-    if (game.location === "home") {
-      location = "Heimspiel";
-    }
-
-    if (game.location === "away") {
-      location = "Auswärtsspiel";
+    function escapeHtml(value) {
+        return String(value ?? "")
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#039;");
     }
 
 
-    return `
-      <article class="card game">
-
-        <div>
-          <div class="date">
-            ${escapeHtml(game.date)}
-          </div>
-
-          <div class="time">
-            ${escapeHtml(game.time)} Uhr
-          </div>
-        </div>
-
-
-        <div>
-
-          <div class="line">
-
-            <span class="badge red">
-              ${escapeHtml(game.team)}
-            </span>
-
-            <span class="name ${
-              isOwnTeam(game.home) ? "own" : ""
-            }">
-              ${escapeHtml(game.home)}
-            </span>
-
-          </div>
-
-
-          <div class="line">
-
-            <span class="badge">
-              vs.
-            </span>
-
-            <span class="name ${
-              isOwnTeam(game.away) ? "own" : ""
-            }">
-              ${escapeHtml(game.away)}
-            </span>
-
-          </div>
-
-        </div>
-
-
-        <div class="meta">
-          ${location}
-        </div>
-
-      </article>
-    `;
-
-  }).join("");
-
-}
-
-
-/*
- * ERGEBNISSE
- */
-function renderResults() {
-
-  const items = filterItems(state.results)
-    .sort((a, b) =>
-      Date.parse(b.datetime || 0) -
-      Date.parse(a.datetime || 0)
-    );
-
-
-  $("results-count").textContent =
-    `${items.length} ${
-      items.length === 1
-        ? "Ergebnis"
-        : "Ergebnisse"
-    }`;
-
-
-  if (!items.length) {
-
-    $("results").innerHTML =
-      `<div class="empty">
-        Keine Ergebnisse für die aktuelle Auswahl.
-      </div>`;
-
-    return;
-
-  }
-
-
-  $("results").innerHTML = items.map(result => {
-
-    const homeScore = Number(result.homeScore);
-    const awayScore = Number(result.awayScore);
-
-    const homeIsOwn =
-      isOwnTeam(result.home);
-
-    const ownScore =
-      homeIsOwn
-        ? homeScore
-        : awayScore;
-
-    const opponentScore =
-      homeIsOwn
-        ? awayScore
-        : homeScore;
-
-
-    let statusClass = "draw";
-    let statusText = "Unentschieden";
-
-
-    if (ownScore > opponentScore) {
-
-      statusClass = "won";
-      statusText = "Sieg";
-
-    }
-    else if (ownScore < opponentScore) {
-
-      statusClass = "lost";
-      statusText = "Niederlage";
-
+    function getCategory(team) {
+        return String(team || "")
+            .toLowerCase()
+            .startsWith("frauen")
+            ? "frauen"
+            : "junghaie";
     }
 
 
-    return `
-      <article class="card result ${statusClass}">
+    function isOwnTeam(name) {
+        const normalized =
+            String(name || "")
+                .toLowerCase()
+                .trim();
 
-        <div>
-
-          <div class="date">
-            ${escapeHtml(result.date)}
-          </div>
-
-          <div class="time">
-            ${escapeHtml(result.time)} Uhr
-          </div>
-
-        </div>
-
-
-        <div>
-
-          <div class="line">
-
-            <span class="badge red">
-              ${escapeHtml(result.team)}
-            </span>
-
-            <span class="name ${
-              homeIsOwn ? "own" : ""
-            }">
-              ${escapeHtml(result.home)}
-            </span>
-
-          </div>
-
-
-          <div class="line">
-
-            <span class="badge">
-              vs.
-            </span>
-
-            <span class="name ${
-              !homeIsOwn ? "own" : ""
-            }">
-              ${escapeHtml(result.away)}
-            </span>
-
-          </div>
-
-        </div>
-
-
-        <div class="meta">
-
-          <span class="score">
-            ${escapeHtml(result.homeScore)}
-            :
-            ${escapeHtml(result.awayScore)}
-          </span>
-
-          <div class="status ${statusClass}">
-            ${statusText}
-          </div>
-
-        </div>
-
-      </article>
-    `;
-
-  }).join("");
-
-}
-
-
-/*
- * TABELLEN
- */
-function renderStandings() {
-
-  const category = $("category").value;
-  const selectedTeam = $("team").value;
-
-  const groups = {};
-
-
-  state.standings.forEach(row => {
-
-    if (
-      category !== "all" &&
-      getCategory(row.team) !== category
-    ) {
-      return;
+        return (
+            normalized === "kölner junghaie" ||
+            normalized === 'kec "die haie"' ||
+            normalized === "kölner junghaie 1b"
+        );
     }
 
 
-    if (
-      selectedTeam !== "all" &&
-      row.team !== selectedTeam
-    ) {
-      return;
+    function parseDate(item) {
+        if (item.datetime) {
+            const date = new Date(item.datetime);
+
+            if (!Number.isNaN(date.getTime())) {
+                return date;
+            }
+        }
+
+        const parts =
+            String(item.date || "")
+                .split(".");
+
+        if (parts.length === 3) {
+            return new Date(
+                Number(parts[2]),
+                Number(parts[1]) - 1,
+                Number(parts[0])
+            );
+        }
+
+        return new Date(0);
     }
 
 
-    if (!groups[row.team]) {
-      groups[row.team] = [];
+    function formatDate(item) {
+        const date = parseDate(item);
+
+        if (Number.isNaN(date.getTime())) {
+            return escapeHtml(item.date);
+        }
+
+        return new Intl.DateTimeFormat(
+            "de-DE",
+            {
+                weekday: "short",
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric"
+            }
+        ).format(date);
     }
 
-    groups[row.team].push(row);
 
-  });
+    function formatTime(item) {
+        if (!item.time) {
+            return "";
+        }
 
-
-  const teamKeys =
-    Object.keys(groups).sort(sortTeams);
-
-
-  $("tables-count").textContent =
-    `${teamKeys.length} ${
-      teamKeys.length === 1
-        ? "Tabelle"
-        : "Tabellen"
-    }`;
+        return escapeHtml(item.time);
+    }
 
 
-  if (!teamKeys.length) {
+    function sortTeams(a, b) {
 
-    $("standings").innerHTML =
-      `<div class="empty">
-        Keine Tabelle für die aktuelle Auswahl.
-      </div>`;
+        const preferredOrder = [
+            "U20",
+            "U17",
+            "U15",
+            "U15 A",
+            "U15 B",
+            "U13",
+            "U13 A",
+            "U13 B",
+            "Frauen 1",
+            "Frauen 2",
+            "Frauen 3"
+        ];
 
-    return;
+        const ai =
+            preferredOrder.indexOf(a);
 
-  }
+        const bi =
+            preferredOrder.indexOf(b);
 
+        if (ai !== -1 && bi !== -1) {
+            return ai - bi;
+        }
 
-  $("standings").innerHTML =
-    teamKeys.map(team => {
+        if (ai !== -1) {
+            return -1;
+        }
 
-      const rows =
-        groups[team]
-          .slice()
-          .sort((a, b) => {
+        if (bi !== -1) {
+            return 1;
+        }
 
-            return Number(a.rank) -
-              Number(b.rank) ||
-
-              Number(b.points) -
-              Number(a.points) ||
-
-              String(a.teamName)
-                .localeCompare(
-                  String(b.teamName),
-                  "de"
-                );
-
-          });
-
-
-      return `
-        <div class="table-wrap">
-
-          <div class="table-title">
-            ${escapeHtml(team)}
-          </div>
-
-
-          <table>
-
-            <thead>
-
-              <tr>
-                <th>#</th>
-                <th>Team</th>
-                <th class="num">Sp.</th>
-                <th class="num">Diff.</th>
-                <th class="num">Pkt.</th>
-              </tr>
-
-            </thead>
+        return a.localeCompare(
+            b,
+            "de",
+            {
+                numeric: true
+            }
+        );
+    }
 
 
-            <tbody>
+    function teamMatches(item, selectedTeam) {
 
-              ${rows.map(row => {
+        if (selectedTeam === "all") {
+            return true;
+        }
+
+        return item.team === selectedTeam;
+    }
+
+
+    function categoryMatches(item, category) {
+
+        if (category === "all") {
+            return true;
+        }
+
+        return getCategory(item.team) === category;
+    }
+
+
+    function applyFilters(items, includeLocation = true) {
+
+        const category =
+            categoryFilter.value;
+
+        const team =
+            teamFilter.value;
+
+        const location =
+            locationFilter.value;
+
+        return items.filter(item => {
+
+            if (
+                !categoryMatches(
+                    item,
+                    category
+                )
+            ) {
+                return false;
+            }
+
+            if (
+                !teamMatches(
+                    item,
+                    team
+                )
+            ) {
+                return false;
+            }
+
+            if (
+                includeLocation &&
+                location !== "all"
+            ) {
 
                 /*
-                 * Sowohl Junghaie als auch
-                 * KEC "Die Haie" werden hervorgehoben.
+                 * Frauen-Spiele haben teilweise
+                 * keine location. Diese werden bei
+                 * Heim/Auswärts bewusst nicht
+                 * einsortiert.
                  */
-                const ownTeam =
-                  isOwnTeam(row.teamName) ||
-                  String(row.teamName || "")
-                    .includes('KEC "Die Haie"');
+
+                if (item.location !== location) {
+                    return false;
+                }
+            }
+
+            return true;
+        });
+    }
 
 
-                return `
-                  <tr class="${ownTeam ? "own" : ""}">
+    function locationLabel(location) {
 
-                    <td class="rank">
-                      ${escapeHtml(row.rank)}
-                    </td>
+        if (location === "home") {
+            return `
+                <span class="location-badge home">
+                    Heimspiel
+                </span>
+            `;
+        }
 
-                    <td>
-                      ${escapeHtml(row.teamName)}
-                    </td>
+        if (location === "away") {
+            return `
+                <span class="location-badge">
+                    Auswärts
+                </span>
+            `;
+        }
 
-                    <td class="num">
-                      ${escapeHtml(row.games)}
-                    </td>
-
-                    <td class="num">
-                      ${escapeHtml(row.goalDifference)}
-                    </td>
-
-                    <td class="num">
-                      <strong>
-                        ${escapeHtml(row.points)}
-                      </strong>
-                    </td>
-
-                  </tr>
-                `;
-
-              }).join("")}
-
-            </tbody>
-
-          </table>
-
-        </div>
-      `;
-
-    }).join("");
-
-}
+        return "";
+    }
 
 
-/*
- * Team-Auswahl dynamisch aus allen JSON-Daten erzeugen
- */
-function updateTeamOptions() {
-
-  const current =
-    $("team").value;
-
-  const category =
-    $("category").value;
+    function teamLabel(team) {
+        return `
+            <span class="game-team">
+                ${escapeHtml(team)}
+            </span>
+        `;
+    }
 
 
-  const teams = [
-    ...state.games,
-    ...state.results,
-    ...state.standings
-  ]
-    .map(item => item.team)
-    .filter(Boolean);
+    /* =========================================================
+       TEAM FILTER
+    ========================================================= */
+
+    function updateTeamOptions() {
+
+        const current =
+            teamFilter.value;
+
+        const allItems = [
+            ...games,
+            ...results,
+            ...standings
+        ];
+
+        const teams =
+            [...new Set(
+                allItems
+                    .map(item => item.team)
+                    .filter(Boolean)
+            )]
+            .sort(sortTeams);
+
+        teamFilter.innerHTML = `
+            <option value="all">
+                Alle Mannschaften
+            </option>
+        `;
+
+        teams.forEach(team => {
+
+            const option =
+                document.createElement("option");
+
+            option.value = team;
+            option.textContent = team;
+
+            teamFilter.appendChild(option);
+        });
+
+        if (teams.includes(current)) {
+            teamFilter.value = current;
+        }
+    }
 
 
-  const uniqueTeams =
-    [...new Set(teams)]
-      .filter(team =>
-        category === "all" ||
-        getCategory(team) === category
-      )
-      .sort(sortTeams);
+    /* =========================================================
+       GAMES
+       IMPORTANT:
+       NO SCORES HERE.
+    ========================================================= */
+
+    function renderGames() {
+
+        const filtered =
+            applyFilters(
+                games,
+                true
+            );
+
+        const now =
+            Date.now();
+
+        let upcoming =
+            filtered
+                .filter(item => {
+                    const date =
+                        parseDate(item);
+
+                    return (
+                        date.getTime() >=
+                        now - 3 * 60 * 60 * 1000
+                    );
+                })
+                .sort(
+                    (a, b) =>
+                        parseDate(a) -
+                        parseDate(b)
+                );
+
+        /*
+         * Falls für die Filterkombination
+         * keine zukünftigen Spiele existieren,
+         * zeigen wir die vorhandenen Spiele.
+         */
+
+        if (upcoming.length === 0) {
+            upcoming =
+                [...filtered]
+                    .sort(
+                        (a, b) =>
+                            parseDate(a) -
+                            parseDate(b)
+                    );
+        }
+
+        gamesCount.textContent =
+            `${upcoming.length} Spiele`;
+
+        if (upcoming.length === 0) {
+
+            gamesList.innerHTML = `
+                <div class="empty">
+                    Für diese Auswahl wurden keine Spiele gefunden.
+                </div>
+            `;
+
+            return;
+        }
+
+        gamesList.innerHTML =
+            upcoming
+                .map(game => {
+
+                    /*
+                     * Absichtlich KEINE
+                     * homeScore / awayScore.
+                     */
+
+                    return `
+                        <article class="game-card">
+
+                            <div>
+                                <div class="game-date">
+                                    ${formatDate(game)}
+                                </div>
+
+                                <div class="game-time">
+                                    ${formatTime(game)} Uhr
+                                </div>
+                            </div>
 
 
-  $("team").innerHTML =
-    `<option value="all">Alle</option>` +
+                            <div>
 
-    uniqueTeams.map(team => `
-      <option value="${escapeHtml(team)}">
-        ${escapeHtml(team)}
-      </option>
-    `).join("");
+                                ${teamLabel(game.team)}
 
+                                <div class="matchup">
 
-  if (uniqueTeams.includes(current)) {
-    $("team").value = current;
-  }
-  else {
-    $("team").value = "all";
-  }
+                                    <div class="team-name home">
+                                        ${escapeHtml(game.home)}
+                                    </div>
 
-}
+                                    <div class="versus">
+                                        VS
+                                    </div>
 
+                                    <div class="team-name away">
+                                        ${escapeHtml(game.away)}
+                                    </div>
 
-/*
- * Alles neu rendern
- */
-function renderAll() {
+                                </div>
 
-  renderGames();
-  renderResults();
-  renderStandings();
-
-}
+                            </div>
 
 
-/*
- * JSON laden
- */
-async function loadJson(path) {
+                            <div>
+                                ${locationLabel(game.location)}
+                            </div>
 
-  const response =
-    await fetch(path, {
-      cache: "no-store"
-    });
+                        </article>
+                    `;
+                })
+                .join("");
+    }
 
 
-  if (!response.ok) {
+    /* =========================================================
+       RESULTS
+    ========================================================= */
 
-    throw new Error(
-      `${path}: HTTP ${response.status}`
+    function renderResults() {
+
+        const filtered =
+            applyFilters(
+                results,
+                false
+            );
+
+        const sorted =
+            [...filtered]
+                .sort(
+                    (a, b) =>
+                        parseDate(b) -
+                        parseDate(a)
+                );
+
+        resultsCount.textContent =
+            `${sorted.length} Ergebnisse`;
+
+        if (sorted.length === 0) {
+
+            resultsList.innerHTML = `
+                <div class="empty">
+                    Für diese Auswahl wurden keine Ergebnisse gefunden.
+                </div>
+            `;
+
+            return;
+        }
+
+        resultsList.innerHTML =
+            sorted
+                .map(result => {
+
+                    const homeScore =
+                        Number(result.homeScore);
+
+                    const awayScore =
+                        Number(result.awayScore);
+
+                    let status =
+                        "draw";
+
+                    let statusText =
+                        "Unentschieden";
+
+                    if (
+                        isOwnTeam(result.home)
+                    ) {
+
+                        if (
+                            homeScore >
+                            awayScore
+                        ) {
+                            status = "won";
+                            statusText = "Sieg";
+                        }
+
+                        if (
+                            homeScore <
+                            awayScore
+                        ) {
+                            status = "lost";
+                            statusText = "Niederlage";
+                        }
+
+                    } else if (
+                        isOwnTeam(result.away)
+                    ) {
+
+                        if (
+                            awayScore >
+                            homeScore
+                        ) {
+                            status = "won";
+                            statusText = "Sieg";
+                        }
+
+                        if (
+                            awayScore <
+                            homeScore
+                        ) {
+                            status = "lost";
+                            statusText = "Niederlage";
+                        }
+
+                    }
+
+                    return `
+                        <article class="result-card">
+
+                            <div>
+                                <div class="game-date">
+                                    ${formatDate(result)}
+                                </div>
+
+                                <div class="game-time">
+                                    ${formatTime(result)} Uhr
+                                </div>
+                            </div>
+
+
+                            <div>
+
+                                ${teamLabel(result.team)}
+
+                                <div class="matchup">
+
+                                    <div class="team-name home">
+                                        ${escapeHtml(result.home)}
+                                    </div>
+
+                                    <div class="versus">
+                                        VS
+                                    </div>
+
+                                    <div class="team-name away">
+                                        ${escapeHtml(result.away)}
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div>
+
+                                <div class="result-score">
+                                    <span>
+                                        ${homeScore}
+                                    </span>
+
+                                    <span class="dash">
+                                        :
+                                    </span>
+
+                                    <span>
+                                        ${awayScore}
+                                    </span>
+                                </div>
+
+                                <div
+                                    class="result-status ${status}"
+                                >
+                                    ${statusText}
+                                </div>
+
+                            </div>
+
+                        </article>
+                    `;
+                })
+                .join("");
+    }
+
+
+    /* =========================================================
+       STANDINGS
+    ========================================================= */
+
+    function renderStandings() {
+
+        const category =
+            categoryFilter.value;
+
+        const team =
+            teamFilter.value;
+
+        let filtered =
+            standings.filter(row => {
+
+                if (
+                    category !== "all" &&
+                    getCategory(row.team) !== category
+                ) {
+                    return false;
+                }
+
+                if (
+                    team !== "all" &&
+                    row.team !== team
+                ) {
+                    return false;
+                }
+
+                return true;
+            });
+
+
+        /*
+         * Gruppieren nach Mannschaft.
+         */
+
+        const groups =
+            new Map();
+
+        filtered.forEach(row => {
+
+            if (!groups.has(row.team)) {
+                groups.set(
+                    row.team,
+                    []
+                );
+            }
+
+            groups
+                .get(row.team)
+                .push(row);
+        });
+
+
+        standingsCount.textContent =
+            `${groups.size} Tabellen`;
+
+
+        if (groups.size === 0) {
+
+            standingsGrid.innerHTML = `
+                <div class="empty">
+                    Für diese Auswahl wurden keine Tabellen gefunden.
+                </div>
+            `;
+
+            return;
+        }
+
+
+        const sortedGroups =
+            [...groups.entries()]
+                .sort(
+                    (a, b) =>
+                        sortTeams(
+                            a[0],
+                            b[0]
+                        )
+                );
+
+
+        standingsGrid.innerHTML =
+            sortedGroups
+                .map(
+                    ([teamName, rows]) => {
+
+                        const sortedRows =
+                            [...rows]
+                                .sort(
+                                    (a, b) => {
+
+                                        const rankA =
+                                            Number.isFinite(
+                                                Number(a.rank)
+                                            )
+                                                ? Number(a.rank)
+                                                : 999;
+
+                                        const rankB =
+                                            Number.isFinite(
+                                                Number(b.rank)
+                                            )
+                                                ? Number(b.rank)
+                                                : 999;
+
+                                        if (
+                                            rankA !==
+                                            rankB
+                                        ) {
+                                            return (
+                                                rankA -
+                                                rankB
+                                            );
+                                        }
+
+                                        return (
+                                            Number(b.points || 0) -
+                                            Number(a.points || 0)
+                                        );
+                                    }
+                                );
+
+
+                        return `
+                            <article class="standing-card">
+
+                                <header class="standing-header">
+
+                                    <div>
+                                        <div class="standing-team">
+                                            ${escapeHtml(teamName)}
+                                        </div>
+
+                                        <div class="standing-category">
+                                            Tabelle
+                                        </div>
+                                    </div>
+
+                                </header>
+
+
+                                <div class="standing-body">
+
+                                    <table class="standing-table">
+
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    #
+                                                </th>
+
+                                                <th>
+                                                    Mannschaft
+                                                </th>
+
+                                                <th>
+                                                    Sp
+                                                </th>
+
+                                                <th>
+                                                    TD
+                                                </th>
+
+                                                <th>
+                                                    P
+                                                </th>
+                                            </tr>
+                                        </thead>
+
+
+                                        <tbody>
+
+                                            ${sortedRows
+                                                .map(row => {
+
+                                                    const own =
+                                                        isOwnTeam(
+                                                            row.teamName
+                                                        );
+
+                                                    return `
+                                                        <tr
+                                                            class="${own ? "own-team" : ""}"
+                                                        >
+
+                                                            <td class="rank">
+                                                                ${escapeHtml(row.rank)}
+                                                            </td>
+
+                                                            <td class="club">
+                                                                ${escapeHtml(row.teamName)}
+                                                            </td>
+
+                                                            <td>
+                                                                ${escapeHtml(row.games)}
+                                                            </td>
+
+                                                            <td>
+                                                                ${escapeHtml(row.goalDifference)}
+                                                            </td>
+
+                                                            <td class="points">
+                                                                ${escapeHtml(row.points)}
+                                                            </td>
+
+                                                        </tr>
+                                                    `;
+                                                })
+                                                .join("")}
+
+                                        </tbody>
+
+                                    </table>
+
+                                </div>
+
+                            </article>
+                        `;
+                    }
+                )
+                .join("");
+    }
+
+
+    /* =========================================================
+       RENDER ALL
+    ========================================================= */
+
+    function renderAll() {
+        renderGames();
+        renderResults();
+        renderStandings();
+    }
+
+
+    /* =========================================================
+       EVENTS
+    ========================================================= */
+
+    categoryFilter.addEventListener(
+        "change",
+        () => {
+
+            /*
+             * Wenn Bereich gewechselt wird,
+             * prüfen wir den Teamfilter.
+             */
+
+            const selected =
+                teamFilter.value;
+
+            const selectedCategory =
+                categoryFilter.value;
+
+            if (
+                selected !== "all" &&
+                selectedCategory !== "all" &&
+                getCategory(selected) !== selectedCategory
+            ) {
+                teamFilter.value = "all";
+            }
+
+            renderAll();
+        }
     );
 
-  }
+
+    teamFilter.addEventListener(
+        "change",
+        renderAll
+    );
 
 
-  return response.json();
-
-}
-
-
-/*
- * Start
- */
-async function init() {
-
-  try {
-
-    const [
-      gamesData,
-      resultsData,
-      standingsData
-    ] = await Promise.all([
-
-      loadJson("/data/games.json"),
-      loadJson("/data/results.json"),
-      loadJson("/data/standings.json")
-
-    ]);
+    locationFilter.addEventListener(
+        "change",
+        renderGames
+    );
 
 
-    state.games =
-      Array.isArray(gamesData.games)
-        ? gamesData.games
-        : [];
+    /* =========================================================
+       LOAD JSON
+       Relative paths are intentional:
+       ./data/...
+    ========================================================= */
 
+    async function loadJson(path) {
 
-    state.results =
-      Array.isArray(resultsData.results)
-        ? resultsData.results
-        : [];
+        const response =
+            await fetch(path, {
+                cache: "no-store"
+            });
 
+        if (!response.ok) {
+            throw new Error(
+                `${path}: HTTP ${response.status}`
+            );
+        }
 
-    state.standings =
-      Array.isArray(standingsData.standings)
-        ? standingsData.standings
-        : [];
-
-
-    state.generatedAt =
-      gamesData.generatedAt ||
-      resultsData.generatedAt ||
-      standingsData.generatedAt;
-
-
-    if (state.generatedAt) {
-
-      const date =
-        new Date(state.generatedAt);
-
-
-      $("updated").textContent =
-        "Stand: " +
-        date.toLocaleString(
-          "de-DE",
-          {
-            dateStyle: "short",
-            timeStyle: "short"
-          }
-        );
-
-    }
-    else {
-
-      $("updated").textContent =
-        "Aktuelle Daten";
-
+        return response.json();
     }
 
 
-    updateTeamOptions();
-    renderAll();
+    /* =========================================================
+       INIT
+    ========================================================= */
 
-  }
-  catch (error) {
+    async function init() {
 
-    console.error(error);
+        try {
 
+            const [
+                gamesData,
+                resultsData,
+                standingsData
+            ] = await Promise.all([
 
-    $("updated").textContent =
-      "Fehler beim Laden";
+                loadJson(
+                    "./data/games.json"
+                ),
 
+                loadJson(
+                    "./data/results.json"
+                ),
 
-    $("games").innerHTML = `
-      <div class="error">
+                loadJson(
+                    "./data/standings.json"
+                )
 
-        <strong>
-          Daten konnten nicht geladen werden.
-        </strong>
-
-        <br>
-
-        Bitte prüfe, ob die drei Dateien unter
-        <code>/data/</code> erreichbar sind.
-
-      </div>
-    `;
-
-
-    $("results").innerHTML = "";
-    $("standings").innerHTML = "";
-
-  }
-
-}
+            ]);
 
 
-/*
- * Filter-Events
- */
-$("category").addEventListener(
-  "change",
-  () => {
-
-    updateTeamOptions();
-    renderAll();
-
-  }
-);
+            games =
+                Array.isArray(
+                    gamesData.games
+                )
+                    ? gamesData.games
+                    : [];
 
 
-$("team").addEventListener(
-  "change",
-  renderAll
-);
+            results =
+                Array.isArray(
+                    resultsData.results
+                )
+                    ? resultsData.results
+                    : [];
 
 
-$("location").addEventListener(
-  "change",
-  renderGames
-);
+            standings =
+                Array.isArray(
+                    standingsData.standings
+                )
+                    ? standingsData.standings
+                    : [];
 
 
-/*
- * Anwendung starten
- */
-init();
+            updateTeamOptions();
+            renderAll();
+
+
+        } catch (error) {
+
+            console.error(
+                "Fehler beim Laden der Daten:",
+                error
+            );
+
+            errorBox.classList.remove(
+                "hidden"
+            );
+
+            errorBox.innerHTML = `
+                Die Spieldaten konnten nicht geladen werden.
+                <br>
+                <small>
+                    ${escapeHtml(error.message)}
+                </small>
+            `;
+        }
+    }
+
+
+    init();
 
 </script>
 
