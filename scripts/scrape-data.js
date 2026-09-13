@@ -85,7 +85,10 @@ function parseDateTime(dateText, timeText = "") {
   if (!m) return null;
 
   const time = clean(timeText);
-  const t = time.match(/^(\d{1,2}):(\d{2})$/);
+
+  const t = time.match(
+    /^(\d{1,2}):(\d{2})$/
+  );
 
   const hour = t ? Number(t[1]) : 0;
   const minute = t ? Number(t[2]) : 0;
@@ -98,13 +101,16 @@ function parseDateTime(dateText, timeText = "") {
     minute
   );
 
-  if (Number.isNaN(d.getTime())) return null;
+  if (Number.isNaN(d.getTime())) {
+    return null;
+  }
 
   return d.toISOString();
 }
 
 function score(value) {
   const m = clean(value).match(/\d+/);
+
   return m ? Number(m[0]) : null;
 }
 
@@ -167,14 +173,12 @@ function findJunghaieTeam(home, away) {
 }
 
 function addLocation(game) {
-  const location = findJunghaieTeam(
-    game.home,
-    game.away
-  );
-
   return {
     ...game,
-    location,
+    location: findJunghaieTeam(
+      game.home,
+      game.away
+    ),
   };
 }
 
@@ -186,7 +190,8 @@ async function waitForHockeydata(page) {
   try {
     await page.waitForFunction(
       () => {
-        const text = document.body?.innerText || "";
+        const text =
+          document.body?.innerText || "";
 
         return (
           text.includes("Datum") ||
@@ -206,82 +211,36 @@ async function waitForHockeydata(page) {
 }
 
 /*
- * Erkennt anhand des Textes, zu welcher Mannschaft
- * eine Tabelle bzw. Ergebnis-Tabelle gehört.
+ * Gibt für eine Seite die Mannschaft zum jeweiligen Block zurück.
+ *
+ * Bei nur einer Mannschaft:
+ *   alle Blöcke = diese Mannschaft
+ *
+ * Bei zwei Mannschaften:
+ *   erster Block  = teams[0]
+ *   zweiter Block = teams[1]
  */
-function normalizeTeamName(value) {
-  const text = clean(value).toLowerCase();
-
-  if (
-    text.includes("u20") ||
-    text.includes("dnl")
-  ) {
-    return "U20";
+function getBlockTeam(config, blockIndex) {
+  if (config.teams.length === 1) {
+    return config.teams[0];
   }
 
-  if (text.includes("u17")) {
-    return "U17";
-  }
-
-  if (
-    text.includes("u15b") ||
-    text.includes("u15 b") ||
-    text.includes("u15 regionalliga b")
-  ) {
-    return "U15 B";
-  }
-
-  if (
-    text.includes("u15a") ||
-    text.includes("u15 a") ||
-    text.includes("u15 regionalliga a")
-  ) {
-    return "U15 A";
-  }
-
-  if (
-    text.includes("u13b") ||
-    text.includes("u13 b") ||
-    text.includes("u13 regionalliga b")
-  ) {
-    return "U13 B";
-  }
-
-  if (
-    text.includes("u13a") ||
-    text.includes("u13 a") ||
-    text.includes("u13 regionalliga a")
-  ) {
-    return "U13 A";
-  }
-
-  if (
-    text.includes("2. liga nord") ||
-    text.includes("frauen 1a") ||
-    text.includes("frauen 1")
-  ) {
-    return "Frauen 1";
-  }
-
-  if (
-    text.includes("landesliga") ||
-    text.includes("frauen 1b") ||
-    text.includes("frauen 2")
-  ) {
-    return "Frauen 2";
-  }
-
-  if (
-    text.includes("bezirksliga") ||
-    text.includes("frauen 1c") ||
-    text.includes("frauen 3")
-  ) {
-    return "Frauen 3";
-  }
-
-  return null;
+  return config.teams[blockIndex] || null;
 }
 
+/*
+ * Ermittelt aus den Tabellen auf einer Seite die relevanten
+ * Spielblöcke.
+ *
+ * Wichtig:
+ * U15:
+ *   Block 0 = U15 A
+ *   Block 1 = U15 B
+ *
+ * U13:
+ *   Block 0 = U13 A
+ *   Block 1 = U13 B
+ */
 async function scrapeSchedulePage(browser, config) {
   console.log("========================================");
   console.log(`Seite: ${config.url}`);
@@ -299,7 +258,7 @@ async function scrapeSchedulePage(browser, config) {
 
     await waitForHockeydata(page);
 
-    const games = await page.evaluate(() => {
+    const blocks = await page.evaluate(() => {
       function clean(value) {
         return String(value ?? "")
           .replace(/\s+/g, " ")
@@ -317,8 +276,13 @@ async function scrapeSchedulePage(browser, config) {
           /^(\d{1,2}):(\d{2})$/
         );
 
-        const hour = t ? Number(t[1]) : 0;
-        const minute = t ? Number(t[2]) : 0;
+        const hour = t
+          ? Number(t[1])
+          : 0;
+
+        const minute = t
+          ? Number(t[2])
+          : 0;
 
         const d = new Date(
           Number(m[3]),
@@ -335,68 +299,89 @@ async function scrapeSchedulePage(browser, config) {
 
       function score(value) {
         const m = clean(value).match(/\d+/);
-        return m ? Number(m[0]) : null;
+
+        return m
+          ? Number(m[0])
+          : null;
       }
 
       const tables = [
         ...document.querySelectorAll("table"),
       ];
 
-      const games = [];
+      const blocks = [];
 
+      /*
+       * Jede Tabelle, die echte Spieldaten enthält,
+       * wird als Spielblock betrachtet.
+       */
       for (const table of tables) {
         const rows = [
           ...table.querySelectorAll("tr"),
         ];
 
+        const games = [];
+
         for (const row of rows) {
           const cells = [
             ...row.querySelectorAll("th, td"),
           ]
-            .map(cell => clean(cell.innerText))
+            .map(cell =>
+              clean(cell.innerText)
+            )
             .filter(Boolean);
 
-          if (cells.length < 5) continue;
-
-          const dateIndex = cells.findIndex(v =>
-            /^\d{1,2}\.\d{1,2}\.\d{4}$/.test(v)
-          );
-
-          if (dateIndex === -1) continue;
-
-          const date = cells[dateIndex];
-          const time = cells[dateIndex + 1] || "";
-
-          let home = "";
-          let away = "";
-          let homeScore = null;
-          let awayScore = null;
-
-          const colonIndex = cells.findIndex(
-            (v, i) =>
-              i > dateIndex &&
-              v === ":"
-          );
-
-          if (colonIndex !== -1) {
-            homeScore = score(
-              cells[colonIndex - 1]
-            );
-
-            awayScore = score(
-              cells[colonIndex + 1]
-            );
-
-            home =
-              cells[dateIndex + 2] || "";
-
-            away =
-              cells[colonIndex + 2] || "";
-          } else {
+          if (cells.length < 5) {
             continue;
           }
 
-          if (!home || !away) continue;
+          const dateIndex =
+            cells.findIndex(value =>
+              /^\d{1,2}\.\d{1,2}\.\d{4}$/.test(
+                value
+              )
+            );
+
+          if (dateIndex === -1) {
+            continue;
+          }
+
+          const date =
+            cells[dateIndex];
+
+          const time =
+            cells[dateIndex + 1] || "";
+
+          const colonIndex =
+            cells.findIndex(
+              (value, index) =>
+                index > dateIndex &&
+                value === ":"
+            );
+
+          if (colonIndex === -1) {
+            continue;
+          }
+
+          const home =
+            cells[dateIndex + 2] || "";
+
+          const homeScore =
+            score(
+              cells[colonIndex - 1]
+            );
+
+          const awayScore =
+            score(
+              cells[colonIndex + 1]
+            );
+
+          const away =
+            cells[colonIndex + 2] || "";
+
+          if (!home || !away) {
+            continue;
+          }
 
           if (
             home.toLowerCase() === "heim" ||
@@ -408,20 +393,74 @@ async function scrapeSchedulePage(browser, config) {
           games.push({
             date,
             time,
-            datetime: parseDateTime(
-              date,
-              time
-            ),
+            datetime:
+              parseDateTime(
+                date,
+                time
+              ),
             home,
             away,
             homeScore,
             awayScore,
           });
         }
+
+        if (games.length > 0) {
+          blocks.push({
+            games,
+          });
+        }
       }
 
-      return games;
+      return blocks;
     });
+
+    console.log(
+      `Gefundene Spielblöcke: ${blocks.length}`
+    );
+
+    const games = [];
+
+    for (
+      let blockIndex = 0;
+      blockIndex < blocks.length;
+      blockIndex++
+    ) {
+      const team =
+        getBlockTeam(
+          config,
+          blockIndex
+        );
+
+      const block =
+        blocks[blockIndex];
+
+      console.log(
+        `  Block ${blockIndex + 1}: ${
+          team || "UNBEKANNT"
+        } → ${block.games.length} Spiele`
+      );
+
+      for (const game of block.games) {
+        games.push({
+          ...game,
+          team,
+        });
+      }
+    }
+
+    /*
+     * Falls die Seite unerwartet mehr Blöcke liefert,
+     * weisen wir sie nicht falsch zu.
+     */
+    if (
+      config.teams.length > 1 &&
+      blocks.length !== config.teams.length
+    ) {
+      console.log(
+        `WARNUNG: Erwartet wurden ${config.teams.length} Blöcke, gefunden wurden ${blocks.length}.`
+      );
+    }
 
     console.log(
       `Gefundene Spiele: ${games.length}`
@@ -482,6 +521,20 @@ async function scrapeTableResultsPage(
 
     await page.waitForTimeout(3000);
 
+    /*
+     * Wir lesen die Tabellen jetzt NICHT mehr anhand
+     * einer geratenen Mannschaft aus.
+     *
+     * Stattdessen sammeln wir die Tabellen in der
+     * Reihenfolge, in der sie auf der Seite erscheinen.
+     *
+     * Für U15/U13 gilt:
+     *
+     * Tabelle Block 1 = A
+     * Ergebnis Block 1 = A
+     * Tabelle Block 2 = B
+     * Ergebnis Block 2 = B
+     */
     const extracted = await page.evaluate(() => {
       function clean(value) {
         return String(value ?? "")
@@ -490,26 +543,37 @@ async function scrapeTableResultsPage(
       }
 
       function score(value) {
-        const m = clean(value).match(/\d+/);
-        return m ? Number(m[0]) : null;
+        const m =
+          clean(value).match(/\d+/);
+
+        return m
+          ? Number(m[0])
+          : null;
       }
 
       function parseDateTime(
         dateText,
         timeText = ""
       ) {
-        const m = clean(dateText).match(
-          /^(\d{1,2})\.(\d{1,2})\.(\d{4})$/
-        );
+        const m =
+          clean(dateText).match(
+            /^(\d{1,2})\.(\d{1,2})\.(\d{4})$/
+          );
 
         if (!m) return null;
 
-        const t = clean(timeText).match(
-          /^(\d{1,2}):(\d{2})$/
-        );
+        const t =
+          clean(timeText).match(
+            /^(\d{1,2}):(\d{2})$/
+          );
 
-        const hour = t ? Number(t[1]) : 0;
-        const minute = t ? Number(t[2]) : 0;
+        const hour = t
+          ? Number(t[1])
+          : 0;
+
+        const minute = t
+          ? Number(t[2])
+          : 0;
 
         const d = new Date(
           Number(m[3]),
@@ -519,180 +583,37 @@ async function scrapeTableResultsPage(
           minute
         );
 
-        return Number.isNaN(d.getTime())
+        return Number.isNaN(
+          d.getTime()
+        )
           ? null
           : d.toISOString();
-      }
-
-      function detectTeam(text) {
-        const value = clean(text).toLowerCase();
-
-        if (
-          value.includes("u15b") ||
-          value.includes("u15 b") ||
-          value.includes("regionalliga b")
-        ) {
-          return "U15 B";
-        }
-
-        if (
-          value.includes("u15a") ||
-          value.includes("u15 a") ||
-          value.includes("regionalliga a")
-        ) {
-          return "U15 A";
-        }
-
-        if (
-          value.includes("u13b") ||
-          value.includes("u13 b")
-        ) {
-          return "U13 B";
-        }
-
-        if (
-          value.includes("u13a") ||
-          value.includes("u13 a")
-        ) {
-          return "U13 A";
-        }
-
-        if (value.includes("u20")) {
-          return "U20";
-        }
-
-        if (value.includes("dnl")) {
-          return "U20";
-        }
-
-        if (value.includes("u17")) {
-          return "U17";
-        }
-
-        if (
-          value.includes("2. liga nord")
-        ) {
-          return "Frauen 1";
-        }
-
-        if (
-          value.includes("landesliga")
-        ) {
-          return "Frauen 2";
-        }
-
-        if (
-          value.includes("bezirksliga")
-        ) {
-          return "Frauen 3";
-        }
-
-        if (value.includes("frauen 1b")) {
-          return "Frauen 2";
-        }
-
-        if (value.includes("frauen 1c")) {
-          return "Frauen 3";
-        }
-
-        if (value.includes("frauen 1a")) {
-          return "Frauen 1";
-        }
-
-        return null;
-      }
-
-      /*
-       * Sucht die Überschrift bzw. den Bereich,
-       * zu dem eine Hockeydata-Tabelle gehört.
-       */
-      function getTableContext(table) {
-        const texts = [];
-
-        let current = table;
-
-        for (let i = 0; i < 8 && current; i++) {
-          if (current.previousElementSibling) {
-            const text = clean(
-              current.previousElementSibling.innerText
-            );
-
-            if (text) {
-              texts.push(text);
-            }
-          }
-
-          current = current.parentElement;
-        }
-
-        /*
-         * Zusätzlich nach Überschriften im Dokument
-         * suchen, die unmittelbar vor der Tabelle liegen.
-         */
-        let previous = table.previousElementSibling;
-
-        for (
-          let i = 0;
-          i < 10 && previous;
-          i++
-        ) {
-          const text = clean(
-            previous.innerText
-          );
-
-          if (text) {
-            texts.push(text);
-          }
-
-          previous =
-            previous.previousElementSibling;
-        }
-
-        return texts.join(" ");
       }
 
       const tables = [
         ...document.querySelectorAll("table"),
       ];
 
-      const results = [];
-      const standings = [];
+      const tableBlocks = [];
 
       /*
-       * Falls eine Seite mehrere Bereiche besitzt,
-       * z.B. U15 A + U15 B oder U13 A + U13 B,
-       * behalten wir die Reihenfolge der Tabellen.
+       * Jede Tabelle wird zuerst klassifiziert:
+       *
+       * - results
+       * - standings
+       * - irrelevant
        */
-      let detectedSectionTeams = [];
-
       for (const table of tables) {
-        const text = clean(table.innerText);
-
-        const context =
-          getTableContext(table);
-
-        const fullContext =
-          `${context} ${text}`;
-
-        const detectedTeam =
-          detectTeam(fullContext);
-
-        if (
-          detectedTeam &&
-          !detectedSectionTeams.includes(
-            detectedTeam
-          )
-        ) {
-          detectedSectionTeams.push(
-            detectedTeam
-          );
-        }
+        const text =
+          clean(table.innerText);
 
         const rows = [
           ...table.querySelectorAll("tr"),
         ];
 
-        if (!rows.length) continue;
+        if (!rows.length) {
+          continue;
+        }
 
         /*
          * ========================================
@@ -700,12 +621,15 @@ async function scrapeTableResultsPage(
          * ========================================
          */
 
-        if (
+        const isResultsTable =
           text.includes("Datum") &&
           text.includes("Zeit") &&
           text.includes("Heim") &&
-          text.includes("Gast")
-        ) {
+          text.includes("Gast");
+
+        if (isResultsTable) {
+          const results = [];
+
           for (const row of rows) {
             const cells = [
               ...row.querySelectorAll(
@@ -717,16 +641,20 @@ async function scrapeTableResultsPage(
               )
               .filter(Boolean);
 
-            if (cells.length < 5) continue;
+            if (cells.length < 5) {
+              continue;
+            }
 
             const dateIndex =
-              cells.findIndex(v =>
+              cells.findIndex(value =>
                 /^\d{1,2}\.\d{1,2}\.\d{4}$/.test(
-                  v
+                  value
                 )
               );
 
-            if (dateIndex === -1) continue;
+            if (dateIndex === -1) {
+              continue;
+            }
 
             const date =
               cells[dateIndex];
@@ -736,36 +664,62 @@ async function scrapeTableResultsPage(
 
             const colonIndex =
               cells.findIndex(
-                (v, i) =>
-                  i > dateIndex &&
-                  v === ":"
+                (value, index) =>
+                  index > dateIndex &&
+                  value === ":"
               );
 
-            if (colonIndex === -1) continue;
+            if (
+              colonIndex === -1
+            ) {
+              continue;
+            }
 
             const home =
-              cells[dateIndex + 2] || "";
+              cells[dateIndex + 2] ||
+              "";
 
             const homeScore =
               score(
-                cells[colonIndex - 1]
+                cells[
+                  colonIndex - 1
+                ]
               );
 
             const awayScore =
               score(
-                cells[colonIndex + 1]
+                cells[
+                  colonIndex + 1
+                ]
               );
 
             const away =
-              cells[colonIndex + 2] || "";
+              cells[
+                colonIndex + 2
+              ] || "";
 
-            if (!home || !away) continue;
+            if (!home || !away) {
+              continue;
+            }
 
             if (
               home.toLowerCase() ===
                 "heim" ||
               away.toLowerCase() ===
                 "gast"
+            ) {
+              continue;
+            }
+
+            /*
+             * Nur echte Ergebnisse.
+             *
+             * Ein zukünftiges Spiel ohne Ergebnis
+             * gehört nicht in results.json.
+             */
+            if (
+              homeScore === null ||
+              awayScore === null
             ) {
               continue;
             }
@@ -782,7 +736,13 @@ async function scrapeTableResultsPage(
               away,
               homeScore,
               awayScore,
-              detectedTeam,
+            });
+          }
+
+          if (results.length > 0) {
+            tableBlocks.push({
+              type: "results",
+              items: results,
             });
           }
 
@@ -795,12 +755,15 @@ async function scrapeTableResultsPage(
          * ========================================
          */
 
-        if (
+        const isStandingsTable =
           text.includes("Team") &&
           text.includes("SP") &&
           text.includes("TD") &&
-          text.includes("P")
-        ) {
+          text.includes("P");
+
+        if (isStandingsTable) {
+          const standings = [];
+
           for (const row of rows) {
             const cells = [
               ...row.querySelectorAll(
@@ -812,7 +775,9 @@ async function scrapeTableResultsPage(
               )
               .filter(Boolean);
 
-            if (cells.length < 4) continue;
+            if (cells.length < 4) {
+              continue;
+            }
 
             const rank =
               score(cells[0]);
@@ -825,10 +790,12 @@ async function scrapeTableResultsPage(
               continue;
             }
 
-            const team =
+            const teamName =
               cells[1];
 
-            if (!team) continue;
+            if (!teamName) {
+              continue;
+            }
 
             const sp =
               score(cells[2]);
@@ -839,85 +806,194 @@ async function scrapeTableResultsPage(
             const points =
               score(cells[4]);
 
-            if (sp === null) continue;
+            if (sp === null) {
+              continue;
+            }
 
             standings.push({
               rank,
-              team,
+              teamName,
               games: sp,
               goalDifference: td,
               points:
                 points !== null
                   ? points
                   : null,
-              detectedTeam,
+            });
+          }
+
+          if (
+            standings.length > 0
+          ) {
+            tableBlocks.push({
+              type: "standings",
+              items: standings,
             });
           }
         }
       }
 
-      /*
-       * Wenn bei U15/U13 keine Überschrift direkt
-       * an der Tabelle gefunden wurde, kann die
-       * Reihenfolge der erkannten Bereiche helfen.
-       */
-      function assignFallbackTeams(items) {
-        const knownTeams =
-          detectedSectionTeams;
-
-        if (
-          knownTeams.length === 0
-        ) {
-          return items;
-        }
-
-        return items.map(item => {
-          if (item.detectedTeam) {
-            return item;
-          }
-
-          /*
-           * Ohne sicheren Kontext lassen wir
-           * detectedTeam bewusst leer.
-           */
-          return item;
-        });
-      }
-
       return {
-        results:
-          assignFallbackTeams(results),
-        standings:
-          assignFallbackTeams(standings),
-        detectedSectionTeams,
+        tableBlocks,
       };
     });
 
     console.log(
-      `Gefundene Spielergebnisse: ${extracted.results.length}`
+      `Gefundene Datenblöcke: ${extracted.tableBlocks.length}`
+    );
+
+    const results = [];
+    const standings = [];
+
+    /*
+     * Jetzt kommt die wichtige Zuordnung.
+     *
+     * Bei einer Mannschaft:
+     *   alle Blöcke gehören dieser Mannschaft.
+     *
+     * Bei U15/U13:
+     *   Block 1 = A
+     *   Block 2 = B
+     *
+     * Dabei behandeln wir Tabellen und Ergebnisse
+     * gemeinsam nach ihrem Auftreten.
+     */
+    if (config.teams.length === 1) {
+      const team =
+        config.teams[0];
+
+      for (const block of extracted.tableBlocks) {
+        if (block.type === "results") {
+          for (const result of block.items) {
+            results.push({
+              ...result,
+              team,
+            });
+          }
+        }
+
+        if (
+          block.type === "standings"
+        ) {
+          for (const row of block.items) {
+            standings.push({
+              rank: row.rank,
+              team: team,
+              teamName: row.teamName,
+              games: row.games,
+              goalDifference:
+                row.goalDifference,
+              points: row.points,
+            });
+          }
+        }
+      }
+    } else {
+      /*
+       * U15 / U13:
+       *
+       * Wir zählen getrennt, wie viele
+       * Tabellen- und Ergebnisblöcke wir
+       * gesehen haben.
+       */
+      let standingsBlockIndex = 0;
+      let resultsBlockIndex = 0;
+
+      for (const block of extracted.tableBlocks) {
+        if (block.type === "results") {
+          const team =
+            config.teams[
+              resultsBlockIndex
+            ] || null;
+
+          console.log(
+            `  Ergebnisblock ${
+              resultsBlockIndex + 1
+            } → ${
+              team || "UNBEKANNT"
+            }`
+          );
+
+          for (const result of block.items) {
+            results.push({
+              ...result,
+              team,
+            });
+          }
+
+          resultsBlockIndex++;
+        }
+
+        if (
+          block.type === "standings"
+        ) {
+          const team =
+            config.teams[
+              standingsBlockIndex
+            ] || null;
+
+          console.log(
+            `  Tabellenblock ${
+              standingsBlockIndex + 1
+            } → ${
+              team || "UNBEKANNT"
+            }`
+          );
+
+          for (const row of block.items) {
+            standings.push({
+              rank: row.rank,
+              team,
+              teamName: row.teamName,
+              games: row.games,
+              goalDifference:
+                row.goalDifference,
+              points: row.points,
+            });
+          }
+
+          standingsBlockIndex++;
+        }
+      }
+
+      if (
+        resultsBlockIndex !==
+        config.teams.length
+      ) {
+        console.log(
+          `WARNUNG: ${resultsBlockIndex} Ergebnisblöcke gefunden, erwartet ${config.teams.length}.`
+        );
+      }
+
+      if (
+        standingsBlockIndex !==
+        config.teams.length
+      ) {
+        console.log(
+          `WARNUNG: ${standingsBlockIndex} Tabellenblöcke gefunden, erwartet ${config.teams.length}.`
+        );
+      }
+    }
+
+    console.log(
+      `Gefundene Spielergebnisse: ${results.length}`
     );
 
     console.log(
-      `Gefundene Tabellenplätze: ${extracted.standings.length}`
-    );
-
-    console.log(
-      `Erkannte Bereiche: ${
-        extracted.detectedSectionTeams.join(
-          ", "
-        ) || "keine"
-      }`
+      `Gefundene Tabellenplätze: ${standings.length}`
     );
 
     /*
      * Debug-Ausgabe, falls Daten fehlen.
      */
     if (
-      extracted.results.length === 0 ||
-      extracted.standings.length === 0
+      results.length === 0 ||
+      standings.length === 0
     ) {
       const bodyText =
-        await page.locator("body").innerText();
+        await page
+          .locator("body")
+          .innerText();
 
       console.log(
         "----------------------------------------"
@@ -944,87 +1020,13 @@ async function scrapeTableResultsPage(
       );
     }
 
-    return extracted;
+    return {
+      results,
+      standings,
+    };
   } finally {
     await page.close();
   }
-}
-
-function assignConfiguredTeam(
-  item,
-  config
-) {
-  /*
-   * Wenn die Seite nur eine Mannschaft enthält,
-   * ist die Zuordnung eindeutig.
-   */
-  if (config.teams.length === 1) {
-    return config.teams[0];
-  }
-
-  /*
-   * Bei U15/U13 kommt die Zuordnung möglichst
-   * aus dem erkannten Tabellenbereich.
-   */
-  if (
-    item.detectedTeam &&
-    config.teams.includes(
-      item.detectedTeam
-    )
-  ) {
-    return item.detectedTeam;
-  }
-
-  /*
-   * Zusätzlich versuchen wir, anhand der
-   * Mannschaftsnamen zu erkennen.
-   */
-  const combined =
-    `${item.home || ""} ${item.away || ""} ${
-      item.team || ""
-    }`.toLowerCase();
-
-  if (
-    config.teams.includes("U15 B") &&
-    (
-      combined.includes("u15 b") ||
-      combined.includes("u15b")
-    )
-  ) {
-    return "U15 B";
-  }
-
-  if (
-    config.teams.includes("U15 A") &&
-    (
-      combined.includes("u15 a") ||
-      combined.includes("u15a")
-    )
-  ) {
-    return "U15 A";
-  }
-
-  if (
-    config.teams.includes("U13 B") &&
-    (
-      combined.includes("u13 b") ||
-      combined.includes("u13b")
-    )
-  ) {
-    return "U13 B";
-  }
-
-  if (
-    config.teams.includes("U13 A") &&
-    (
-      combined.includes("u13 a") ||
-      combined.includes("u13a")
-    )
-  ) {
-    return "U13 A";
-  }
-
-  return null;
 }
 
 async function writeJsonIfValid(
@@ -1115,39 +1117,13 @@ async function main() {
             config
           );
 
-        /*
-         * Ergebnisse
-         */
-        for (const result of
-          extracted.results) {
-          const team =
-            assignConfiguredTeam(
-              result,
-              config
-            );
+        allResults.push(
+          ...extracted.results
+        );
 
-          allResults.push({
-            ...result,
-            team,
-          });
-        }
-
-        /*
-         * Tabellen
-         */
-        for (const row of
-          extracted.standings) {
-          const team =
-            assignConfiguredTeam(
-              row,
-              config
-            );
-
-          allStandings.push({
-            ...row,
-            team,
-          });
-        }
+        allStandings.push(
+          ...extracted.standings
+        );
       } else {
         const games =
           await scrapeSchedulePage(
@@ -1155,18 +1131,9 @@ async function main() {
             config
           );
 
-        for (const game of games) {
-          const team =
-            assignConfiguredTeam(
-              game,
-              config
-            );
-
-          allGames.push({
-            ...game,
-            team,
-          });
-        }
+        allGames.push(
+          ...games
+        );
       }
     }
 
