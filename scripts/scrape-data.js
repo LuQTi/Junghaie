@@ -30,9 +30,41 @@ const PAGES = [
     url: "https://www.junghaie.de/spielplan.menuid55.html",
     teams: ["Frauen 3"],
   },
+
+  // Tabellen + Spielergebnisse
   {
     url: "https://www.junghaie.de/tabelle-spielergebnisse.menuid24.html",
     teams: ["U20"],
+    type: "table-results",
+  },
+  {
+    url: "https://www.junghaie.de/tabelle-spielergebnisse.menuid28.html",
+    teams: ["U17"],
+    type: "table-results",
+  },
+  {
+    url: "https://www.junghaie.de/tabelle-spielergebnisse.menuid32.html",
+    teams: ["U15 A", "U15 B"],
+    type: "table-results",
+  },
+  {
+    url: "https://www.junghaie.de/tabelle-spielergebnisse.menuid36.html",
+    teams: ["U13 A", "U13 B"],
+    type: "table-results",
+  },
+  {
+    url: "https://www.junghaie.de/tabelle-spielergebnisse.menuid52.html",
+    teams: ["Frauen 1"],
+    type: "table-results",
+  },
+  {
+    url: "https://www.junghaie.de/tabelle-spielergebnisse.menuid48.html",
+    teams: ["Frauen 2"],
+    type: "table-results",
+  },
+  {
+    url: "https://www.junghaie.de/tabelle-spielergebnisse.menuid56.html",
+    teams: ["Frauen 3"],
     type: "table-results",
   },
 ];
@@ -81,6 +113,7 @@ function uniqueGames(games) {
 
   for (const game of games) {
     const key = [
+      game.team || "",
       game.datetime || "",
       clean(game.date),
       clean(game.time),
@@ -114,32 +147,34 @@ function findJunghaieTeam(home, away) {
   const h = clean(home).toLowerCase();
   const a = clean(away).toLowerCase();
 
-  if (h.includes("junghaie")) return "home";
-  if (a.includes("junghaie")) return "away";
+  if (
+    h.includes("junghaie") ||
+    h.includes("köln") ||
+    h.includes("koeln")
+  ) {
+    return "home";
+  }
+
+  if (
+    a.includes("junghaie") ||
+    a.includes("köln") ||
+    a.includes("koeln")
+  ) {
+    return "away";
+  }
 
   return null;
 }
 
 function addLocation(game) {
-  const location = findJunghaieTeam(game.home, game.away);
-
-  if (location === "home") {
-    return {
-      ...game,
-      location: "home",
-    };
-  }
-
-  if (location === "away") {
-    return {
-      ...game,
-      location: "away",
-    };
-  }
+  const location = findJunghaieTeam(
+    game.home,
+    game.away
+  );
 
   return {
     ...game,
-    location: null,
+    location,
   };
 }
 
@@ -157,16 +192,94 @@ async function waitForHockeydata(page) {
           text.includes("Datum") ||
           text.includes("Heim") ||
           text.includes("Gast") ||
+          text.includes("Team") ||
           document.querySelectorAll("table").length > 0
         );
       },
       { timeout: 20000 }
     );
   } catch {
-    // Seite kann trotzdem bereits Daten enthalten.
+    // Seite kann trotzdem Daten enthalten.
   }
 
   await page.waitForTimeout(3000);
+}
+
+/*
+ * Erkennt anhand des Textes, zu welcher Mannschaft
+ * eine Tabelle bzw. Ergebnis-Tabelle gehört.
+ */
+function normalizeTeamName(value) {
+  const text = clean(value).toLowerCase();
+
+  if (
+    text.includes("u20") ||
+    text.includes("dnl")
+  ) {
+    return "U20";
+  }
+
+  if (text.includes("u17")) {
+    return "U17";
+  }
+
+  if (
+    text.includes("u15b") ||
+    text.includes("u15 b") ||
+    text.includes("u15 regionalliga b")
+  ) {
+    return "U15 B";
+  }
+
+  if (
+    text.includes("u15a") ||
+    text.includes("u15 a") ||
+    text.includes("u15 regionalliga a")
+  ) {
+    return "U15 A";
+  }
+
+  if (
+    text.includes("u13b") ||
+    text.includes("u13 b") ||
+    text.includes("u13 regionalliga b")
+  ) {
+    return "U13 B";
+  }
+
+  if (
+    text.includes("u13a") ||
+    text.includes("u13 a") ||
+    text.includes("u13 regionalliga a")
+  ) {
+    return "U13 A";
+  }
+
+  if (
+    text.includes("2. liga nord") ||
+    text.includes("frauen 1a") ||
+    text.includes("frauen 1")
+  ) {
+    return "Frauen 1";
+  }
+
+  if (
+    text.includes("landesliga") ||
+    text.includes("frauen 1b") ||
+    text.includes("frauen 2")
+  ) {
+    return "Frauen 2";
+  }
+
+  if (
+    text.includes("bezirksliga") ||
+    text.includes("frauen 1c") ||
+    text.includes("frauen 3")
+  ) {
+    return "Frauen 3";
+  }
+
+  return null;
 }
 
 async function scrapeSchedulePage(browser, config) {
@@ -260,7 +373,9 @@ async function scrapeSchedulePage(browser, config) {
           let awayScore = null;
 
           const colonIndex = cells.findIndex(
-            (v, i) => i > dateIndex && v === ":"
+            (v, i) =>
+              i > dateIndex &&
+              v === ":"
           );
 
           if (colonIndex !== -1) {
@@ -293,7 +408,10 @@ async function scrapeSchedulePage(browser, config) {
           games.push({
             date,
             time,
-            datetime: parseDateTime(date, time),
+            datetime: parseDateTime(
+              date,
+              time
+            ),
             home,
             away,
             homeScore,
@@ -305,7 +423,9 @@ async function scrapeSchedulePage(browser, config) {
       return games;
     });
 
-    console.log(`Gefundene Spiele: ${games.length}`);
+    console.log(
+      `Gefundene Spiele: ${games.length}`
+    );
 
     return games.map(game => ({
       ...game,
@@ -319,7 +439,10 @@ async function scrapeSchedulePage(browser, config) {
   }
 }
 
-async function scrapeTableResultsPage(browser, config) {
+async function scrapeTableResultsPage(
+  browser,
+  config
+) {
   console.log("========================================");
   console.log(`Seite: ${config.url}`);
   console.log(`Teams: ${config.teams.join(", ")}`);
@@ -337,27 +460,24 @@ async function scrapeTableResultsPage(browser, config) {
       timeout: 60000,
     });
 
-    /*
-     * Hockeydata braucht etwas Zeit, um die Tabelle
-     * und die Ergebnisse in den DOM einzubauen.
-     */
     await page.waitForTimeout(7000);
 
     try {
       await page.waitForFunction(
         () => {
-          const text = document.body?.innerText || "";
+          const text =
+            document.body?.innerText || "";
 
           return (
             text.includes("Spielergebnisse") ||
-            text.includes("Tabelle U20") ||
+            text.includes("Tabelle") ||
             document.querySelectorAll("table").length >= 1
           );
         },
         { timeout: 30000 }
       );
     } catch {
-      // Danach trotzdem auslesen.
+      // Trotzdem auslesen.
     }
 
     await page.waitForTimeout(3000);
@@ -374,13 +494,10 @@ async function scrapeTableResultsPage(browser, config) {
         return m ? Number(m[0]) : null;
       }
 
-      /*
-       * WICHTIG:
-       * Diese Funktion befindet sich innerhalb von
-       * page.evaluate(), damit sie im Browser-Kontext
-       * verfügbar ist.
-       */
-      function parseDateTime(dateText, timeText = "") {
+      function parseDateTime(
+        dateText,
+        timeText = ""
+      ) {
         const m = clean(dateText).match(
           /^(\d{1,2})\.(\d{1,2})\.(\d{4})$/
         );
@@ -407,6 +524,133 @@ async function scrapeTableResultsPage(browser, config) {
           : d.toISOString();
       }
 
+      function detectTeam(text) {
+        const value = clean(text).toLowerCase();
+
+        if (
+          value.includes("u15b") ||
+          value.includes("u15 b") ||
+          value.includes("regionalliga b")
+        ) {
+          return "U15 B";
+        }
+
+        if (
+          value.includes("u15a") ||
+          value.includes("u15 a") ||
+          value.includes("regionalliga a")
+        ) {
+          return "U15 A";
+        }
+
+        if (
+          value.includes("u13b") ||
+          value.includes("u13 b")
+        ) {
+          return "U13 B";
+        }
+
+        if (
+          value.includes("u13a") ||
+          value.includes("u13 a")
+        ) {
+          return "U13 A";
+        }
+
+        if (value.includes("u20")) {
+          return "U20";
+        }
+
+        if (value.includes("dnl")) {
+          return "U20";
+        }
+
+        if (value.includes("u17")) {
+          return "U17";
+        }
+
+        if (
+          value.includes("2. liga nord")
+        ) {
+          return "Frauen 1";
+        }
+
+        if (
+          value.includes("landesliga")
+        ) {
+          return "Frauen 2";
+        }
+
+        if (
+          value.includes("bezirksliga")
+        ) {
+          return "Frauen 3";
+        }
+
+        if (value.includes("frauen 1b")) {
+          return "Frauen 2";
+        }
+
+        if (value.includes("frauen 1c")) {
+          return "Frauen 3";
+        }
+
+        if (value.includes("frauen 1a")) {
+          return "Frauen 1";
+        }
+
+        return null;
+      }
+
+      /*
+       * Sucht die Überschrift bzw. den Bereich,
+       * zu dem eine Hockeydata-Tabelle gehört.
+       */
+      function getTableContext(table) {
+        const texts = [];
+
+        let current = table;
+
+        for (let i = 0; i < 8 && current; i++) {
+          if (current.previousElementSibling) {
+            const text = clean(
+              current.previousElementSibling.innerText
+            );
+
+            if (text) {
+              texts.push(text);
+            }
+          }
+
+          current = current.parentElement;
+        }
+
+        /*
+         * Zusätzlich nach Überschriften im Dokument
+         * suchen, die unmittelbar vor der Tabelle liegen.
+         */
+        let previous = table.previousElementSibling;
+
+        for (
+          let i = 0;
+          i < 10 && previous;
+          i++
+        ) {
+          const text = clean(
+            previous.innerText
+          );
+
+          if (text) {
+            texts.push(text);
+          }
+
+          previous =
+            previous.previousElementSibling;
+        }
+
+        return texts.join(" ");
+      }
+
       const tables = [
         ...document.querySelectorAll("table"),
       ];
@@ -414,8 +658,35 @@ async function scrapeTableResultsPage(browser, config) {
       const results = [];
       const standings = [];
 
+      /*
+       * Falls eine Seite mehrere Bereiche besitzt,
+       * z.B. U15 A + U15 B oder U13 A + U13 B,
+       * behalten wir die Reihenfolge der Tabellen.
+       */
+      let detectedSectionTeams = [];
+
       for (const table of tables) {
         const text = clean(table.innerText);
+
+        const context =
+          getTableContext(table);
+
+        const fullContext =
+          `${context} ${text}`;
+
+        const detectedTeam =
+          detectTeam(fullContext);
+
+        if (
+          detectedTeam &&
+          !detectedSectionTeams.includes(
+            detectedTeam
+          )
+        ) {
+          detectedSectionTeams.push(
+            detectedTeam
+          );
+        }
 
         const rows = [
           ...table.querySelectorAll("tr"),
@@ -437,27 +708,38 @@ async function scrapeTableResultsPage(browser, config) {
         ) {
           for (const row of rows) {
             const cells = [
-              ...row.querySelectorAll("th, td"),
+              ...row.querySelectorAll(
+                "th, td"
+              ),
             ]
-              .map(cell => clean(cell.innerText))
+              .map(cell =>
+                clean(cell.innerText)
+              )
               .filter(Boolean);
 
             if (cells.length < 5) continue;
 
-            const dateIndex = cells.findIndex(v =>
-              /^\d{1,2}\.\d{1,2}\.\d{4}$/.test(v)
-            );
+            const dateIndex =
+              cells.findIndex(v =>
+                /^\d{1,2}\.\d{1,2}\.\d{4}$/.test(
+                  v
+                )
+              );
 
             if (dateIndex === -1) continue;
 
-            const date = cells[dateIndex];
+            const date =
+              cells[dateIndex];
+
             const time =
               cells[dateIndex + 1] || "";
 
-            const colonIndex = cells.findIndex(
-              (v, i) =>
-                i > dateIndex && v === ":"
-            );
+            const colonIndex =
+              cells.findIndex(
+                (v, i) =>
+                  i > dateIndex &&
+                  v === ":"
+              );
 
             if (colonIndex === -1) continue;
 
@@ -465,22 +747,25 @@ async function scrapeTableResultsPage(browser, config) {
               cells[dateIndex + 2] || "";
 
             const homeScore =
-              score(cells[colonIndex - 1]);
+              score(
+                cells[colonIndex - 1]
+              );
 
             const awayScore =
-              score(cells[colonIndex + 1]);
+              score(
+                cells[colonIndex + 1]
+              );
 
             const away =
               cells[colonIndex + 2] || "";
 
             if (!home || !away) continue;
 
-            /*
-             * Tabellen-Kopf nicht als Spiel übernehmen.
-             */
             if (
-              home.toLowerCase() === "heim" ||
-              away.toLowerCase() === "gast"
+              home.toLowerCase() ===
+                "heim" ||
+              away.toLowerCase() ===
+                "gast"
             ) {
               continue;
             }
@@ -488,14 +773,16 @@ async function scrapeTableResultsPage(browser, config) {
             results.push({
               date,
               time,
-              datetime: parseDateTime(
-                date,
-                time
-              ),
+              datetime:
+                parseDateTime(
+                  date,
+                  time
+                ),
               home,
               away,
               homeScore,
               awayScore,
+              detectedTeam,
             });
           }
 
@@ -504,7 +791,7 @@ async function scrapeTableResultsPage(browser, config) {
 
         /*
          * ========================================
-         * U20 TABELLE
+         * TABELLE
          * ========================================
          */
 
@@ -516,24 +803,19 @@ async function scrapeTableResultsPage(browser, config) {
         ) {
           for (const row of rows) {
             const cells = [
-              ...row.querySelectorAll("th, td"),
+              ...row.querySelectorAll(
+                "th, td"
+              ),
             ]
-              .map(cell => clean(cell.innerText))
+              .map(cell =>
+                clean(cell.innerText)
+              )
               .filter(Boolean);
 
             if (cells.length < 4) continue;
 
-            /*
-             * Typischer Aufbau:
-             *
-             * 1
-             * Eisbären Juniors Berlin
-             * 5
-             * +7
-             * 10
-             */
-
-            const rank = score(cells[0]);
+            const rank =
+              score(cells[0]);
 
             if (
               rank === null ||
@@ -543,18 +825,20 @@ async function scrapeTableResultsPage(browser, config) {
               continue;
             }
 
-            const team = cells[1];
+            const team =
+              cells[1];
 
             if (!team) continue;
 
-            const sp = score(cells[2]);
-            const td = cells[3];
+            const sp =
+              score(cells[2]);
+
+            const td =
+              cells[3];
+
             const points =
               score(cells[4]);
 
-            /*
-             * Nur echte Tabellenzeilen.
-             */
             if (sp === null) continue;
 
             standings.push({
@@ -566,14 +850,46 @@ async function scrapeTableResultsPage(browser, config) {
                 points !== null
                   ? points
                   : null,
+              detectedTeam,
             });
           }
         }
       }
 
+      /*
+       * Wenn bei U15/U13 keine Überschrift direkt
+       * an der Tabelle gefunden wurde, kann die
+       * Reihenfolge der erkannten Bereiche helfen.
+       */
+      function assignFallbackTeams(items) {
+        const knownTeams =
+          detectedSectionTeams;
+
+        if (
+          knownTeams.length === 0
+        ) {
+          return items;
+        }
+
+        return items.map(item => {
+          if (item.detectedTeam) {
+            return item;
+          }
+
+          /*
+           * Ohne sicheren Kontext lassen wir
+           * detectedTeam bewusst leer.
+           */
+          return item;
+        });
+      }
+
       return {
-        results,
-        standings,
+        results:
+          assignFallbackTeams(results),
+        standings:
+          assignFallbackTeams(standings),
+        detectedSectionTeams,
       };
     });
 
@@ -585,31 +901,44 @@ async function scrapeTableResultsPage(browser, config) {
       `Gefundene Tabellenplätze: ${extracted.standings.length}`
     );
 
+    console.log(
+      `Erkannte Bereiche: ${
+        extracted.detectedSectionTeams.join(
+          ", "
+        ) || "keine"
+      }`
+    );
+
     /*
-     * Debug-Ausgabe, falls Hockeydata später
-     * seine Struktur verändert.
+     * Debug-Ausgabe, falls Daten fehlen.
      */
     if (
       extracted.results.length === 0 ||
       extracted.standings.length === 0
     ) {
-      const bodyText = await page.locator("body").innerText();
+      const bodyText =
+        await page.locator("body").innerText();
 
       console.log(
         "----------------------------------------"
       );
+
       console.log(
         "WARNUNG: Tabelle oder Ergebnisse konnten"
       );
+
       console.log(
         "nicht vollständig erkannt werden."
       );
+
       console.log(
         "Erste 3000 Zeichen des gerenderten DOM:"
       );
+
       console.log(
         bodyText.substring(0, 3000)
       );
+
       console.log(
         "----------------------------------------"
       );
@@ -621,20 +950,100 @@ async function scrapeTableResultsPage(browser, config) {
   }
 }
 
+function assignConfiguredTeam(
+  item,
+  config
+) {
+  /*
+   * Wenn die Seite nur eine Mannschaft enthält,
+   * ist die Zuordnung eindeutig.
+   */
+  if (config.teams.length === 1) {
+    return config.teams[0];
+  }
+
+  /*
+   * Bei U15/U13 kommt die Zuordnung möglichst
+   * aus dem erkannten Tabellenbereich.
+   */
+  if (
+    item.detectedTeam &&
+    config.teams.includes(
+      item.detectedTeam
+    )
+  ) {
+    return item.detectedTeam;
+  }
+
+  /*
+   * Zusätzlich versuchen wir, anhand der
+   * Mannschaftsnamen zu erkennen.
+   */
+  const combined =
+    `${item.home || ""} ${item.away || ""} ${
+      item.team || ""
+    }`.toLowerCase();
+
+  if (
+    config.teams.includes("U15 B") &&
+    (
+      combined.includes("u15 b") ||
+      combined.includes("u15b")
+    )
+  ) {
+    return "U15 B";
+  }
+
+  if (
+    config.teams.includes("U15 A") &&
+    (
+      combined.includes("u15 a") ||
+      combined.includes("u15a")
+    )
+  ) {
+    return "U15 A";
+  }
+
+  if (
+    config.teams.includes("U13 B") &&
+    (
+      combined.includes("u13 b") ||
+      combined.includes("u13b")
+    )
+  ) {
+    return "U13 B";
+  }
+
+  if (
+    config.teams.includes("U13 A") &&
+    (
+      combined.includes("u13 a") ||
+      combined.includes("u13a")
+    )
+  ) {
+    return "U13 A";
+  }
+
+  return null;
+}
+
 async function writeJsonIfValid(
   filename,
   data,
   minimumItems = 1
 ) {
-  const count = Array.isArray(data)
-    ? data.length
-    : Array.isArray(data?.games)
-      ? data.games.length
-      : Array.isArray(data?.results)
-        ? data.results.length
-        : Array.isArray(data?.standings)
-          ? data.standings.length
-          : 0;
+  const count =
+    Array.isArray(data)
+      ? data.length
+      : Array.isArray(data?.games)
+        ? data.games.length
+        : Array.isArray(data?.results)
+          ? data.results.length
+          : Array.isArray(
+              data?.standings
+            )
+            ? data.standings.length
+            : 0;
 
   if (count < minimumItems) {
     console.log(
@@ -646,7 +1055,11 @@ async function writeJsonIfValid(
 
   await fs.writeFile(
     `${OUTPUT_DIR}/${filename}`,
-    JSON.stringify(data, null, 2),
+    JSON.stringify(
+      data,
+      null,
+      2
+    ),
     "utf8"
   );
 
@@ -657,35 +1070,84 @@ async function writeJsonIfValid(
 
 async function main() {
   console.log("");
-  console.log("========================================");
+  console.log(
+    "========================================"
+  );
   console.log(
     "KÖLNER JUNGHÄIE – SPIELPLAN + ERGEBNISSE + TABELLE"
   );
-  console.log("========================================");
+  console.log(
+    "========================================"
+  );
   console.log("");
 
-  await fs.mkdir(OUTPUT_DIR, {
-    recursive: true,
-  });
+  await fs.mkdir(
+    OUTPUT_DIR,
+    {
+      recursive: true,
+    }
+  );
 
-  const browser = await chromium.launch({
-    headless: true,
-  });
+  const browser =
+    await chromium.launch({
+      headless: true,
+    });
 
   try {
     const allGames = [];
-    let tableResults = {
-      results: [],
-      standings: [],
-    };
+    const allResults = [];
+    const allStandings = [];
+
+    /*
+     * ========================================
+     * ALLE SEITEN DURCHLAUFEN
+     * ========================================
+     */
 
     for (const config of PAGES) {
-      if (config.type === "table-results") {
-        tableResults =
+      if (
+        config.type ===
+        "table-results"
+      ) {
+        const extracted =
           await scrapeTableResultsPage(
             browser,
             config
           );
+
+        /*
+         * Ergebnisse
+         */
+        for (const result of
+          extracted.results) {
+          const team =
+            assignConfiguredTeam(
+              result,
+              config
+            );
+
+          allResults.push({
+            ...result,
+            team,
+          });
+        }
+
+        /*
+         * Tabellen
+         */
+        for (const row of
+          extracted.standings) {
+          const team =
+            assignConfiguredTeam(
+              row,
+              config
+            );
+
+          allStandings.push({
+            ...row,
+            team,
+          });
+        }
       } else {
         const games =
           await scrapeSchedulePage(
@@ -694,45 +1156,11 @@ async function main() {
           );
 
         for (const game of games) {
-          /*
-           * Team-Zuordnung:
-           *
-           * Bei Seiten mit nur einer Mannschaft
-           * ist die Zuordnung eindeutig.
-           */
-          let team = config.teams[0];
-
-          /*
-           * U15/U13 haben zwei Mannschaften.
-           * Falls Hockeydata den Namen in der
-           * Heim-/Gast-Mannschaft erkennen lässt,
-           * versuchen wir ihn zuzuordnen.
-           */
-          const combined =
-            `${game.home} ${game.away}`
-              .toLowerCase();
-
-          if (
-            config.teams.includes("U15 A") &&
-            config.teams.includes("U15 B")
-          ) {
-            if (combined.includes("u15 b")) {
-              team = "U15 B";
-            } else {
-              team = "U15 A";
-            }
-          }
-
-          if (
-            config.teams.includes("U13 A") &&
-            config.teams.includes("U13 B")
-          ) {
-            if (combined.includes("u13 b")) {
-              team = "U13 B";
-            } else {
-              team = "U13 A";
-            }
-          }
+          const team =
+            assignConfiguredTeam(
+              game,
+              config
+            );
 
           allGames.push({
             ...game,
@@ -748,27 +1176,162 @@ async function main() {
      * ========================================
      */
 
-    let games = uniqueGames(allGames)
-      .map(addLocation)
-      .map(game => ({
-        ...game,
-        team: game.team || null,
-      }));
+    let games =
+      uniqueGames(allGames)
+        .map(addLocation)
+        .map(game => ({
+          ...game,
+          team:
+            game.team || null,
+        }));
 
-    games = sortGames(games);
+    games =
+      sortGames(games);
 
     console.log("");
-    console.log("========================================");
+    console.log(
+      "========================================"
+    );
     console.log(
       `Gesamt gefundene Spiele: ${games.length}`
     );
-    console.log("========================================");
+    console.log(
+      "========================================"
+    );
 
-    if (games.length === 0) {
-      throw new Error(
-        "Keine Spiele gefunden. games.json wird nicht überschrieben."
+    /*
+     * ========================================
+     * ERGEBNISSE
+     * ========================================
+     */
+
+    let results =
+      uniqueGames(allResults)
+        .map(addLocation)
+        .map(result => ({
+          ...result,
+          team:
+            result.team || null,
+        }));
+
+    results.sort((a, b) => {
+      const da =
+        a.datetime
+          ? new Date(
+              a.datetime
+            ).getTime()
+          : 0;
+
+      const db =
+        b.datetime
+          ? new Date(
+              b.datetime
+            ).getTime()
+          : 0;
+
+      /*
+       * Neueste Ergebnisse zuerst.
+       */
+      return db - da;
+    });
+
+    console.log(
+      `Gesamt gefundene Ergebnisse: ${results.length}`
+    );
+
+    /*
+     * ========================================
+     * TABELLEN
+     * ========================================
+     */
+
+    const standings =
+      allStandings
+        .filter(row => row.team)
+        .sort((a, b) => {
+          if (
+            a.team !== b.team
+          ) {
+            return a.team.localeCompare(
+              b.team,
+              "de"
+            );
+          }
+
+          return (
+            Number(a.rank) -
+            Number(b.rank)
+          );
+        });
+
+    console.log(
+      `Gesamt gefundene Tabellenplätze: ${standings.length}`
+    );
+
+    /*
+     * ========================================
+     * ZUSAMMENFASSUNG PRO MANNSCHAFT
+     * ========================================
+     */
+
+    const allTeams = [
+      "U20",
+      "U17",
+      "U15 A",
+      "U15 B",
+      "U13 A",
+      "U13 B",
+      "Frauen 1",
+      "Frauen 2",
+      "Frauen 3",
+    ];
+
+    console.log("");
+    console.log(
+      "========================================"
+    );
+    console.log(
+      "DATEN PRO MANNSCHAFT"
+    );
+    console.log(
+      "========================================"
+    );
+
+    for (const team of allTeams) {
+      const gameCount =
+        games.filter(
+          game =>
+            game.team === team
+        ).length;
+
+      const resultCount =
+        results.filter(
+          result =>
+            result.team === team
+        ).length;
+
+      const standingsCount =
+        standings.filter(
+          row =>
+            row.team === team
+        ).length;
+
+      console.log(
+        `${team.padEnd(10)} Spiele: ${String(
+          gameCount
+        ).padStart(3)} | Ergebnisse: ${String(
+          resultCount
+        ).padStart(3)} | Tabelle: ${String(
+          standingsCount
+        ).padStart(3)}`
       );
     }
+
+    /*
+     * ========================================
+     * GENERATED AT
+     * ========================================
+     */
 
     const generatedAt =
       new Date().toISOString();
@@ -796,34 +1359,13 @@ async function main() {
      * ========================================
      */
 
-    const results = uniqueGames(
-      tableResults.results
-    );
-
-    const resultsWithLocation = results
-      .map(addLocation)
-      .sort((a, b) => {
-        const da = a.datetime
-          ? new Date(a.datetime).getTime()
-          : 0;
-
-        const db = b.datetime
-          ? new Date(b.datetime).getTime()
-          : 0;
-
-        /*
-         * Neueste Ergebnisse zuerst.
-         */
-        return db - da;
-      });
-
     await writeJsonIfValid(
       "results.json",
       {
         generatedAt,
         source:
-          "https://www.junghaie.de/tabelle-spielergebnisse.menuid24.html",
-        results: resultsWithLocation,
+          "https://www.junghaie.de/",
+        results,
       },
       1
     );
@@ -834,22 +1376,12 @@ async function main() {
      * ========================================
      */
 
-    const standings =
-      tableResults.standings
-        .filter(row => row.team)
-        .sort(
-          (a, b) =>
-            Number(a.rank) -
-            Number(b.rank)
-        );
-
     await writeJsonIfValid(
       "standings.json",
       {
         generatedAt,
         source:
-          "https://www.junghaie.de/tabelle-spielergebnisse.menuid24.html",
-        league: "U20 DNL",
+          "https://www.junghaie.de/",
         standings,
       },
       1
@@ -862,19 +1394,27 @@ async function main() {
      */
 
     console.log("");
-    console.log("========================================");
-    console.log("SCRAPER ERFOLGREICH");
-    console.log("========================================");
+    console.log(
+      "========================================"
+    );
+    console.log(
+      "SCRAPER ERFOLGREICH"
+    );
+    console.log(
+      "========================================"
+    );
     console.log(
       `Spiele:        ${games.length}`
     );
     console.log(
-      `Ergebnisse:    ${resultsWithLocation.length}`
+      `Ergebnisse:    ${results.length}`
     );
     console.log(
-      `Tabelle:       ${standings.length} Teams`
+      `Tabelle:       ${standings.length} Teams/Plätze`
     );
-    console.log("========================================");
+    console.log(
+      "========================================"
+    );
     console.log("");
   } finally {
     await browser.close();
@@ -883,7 +1423,9 @@ async function main() {
 
 main().catch(error => {
   console.error("");
-  console.error("SCRAPER FEHLER:");
+  console.error(
+    "SCRAPER FEHLER:"
+  );
   console.error(error);
   process.exit(1);
 });
