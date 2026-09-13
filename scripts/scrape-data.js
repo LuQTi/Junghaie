@@ -155,16 +155,14 @@ function findJunghaieTeam(home, away) {
 
   if (
     h.includes("junghaie") ||
-    h.includes("köln") ||
-    h.includes("koeln")
+    h.includes("kec")
   ) {
     return "home";
   }
 
   if (
     a.includes("junghaie") ||
-    a.includes("köln") ||
-    a.includes("koeln")
+    a.includes("kec")
   ) {
     return "away";
   }
