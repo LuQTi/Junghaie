@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-13T08:43:46.524Z",
+  "generatedAt": "2026-09-13T08:56:28.390Z",
   "source": "https://www.junghaie.de/",
   "games": [
     {
@@ -33,7 +33,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "home",
-      "team": "U15 A"
+      "team": null
     },
     {
       "date": "19.09.2026",
@@ -66,7 +66,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "home",
-      "team": "U15 A"
+      "team": null
     },
     {
       "date": "20.09.2026",
@@ -110,7 +110,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "away",
-      "team": "U15 A"
+      "team": null
     },
     {
       "date": "20.09.2026",
@@ -121,7 +121,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "home",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "26.09.2026",
@@ -132,7 +132,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "away",
-      "team": "U15 A"
+      "team": null
     },
     {
       "date": "26.09.2026",
@@ -176,7 +176,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "away",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "27.09.2026",
@@ -198,7 +198,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "away",
-      "team": "U15 A"
+      "team": null
     },
     {
       "date": "27.09.2026",
@@ -220,7 +220,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "home",
-      "team": "U15 A"
+      "team": null
     },
     {
       "date": "03.10.2026",
@@ -231,7 +231,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "away",
-      "team": "U15 A"
+      "team": null
     },
     {
       "date": "03.10.2026",
@@ -253,7 +253,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "home",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "03.10.2026",
@@ -275,7 +275,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "home",
-      "team": "U15 A"
+      "team": null
     },
     {
       "date": "04.10.2026",
@@ -308,7 +308,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "home",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "04.10.2026",
@@ -319,7 +319,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "home",
-      "team": "U15 A"
+      "team": null
     },
     {
       "date": "10.10.2026",
@@ -330,7 +330,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "away",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "10.10.2026",
@@ -363,7 +363,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "away",
-      "team": "U15 A"
+      "team": null
     },
     {
       "date": "10.10.2026",
@@ -407,7 +407,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "home",
-      "team": "U15 A"
+      "team": null
     },
     {
       "date": "17.10.2026",
@@ -440,7 +440,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "away",
-      "team": "U15 A"
+      "team": null
     },
     {
       "date": "18.10.2026",
@@ -451,7 +451,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "away",
-      "team": "U15 A"
+      "team": null
     },
     {
       "date": "18.10.2026",
@@ -484,7 +484,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "home",
-      "team": "U15 A"
+      "team": null
     },
     {
       "date": "24.10.2026",
@@ -506,7 +506,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "away",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "25.10.2026",
@@ -517,7 +517,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "home",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "25.10.2026",
@@ -528,7 +528,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "home",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "26.10.2026",
@@ -539,7 +539,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "home",
-      "team": "U15 A"
+      "team": null
     },
     {
       "date": "27.10.2026",
@@ -550,7 +550,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "away",
-      "team": "U15 A"
+      "team": null
     },
     {
       "date": "29.10.2026",
@@ -561,7 +561,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "home",
-      "team": "U15 A"
+      "team": null
     },
     {
       "date": "31.10.2026",
@@ -572,7 +572,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "away",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "31.10.2026",
@@ -605,7 +605,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "home",
-      "team": "U15 A"
+      "team": null
     },
     {
       "date": "07.11.2026",
@@ -627,7 +627,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "home",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "08.11.2026",
@@ -660,7 +660,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "away",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "14.11.2026",
@@ -693,7 +693,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "home",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "15.11.2026",
@@ -704,7 +704,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "away",
-      "team": "U15 A"
+      "team": null
     },
     {
       "date": "21.11.2026",
@@ -715,7 +715,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "away",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "21.11.2026",
@@ -737,7 +737,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "home",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "27.11.2026",
@@ -748,7 +748,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "away",
-      "team": "U15 A"
+      "team": null
     },
     {
       "date": "28.11.2026",
@@ -759,7 +759,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "away",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "28.11.2026",
@@ -781,7 +781,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "away",
-      "team": "U15 A"
+      "team": null
     },
     {
       "date": "29.11.2026",
@@ -792,7 +792,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "home",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "29.11.2026",
@@ -825,7 +825,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "home",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "06.12.2026",
@@ -869,7 +869,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "away",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "13.12.2026",
@@ -880,7 +880,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "home",
-      "team": "U15 A"
+      "team": null
     },
     {
       "date": "19.12.2026",
@@ -913,7 +913,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "home",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "03.01.2027",
@@ -924,7 +924,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "home",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "05.01.2027",
@@ -935,7 +935,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "home",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "06.01.2027",
@@ -946,7 +946,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "home",
-      "team": "U15 A"
+      "team": null
     },
     {
       "date": "09.01.2027",
@@ -957,7 +957,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "away",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "09.01.2027",
@@ -979,7 +979,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "home",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "10.01.2027",
@@ -1001,7 +1001,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "away",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "16.01.2027",
@@ -1023,7 +1023,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "away",
-      "team": "U15 A"
+      "team": null
     },
     {
       "date": "17.01.2027",
@@ -1034,7 +1034,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "home",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "17.01.2027",
@@ -1056,7 +1056,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "away",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "23.01.2027",
@@ -1078,7 +1078,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "home",
-      "team": "U15 A"
+      "team": null
     },
     {
       "date": "30.01.2027",
@@ -1100,7 +1100,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "away",
-      "team": "U15 A"
+      "team": null
     },
     {
       "date": "31.01.2027",
@@ -1111,7 +1111,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "home",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "31.01.2027",
@@ -1133,7 +1133,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "away",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "12.02.2027",
@@ -1144,7 +1144,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "home",
-      "team": "U15 A"
+      "team": null
     },
     {
       "date": "13.02.2027",
@@ -1166,7 +1166,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "away",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "14.02.2027",
@@ -1177,7 +1177,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "home",
-      "team": "U15 A"
+      "team": null
     },
     {
       "date": "14.02.2027",
@@ -1199,7 +1199,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "away",
-      "team": "U15 A"
+      "team": null
     },
     {
       "date": "20.02.2027",
@@ -1232,7 +1232,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "away",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "21.02.2027",
@@ -1254,7 +1254,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "away",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "27.02.2027",
@@ -1287,7 +1287,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "home",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "06.03.2027",
@@ -1298,7 +1298,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "away",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "06.03.2027",
@@ -1320,7 +1320,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "home",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "07.03.2027",
@@ -1342,7 +1342,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "away",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "13.03.2027",
@@ -1375,7 +1375,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "home",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "14.03.2027",
@@ -1386,7 +1386,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "home",
-      "team": "U15 A"
+      "team": null
     },
     {
       "date": "20.03.2027",
@@ -1397,7 +1397,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "away",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "20.03.2027",
@@ -1419,7 +1419,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "away",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "23.03.2027",
@@ -1430,7 +1430,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "home",
-      "team": "U13 A"
+      "team": null
     },
     {
       "date": "27.03.2027",
@@ -1441,7 +1441,7 @@
       "homeScore": null,
       "awayScore": null,
       "location": "away",
-      "team": "U15 A"
+      "team": null
     }
   ]
 }

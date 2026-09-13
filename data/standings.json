@@ -1,63 +1,422 @@
 {
-  "generatedAt": "2026-09-13T08:43:46.524Z",
-  "source": "https://www.junghaie.de/tabelle-spielergebnisse.menuid24.html",
-  "league": "U20 DNL",
+  "generatedAt": "2026-09-13T08:56:28.390Z",
+  "source": "https://www.junghaie.de/",
   "standings": [
     {
       "rank": 1,
-      "team": "Eisbären Juniors Berlin",
-      "games": 5,
-      "goalDifference": "+7",
-      "points": 10
+      "team": "Frauen 1",
+      "games": 0,
+      "goalDifference": "+0",
+      "points": 0,
+      "detectedTeam": null
+    },
+    {
+      "rank": 1,
+      "team": "Frauen 1",
+      "games": 0,
+      "goalDifference": "+0",
+      "points": 0,
+      "detectedTeam": null
+    },
+    {
+      "rank": 1,
+      "team": "Frauen 1",
+      "games": 0,
+      "goalDifference": "+0",
+      "points": 0,
+      "detectedTeam": null
+    },
+    {
+      "rank": 1,
+      "team": "Frauen 1",
+      "games": 0,
+      "goalDifference": "+0",
+      "points": 0,
+      "detectedTeam": null
+    },
+    {
+      "rank": 1,
+      "team": "Frauen 1",
+      "games": 0,
+      "goalDifference": "+0",
+      "points": 0,
+      "detectedTeam": null
+    },
+    {
+      "rank": 1,
+      "team": "Frauen 1",
+      "games": 0,
+      "goalDifference": "+0",
+      "points": 0,
+      "detectedTeam": null
+    },
+    {
+      "rank": 1,
+      "team": "Frauen 1",
+      "games": 0,
+      "goalDifference": "+0",
+      "points": 0,
+      "detectedTeam": null
+    },
+    {
+      "rank": 1,
+      "team": "Frauen 1",
+      "games": 0,
+      "goalDifference": "+0",
+      "points": 0,
+      "detectedTeam": null
+    },
+    {
+      "rank": 1,
+      "team": "Frauen 2",
+      "games": 0,
+      "goalDifference": "+0",
+      "points": 0,
+      "detectedTeam": null
+    },
+    {
+      "rank": 1,
+      "team": "Frauen 2",
+      "games": 0,
+      "goalDifference": "+0",
+      "points": 0,
+      "detectedTeam": null
+    },
+    {
+      "rank": 1,
+      "team": "Frauen 2",
+      "games": 0,
+      "goalDifference": "+0",
+      "points": 0,
+      "detectedTeam": null
+    },
+    {
+      "rank": 1,
+      "team": "Frauen 2",
+      "games": 0,
+      "goalDifference": "+0",
+      "points": 0,
+      "detectedTeam": null
+    },
+    {
+      "rank": 1,
+      "team": "Frauen 2",
+      "games": 0,
+      "goalDifference": "+0",
+      "points": 0,
+      "detectedTeam": null
+    },
+    {
+      "rank": 1,
+      "team": "Frauen 2",
+      "games": 0,
+      "goalDifference": "+0",
+      "points": 0,
+      "detectedTeam": null
+    },
+    {
+      "rank": 1,
+      "team": "Frauen 2",
+      "games": 0,
+      "goalDifference": "+0",
+      "points": 0,
+      "detectedTeam": null
+    },
+    {
+      "rank": 1,
+      "team": "Frauen 2",
+      "games": 0,
+      "goalDifference": "+0",
+      "points": 0,
+      "detectedTeam": null
+    },
+    {
+      "rank": 1,
+      "team": "Frauen 3",
+      "games": 0,
+      "goalDifference": "+0",
+      "points": 0,
+      "detectedTeam": null
+    },
+    {
+      "rank": 1,
+      "team": "Frauen 3",
+      "games": 0,
+      "goalDifference": "+0",
+      "points": 0,
+      "detectedTeam": null
+    },
+    {
+      "rank": 1,
+      "team": "Frauen 3",
+      "games": 0,
+      "goalDifference": "+0",
+      "points": 0,
+      "detectedTeam": null
+    },
+    {
+      "rank": 1,
+      "team": "Frauen 3",
+      "games": 0,
+      "goalDifference": "+0",
+      "points": 0,
+      "detectedTeam": null
+    },
+    {
+      "rank": 1,
+      "team": "Frauen 3",
+      "games": 0,
+      "goalDifference": "+0",
+      "points": 0,
+      "detectedTeam": null
+    },
+    {
+      "rank": 1,
+      "team": "Frauen 3",
+      "games": 0,
+      "goalDifference": "+0",
+      "points": 0,
+      "detectedTeam": null
+    },
+    {
+      "rank": 1,
+      "team": "Frauen 3",
+      "games": 0,
+      "goalDifference": "+0",
+      "points": 0,
+      "detectedTeam": null
+    },
+    {
+      "rank": 1,
+      "team": "Frauen 3",
+      "games": 0,
+      "goalDifference": "+0",
+      "points": 0,
+      "detectedTeam": null
+    },
+    {
+      "rank": 1,
+      "team": "U15 A",
+      "games": 2,
+      "goalDifference": "+9",
+      "points": 3,
+      "detectedTeam": "U15 A"
     },
     {
       "rank": 2,
-      "team": "Kölner Junghaie",
-      "games": 3,
-      "goalDifference": "+31",
-      "points": 9
+      "team": "U15 A",
+      "games": 2,
+      "goalDifference": "-9",
+      "points": 3,
+      "detectedTeam": "U15 A"
     },
     {
       "rank": 3,
-      "team": "Jungadler Mannheim",
-      "games": 3,
-      "goalDifference": "+8",
-      "points": 9
+      "team": "U15 A",
+      "games": 0,
+      "goalDifference": "+0",
+      "points": 0,
+      "detectedTeam": "U15 A"
+    },
+    {
+      "rank": 3,
+      "team": "U15 A",
+      "games": 0,
+      "goalDifference": "+0",
+      "points": 0,
+      "detectedTeam": "U15 A"
+    },
+    {
+      "rank": 1,
+      "team": "U15 B",
+      "games": 2,
+      "goalDifference": "+27",
+      "points": 6,
+      "detectedTeam": "U15 B"
+    },
+    {
+      "rank": 2,
+      "team": "U15 B",
+      "games": 1,
+      "goalDifference": "+19",
+      "points": 3,
+      "detectedTeam": "U15 B"
+    },
+    {
+      "rank": 3,
+      "team": "U15 B",
+      "games": 1,
+      "goalDifference": "+1",
+      "points": 3,
+      "detectedTeam": "U15 B"
     },
     {
       "rank": 4,
-      "team": "EC Bad Tölz",
-      "games": 4,
-      "goalDifference": "+0",
-      "points": 9
+      "team": "U15 B",
+      "games": 2,
+      "goalDifference": "-14",
+      "points": 3,
+      "detectedTeam": "U15 B"
     },
     {
       "rank": 5,
-      "team": "Düsseldorfer EG",
-      "games": 3,
-      "goalDifference": "+12",
-      "points": 6
+      "team": "U15 B",
+      "games": 0,
+      "goalDifference": "+0",
+      "points": 0,
+      "detectedTeam": "U15 B"
     },
     {
-      "rank": 6,
-      "team": "Augsburger EV",
-      "games": 4,
-      "goalDifference": "-2",
-      "points": 3
+      "rank": 5,
+      "team": "U15 B",
+      "games": 0,
+      "goalDifference": "+0",
+      "points": 0,
+      "detectedTeam": "U15 B"
     },
     {
       "rank": 7,
-      "team": "Iserlohner EC",
-      "games": 5,
-      "goalDifference": "-10",
-      "points": 2
+      "team": "U15 B",
+      "games": 2,
+      "goalDifference": "-12",
+      "points": 0,
+      "detectedTeam": "U15 B"
     },
     {
       "rank": 8,
-      "team": "EV Füssen",
+      "team": "U15 B",
+      "games": 2,
+      "goalDifference": "-21",
+      "points": 0,
+      "detectedTeam": "U15 B"
+    },
+    {
+      "rank": 1,
+      "team": "U17",
+      "games": 3,
+      "goalDifference": "+22",
+      "points": 9,
+      "detectedTeam": null
+    },
+    {
+      "rank": 2,
+      "team": "U17",
+      "games": 3,
+      "goalDifference": "+9",
+      "points": 9,
+      "detectedTeam": null
+    },
+    {
+      "rank": 3,
+      "team": "U17",
+      "games": 3,
+      "goalDifference": "+9",
+      "points": 6,
+      "detectedTeam": null
+    },
+    {
+      "rank": 4,
+      "team": "U17",
+      "games": 3,
+      "goalDifference": "-3",
+      "points": 4,
+      "detectedTeam": null
+    },
+    {
+      "rank": 5,
+      "team": "U17",
+      "games": 3,
+      "goalDifference": "-2",
+      "points": 3,
+      "detectedTeam": null
+    },
+    {
+      "rank": 6,
+      "team": "U17",
+      "games": 3,
+      "goalDifference": "-15",
+      "points": 3,
+      "detectedTeam": null
+    },
+    {
+      "rank": 7,
+      "team": "U17",
+      "games": 3,
+      "goalDifference": "-4",
+      "points": 2,
+      "detectedTeam": null
+    },
+    {
+      "rank": 8,
+      "team": "U17",
+      "games": 3,
+      "goalDifference": "-16",
+      "points": 0,
+      "detectedTeam": null
+    },
+    {
+      "rank": 1,
+      "team": "U20",
+      "games": 5,
+      "goalDifference": "+7",
+      "points": 10,
+      "detectedTeam": null
+    },
+    {
+      "rank": 2,
+      "team": "U20",
+      "games": 3,
+      "goalDifference": "+31",
+      "points": 9,
+      "detectedTeam": null
+    },
+    {
+      "rank": 3,
+      "team": "U20",
+      "games": 3,
+      "goalDifference": "+8",
+      "points": 9,
+      "detectedTeam": null
+    },
+    {
+      "rank": 4,
+      "team": "U20",
+      "games": 4,
+      "goalDifference": "+0",
+      "points": 9,
+      "detectedTeam": null
+    },
+    {
+      "rank": 5,
+      "team": "U20",
+      "games": 3,
+      "goalDifference": "+12",
+      "points": 6,
+      "detectedTeam": null
+    },
+    {
+      "rank": 6,
+      "team": "U20",
+      "games": 4,
+      "goalDifference": "-2",
+      "points": 3,
+      "detectedTeam": null
+    },
+    {
+      "rank": 7,
+      "team": "U20",
+      "games": 5,
+      "goalDifference": "-10",
+      "points": 2,
+      "detectedTeam": null
+    },
+    {
+      "rank": 8,
+      "team": "U20",
       "games": 5,
       "goalDifference": "-46",
-      "points": 0
+      "points": 0,
+      "detectedTeam": null
     }
   ]
 }

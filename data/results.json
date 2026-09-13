@@ -1,7 +1,31 @@
 {
-  "generatedAt": "2026-09-13T08:43:46.524Z",
-  "source": "https://www.junghaie.de/tabelle-spielergebnisse.menuid24.html",
+  "generatedAt": "2026-09-13T08:56:28.390Z",
+  "source": "https://www.junghaie.de/",
   "results": [
+    {
+      "date": "12.09.2026",
+      "time": "16:30",
+      "datetime": "2026-09-12T16:30:00.000Z",
+      "home": "Kölner Junghaie",
+      "away": "ES Weißwasser",
+      "homeScore": 10,
+      "awayScore": 0,
+      "detectedTeam": null,
+      "team": "U17",
+      "location": "home"
+    },
+    {
+      "date": "12.09.2026",
+      "time": "13:30",
+      "datetime": "2026-09-12T13:30:00.000Z",
+      "home": "Herforder EV",
+      "away": "Kölner Junghaie 1b",
+      "homeScore": 3,
+      "awayScore": 24,
+      "detectedTeam": null,
+      "team": null,
+      "location": "away"
+    },
     {
       "date": "12.09.2026",
       "time": "12:15",
@@ -10,7 +34,33 @@
       "away": "Kölner Junghaie",
       "homeScore": 1,
       "awayScore": 4,
+      "detectedTeam": null,
+      "team": "U20",
       "location": "away"
+    },
+    {
+      "date": "06.09.2026",
+      "time": "17:30",
+      "datetime": "2026-09-06T17:30:00.000Z",
+      "home": "Kölner Junghaie",
+      "away": "Krefelder EV",
+      "homeScore": 8,
+      "awayScore": 4,
+      "detectedTeam": null,
+      "team": null,
+      "location": "home"
+    },
+    {
+      "date": "06.09.2026",
+      "time": "14:45",
+      "datetime": "2026-09-06T14:45:00.000Z",
+      "home": "Kölner Junghaie 1b",
+      "away": "EV Duisburg",
+      "homeScore": 17,
+      "awayScore": 1,
+      "detectedTeam": null,
+      "team": null,
+      "location": "home"
     },
     {
       "date": "06.09.2026",
@@ -20,7 +70,45 @@
       "away": "EV Füssen",
       "homeScore": 15,
       "awayScore": 3,
+      "detectedTeam": null,
+      "team": "U20",
       "location": "home"
+    },
+    {
+      "date": "06.09.2026",
+      "time": "11:00",
+      "datetime": "2026-09-06T11:00:00.000Z",
+      "home": "EHC GA Wolfsburg",
+      "away": "Kölner Junghaie",
+      "homeScore": 2,
+      "awayScore": 9,
+      "detectedTeam": null,
+      "team": "U17",
+      "location": "away"
+    },
+    {
+      "date": "05.09.2026",
+      "time": "19:30",
+      "datetime": "2026-09-05T19:30:00.000Z",
+      "home": "EHC GA Wolfsburg",
+      "away": "Kölner Junghaie",
+      "homeScore": 0,
+      "awayScore": 5,
+      "detectedTeam": null,
+      "team": "U17",
+      "location": "away"
+    },
+    {
+      "date": "05.09.2026",
+      "time": "19:30",
+      "datetime": "2026-09-05T19:30:00.000Z",
+      "home": "Krefelder EV",
+      "away": "Kölner Junghaie",
+      "homeScore": 2,
+      "awayScore": 8,
+      "detectedTeam": null,
+      "team": null,
+      "location": "away"
     },
     {
       "date": "05.09.2026",
@@ -30,7 +118,21 @@
       "away": "EV Füssen",
       "homeScore": 17,
       "awayScore": 1,
+      "detectedTeam": null,
+      "team": "U20",
       "location": "home"
+    },
+    {
+      "date": "04.09.2026",
+      "time": "20:15",
+      "datetime": "2026-09-04T20:15:00.000Z",
+      "home": "EHC Troisdorf",
+      "away": "Kölner Junghaie 1b",
+      "homeScore": 0,
+      "awayScore": 11,
+      "detectedTeam": null,
+      "team": null,
+      "location": "away"
     }
   ]
 }
