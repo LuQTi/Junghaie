@@ -1,36 +1,52 @@
 import fs from "node:fs/promises";
 import { chromium } from "playwright";
 
-const OUTPUT = "data/games.json";
+const OUTPUT_GAMES = "data/games.json";
+const OUTPUT_RESULTS = "data/results.json";
+const OUTPUT_STANDINGS = "data/standings.json";
 
 const PAGES = [
   {
     url: "https://www.junghaie.de/spielplan.menuid23.html",
-    teams: ["U20"]
+    teams: ["U20"],
+    type: "schedule"
   },
   {
     url: "https://www.junghaie.de/spielplan.menuid27.html",
-    teams: ["U17"]
+    teams: ["U17"],
+    type: "schedule"
   },
   {
     url: "https://www.junghaie.de/spielplan.menuid31.html",
-    teams: ["U15 A", "U15 B"]
+    teams: ["U15 A", "U15 B"],
+    type: "schedule"
   },
   {
     url: "https://www.junghaie.de/spielplan.menuid35.html",
-    teams: ["U13 A", "U13 B"]
+    teams: ["U13 A", "U13 B"],
+    type: "schedule"
   },
   {
     url: "https://www.junghaie.de/spielplan.menuid51.html",
-    teams: ["Frauen 1"]
+    teams: ["Frauen 1"],
+    type: "schedule"
   },
   {
     url: "https://www.junghaie.de/spielplan.menuid47.html",
-    teams: ["Frauen 2"]
+    teams: ["Frauen 2"],
+    type: "schedule"
   },
   {
     url: "https://www.junghaie.de/spielplan.menuid55.html",
-    teams: ["Frauen 3"]
+    teams: ["Frauen 3"],
+    type: "schedule"
+  },
+
+  // U20 Tabelle + Spielergebnisse
+  {
+    url: "https://www.junghaie.de/tabelle-spielergebnisse.menuid24.html",
+    teams: ["U20"],
+    type: "table-results"
   }
 ];
 
@@ -68,11 +84,11 @@ function parseDateTime(date, time) {
 
   const [, day, month, year] = match;
 
+  const datePart =
+    `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+
   if (!t) {
-    return `${year}-${month.padStart(2, "0")}-${day.padStart(
-      2,
-      "0"
-    )}T00:00:00`;
+    return `${datePart}T00:00:00`;
   }
 
   const timeMatch = t.match(
@@ -80,18 +96,12 @@ function parseDateTime(date, time) {
   );
 
   if (!timeMatch) {
-    return `${year}-${month.padStart(2, "0")}-${day.padStart(
-      2,
-      "0"
-    )}T00:00:00`;
+    return `${datePart}T00:00:00`;
   }
 
   const [, hour, minute] = timeMatch;
 
-  return `${year}-${month.padStart(2, "0")}-${day.padStart(
-    2,
-    "0"
-  )}T${hour.padStart(2, "0")}:${minute}:00`;
+  return `${datePart}T${hour.padStart(2, "0")}:${minute}:00`;
 }
 
 function getText(element) {
@@ -106,41 +116,73 @@ function getText(element) {
   );
 }
 
-/*
- * Versucht zuerst die bekannten Hockeydata-Klassen.
- */
-function extractFromScheduleRows(rows, team) {
+/* =========================================================
+   SPIELPLAN
+   ========================================================= */
+
+function parseScheduleHtml(html, team) {
   const games = [];
 
+  const parser = new DOMParser();
+
+  const doc = parser.parseFromString(
+    html,
+    "text/html"
+  );
+
+  function get(selector, root) {
+    const element = root.querySelector(selector);
+
+    if (!element) {
+      return "";
+    }
+
+    return clean(
+      element.getAttribute("value") ||
+        element.textContent ||
+        ""
+    );
+  }
+
+  /*
+   * Hockeydata Schedule Rows
+   */
+  const rows = [
+    ...doc.querySelectorAll(
+      ".-hd-los-schedule-row"
+    )
+  ];
+
   for (const row of rows) {
-    const dateElement = row.querySelector(
-      ".-hd-los-schedule-scheduled-date"
+    const date = get(
+      ".-hd-los-schedule-scheduled-date",
+      row
     );
 
-    const timeElement = row.querySelector(
-      ".-hd-los-schedule-scheduled-time"
+    const time = get(
+      ".-hd-los-schedule-scheduled-time",
+      row
     );
 
-    const homeElement = row.querySelector(
-      ".-hd-los-schedule-home-team-name"
+    const home = get(
+      ".-hd-los-schedule-home-team-name",
+      row
     );
 
-    const awayElement = row.querySelector(
-      ".-hd-los-schedule-away-team-name"
+    const away = get(
+      ".-hd-los-schedule-away-team-name",
+      row
     );
 
-    const homeScoreElement = row.querySelector(
-      ".-hd-los-schedule-home-team-score"
+    const homeScore = get(
+      ".-hd-los-schedule-home-team-score",
+      row
     );
 
-    const awayScoreElement = row.querySelector(
-      ".-hd-los-schedule-away-team-score"
+    const awayScore = get(
+      ".-hd-los-schedule-away-team-score",
+      row
     );
-
-    const date = getText(dateElement);
-    const time = getText(timeElement);
-    const home = getText(homeElement);
-    const away = getText(awayElement);
 
     if (!date || !home || !away) {
       continue;
@@ -152,117 +194,87 @@ function extractFromScheduleRows(rows, team) {
       datetime: parseDateTime(date, time),
       home,
       away,
-      homeScore: score(getText(homeScoreElement)),
-      awayScore: score(getText(awayScoreElement)),
+      homeScore: score(homeScore),
+      awayScore: score(awayScore),
       team
     });
   }
 
-  return games;
-}
-
-/*
- * Fallback für normale Hockeydata-Tabellen.
- *
- * Aufbau der bekannten "nextgames"-Tabelle:
- *
- * Datum
- * Uhrzeit
- * Heim
- * Logo
- * Heimscore
- * :
- * Auswärtsscore
- * Logo
- * Auswärts
- */
-function extractFromNextGamesTable(table, team) {
-  const games = [];
-
-  const rows = [
-    ...table.querySelectorAll("tr")
+  /*
+   * Hockeydata nextgames Tabelle
+   */
+  const tables = [
+    ...doc.querySelectorAll(
+      "table.hockeydata_nextgames"
+    )
   ];
 
-  for (const row of rows) {
-    const cells = [
-      ...row.querySelectorAll("td")
-    ].map((cell) => clean(cell.innerText));
+  for (const table of tables) {
+    const rows = [
+      ...table.querySelectorAll("tr")
+    ];
 
-    if (cells.length < 6) {
-      continue;
-    }
+    for (const row of rows) {
+      const cells = [
+        ...row.querySelectorAll("td")
+      ].map((cell) => clean(cell.innerText));
 
-    const date = cells[0];
-
-    if (!/^\d{1,2}\.\d{1,2}\.\d{4}$/.test(date)) {
-      continue;
-    }
-
-    const time = cells[1] || null;
-
-    /*
-     * Das ist der bekannte Hockeydata-Aufbau:
-     *
-     * 0 Datum
-     * 1 Uhrzeit
-     * 2 Heimteam
-     * 3 Heimlogo
-     * 4 Heimscore
-     * 5 :
-     * 6 Auswärtsscore
-     * 7 leer
-     * 8 Auswärtslogo
-     * 9 Auswärtsteam
-     */
-    let home = cells[2] || "";
-    let homeScore = score(cells[4]);
-    let awayScore = score(cells[6]);
-    let away = cells[9] || "";
-
-    /*
-     * Falls die Tabelle leicht anders aufgebaut ist,
-     * versuchen wir die Teams anhand der Textwerte zu finden.
-     */
-    if (!away) {
-      const possibleTeams = cells.filter((value) => {
-        if (!value) return false;
-        if (/^\d{1,2}\.\d{1,2}\.\d{4}$/.test(value)) return false;
-        if (/^\d{1,2}:\d{2}$/.test(value)) return false;
-        if (/^\d+$/.test(value)) return false;
-        if (value === ":") return false;
-        return true;
-      });
-
-      if (possibleTeams.length >= 2) {
-        home = possibleTeams[0];
-        away = possibleTeams[possibleTeams.length - 1];
+      if (cells.length < 6) {
+        continue;
       }
-    }
 
-    if (!home || !away) {
-      continue;
-    }
+      const date = cells[0];
 
-    games.push({
-      date,
-      time,
-      datetime: parseDateTime(date, time),
-      home,
-      away,
-      homeScore,
-      awayScore,
-      team
-    });
+      if (
+        !/^\d{1,2}\.\d{1,2}\.\d{4}$/.test(date)
+      ) {
+        continue;
+      }
+
+      const time = cells[1] || null;
+
+      const home = cells[2] || "";
+
+      const homeScore = score(
+        cells[4] || ""
+      );
+
+      const awayScore = score(
+        cells[6] || ""
+      );
+
+      const away = cells[9] || "";
+
+      if (!home || !away) {
+        continue;
+      }
+
+      games.push({
+        date,
+        time,
+        datetime: parseDateTime(date, time),
+        home,
+        away,
+        homeScore,
+        awayScore,
+        team
+      });
+    }
   }
 
   return games;
 }
 
-async function scrapePage(browser, config) {
+/* =========================================================
+   SPIELPLAN-SEITE SCRAPEN
+   ========================================================= */
+
+async function scrapeSchedulePage(browser, config) {
   console.log("");
   console.log("========================================");
   console.log(`Seite: ${config.url}`);
   console.log(`Teams: ${config.teams.join(", ")}`);
+  console.log("Typ: Spielplan");
   console.log("========================================");
 
   const page = await browser.newPage({
@@ -293,7 +305,7 @@ async function scrapePage(browser, config) {
         }
       }
     } catch {
-      // Nicht jede Response kann gelesen werden.
+      // Response konnte nicht gelesen werden.
     }
   });
 
@@ -303,162 +315,141 @@ async function scrapePage(browser, config) {
       timeout: 60000
     });
 
-    /*
-     * Hockeydata wird nachträglich per JavaScript geladen.
-     */
     console.log("Warte auf Hockeydata...");
 
     await page.waitForTimeout(15000);
-
-    /*
-     * Noch einmal kurz warten, falls gerade eine AJAX-Antwort
-     * eingetroffen ist.
-     */
     await page.waitForTimeout(3000);
 
-    const result = [];
+    const renderedHtml =
+      await page.locator("body").innerHTML();
 
-    /*
-     * ---------------------------------------------------------
-     * 1. Tatsächlich gerenderte Hockeydata-Spielpläne
-     * ---------------------------------------------------------
-     */
-
-    const renderedGames = await page.evaluate(
-      (teams) => {
-        function clean(value) {
-          return String(value ?? "")
-            .replace(/\+/g, " ")
-            .replace(/\u00a0/g, " ")
-            .replace(/\s+/g, " ")
-            .trim();
-        }
-
-        function text(selector, root) {
-          const element = root.querySelector(selector);
-
-          if (!element) {
-            return "";
+    const renderedGames =
+      await page.evaluate(
+        () => {
+          function clean(value) {
+            return String(value ?? "")
+              .replace(/\+/g, " ")
+              .replace(/\u00a0/g, " ")
+              .replace(/\s+/g, " ")
+              .trim();
           }
 
-          return clean(
-            element.getAttribute("value") ||
-              element.textContent ||
-              ""
-          );
-        }
+          function get(selector, root) {
+            const element =
+              root.querySelector(selector);
 
-        const result = [];
-
-        /*
-         * Variante A: Hockeydata schedule rows
-         */
-        const rows = [
-          ...document.querySelectorAll(
-            ".-hd-los-schedule-row"
-          )
-        ];
-
-        for (const row of rows) {
-          const date = text(
-            ".-hd-los-schedule-scheduled-date",
-            row
-          );
-
-          const time = text(
-            ".-hd-los-schedule-scheduled-time",
-            row
-          );
-
-          const home = text(
-            ".-hd-los-schedule-home-team-name",
-            row
-          );
-
-          const away = text(
-            ".-hd-los-schedule-away-team-name",
-            row
-          );
-
-          if (!date || !home || !away) {
-            continue;
-          }
-
-          result.push({
-            date,
-            time: time || null,
-            home,
-            away,
-            homeScore: text(
-              ".-hd-los-schedule-home-team-score",
-              row
-            ),
-            awayScore: text(
-              ".-hd-los-schedule-away-team-score",
-              row
-            )
-          });
-        }
-
-        /*
-         * Variante B: nextgames-Tabelle
-         */
-        const tables = [
-          ...document.querySelectorAll(
-            "table.hockeydata_nextgames"
-          )
-        ];
-
-        for (const table of tables) {
-          const tableRows = [
-            ...table.querySelectorAll("tr")
-          ];
-
-          for (const row of tableRows) {
-            const cells = [
-              ...row.querySelectorAll("td")
-            ].map((cell) =>
-              clean(cell.innerText)
-            );
-
-            if (cells.length < 6) {
-              continue;
+            if (!element) {
+              return "";
             }
 
-            const date = cells[0];
+            return clean(
+              element.getAttribute("value") ||
+                element.textContent ||
+                ""
+            );
+          }
 
-            if (
-              !/^\d{1,2}\.\d{1,2}\.\d{4}$/.test(
-                date
-              )
-            ) {
+          const result = [];
+
+          const rows = [
+            ...document.querySelectorAll(
+              ".-hd-los-schedule-row"
+            )
+          ];
+
+          for (const row of rows) {
+            const date = get(
+              ".-hd-los-schedule-scheduled-date",
+              row
+            );
+
+            const time = get(
+              ".-hd-los-schedule-scheduled-time",
+              row
+            );
+
+            const home = get(
+              ".-hd-los-schedule-home-team-name",
+              row
+            );
+
+            const away = get(
+              ".-hd-los-schedule-away-team-name",
+              row
+            );
+
+            if (!date || !home || !away) {
               continue;
             }
 
             result.push({
               date,
-              time: cells[1] || null,
-              home: cells[2] || "",
-              homeScore: cells[4] || "",
-              awayScore: cells[6] || "",
-              away: cells[9] || ""
+              time: time || null,
+              home,
+              away,
+              homeScore: get(
+                ".-hd-los-schedule-home-team-score",
+                row
+              ),
+              awayScore: get(
+                ".-hd-los-schedule-away-team-score",
+                row
+              )
             });
           }
-        }
 
-        return result;
-      },
-      config.teams
-    );
+          const tables = [
+            ...document.querySelectorAll(
+              "table.hockeydata_nextgames"
+            )
+          ];
+
+          for (const table of tables) {
+            const rows = [
+              ...table.querySelectorAll("tr")
+            ];
+
+            for (const row of rows) {
+              const cells = [
+                ...row.querySelectorAll("td")
+              ].map((cell) =>
+                clean(cell.innerText)
+              );
+
+              if (cells.length < 6) {
+                continue;
+              }
+
+              const date = cells[0];
+
+              if (
+                !/^\d{1,2}\.\d{1,2}\.\d{4}$/.test(
+                  date
+                )
+              ) {
+                continue;
+              }
+
+              result.push({
+                date,
+                time: cells[1] || null,
+                home: cells[2] || "",
+                homeScore: cells[4] || "",
+                awayScore: cells[6] || "",
+                away: cells[9] || ""
+              });
+            }
+          }
+
+          return result;
+        }
+      );
+
+    const result = [];
 
     /*
-     * Den ersten Teamnamen zuordnen.
-     *
-     * Bei Seiten mit zwei Spielplänen (U15/U13) versuchen wir,
-     * anhand der Reihenfolge die beiden Bereiche zu unterscheiden.
+     * Gerenderte Spiele
      */
-    let teamIndex = 0;
-
     for (const game of renderedGames) {
       if (!game.home || !game.away) {
         continue;
@@ -467,7 +458,10 @@ async function scrapePage(browser, config) {
       const team =
         config.teams.length === 1
           ? config.teams[0]
-          : config.teams[teamIndex % config.teams.length];
+          : findTeamForGame(
+              game,
+              config.teams
+            );
 
       result.push({
         date: game.date,
@@ -478,36 +472,23 @@ async function scrapePage(browser, config) {
         ),
         home: game.home,
         away: game.away,
-        homeScore: score(game.homeScore),
-        awayScore: score(game.awayScore),
+        homeScore: score(
+          game.homeScore
+        ),
+        awayScore: score(
+          game.awayScore
+        ),
         team
       });
-
-      /*
-       * Nur für die Zuordnung bei mehreren Tabellen.
-       */
-      if (
-        config.teams.length > 1 &&
-        result.length > 0
-      ) {
-        teamIndex++;
-      }
     }
 
     /*
-     * ---------------------------------------------------------
-     * 2. AJAX-Responses ebenfalls auswerten
-     * ---------------------------------------------------------
-     */
-
-    /*
-     * AJAX-Responses zur Browser-Seite übertragen und dort
-     * mit denselben Regeln auswerten.
+     * AJAX Responses
      */
     for (const response of responses) {
       const responseGames =
         await page.evaluate(
-          ({ html }) => {
+          (html) => {
             const parser =
               new DOMParser();
 
@@ -519,12 +500,6 @@ async function scrapePage(browser, config) {
 
             const games = [];
 
-            const rows = [
-              ...doc.querySelectorAll(
-                ".-hd-los-schedule-row"
-              )
-            ];
-
             function clean(value) {
               return String(value ?? "")
                 .replace(/\+/g, " ")
@@ -533,9 +508,9 @@ async function scrapePage(browser, config) {
                 .trim();
             }
 
-            function get(selector, row) {
+            function get(selector, root) {
               const element =
-                row.querySelector(selector);
+                root.querySelector(selector);
 
               if (!element) {
                 return "";
@@ -547,6 +522,12 @@ async function scrapePage(browser, config) {
                   ""
               );
             }
+
+            const rows = [
+              ...doc.querySelectorAll(
+                ".-hd-los-schedule-row"
+              )
+            ];
 
             for (const row of rows) {
               const date = get(
@@ -634,13 +615,21 @@ async function scrapePage(browser, config) {
 
             return games;
           },
-          { html: response.body }
+          response.body
         );
 
       for (const game of responseGames) {
         if (!game.home || !game.away) {
           continue;
         }
+
+        const team =
+          config.teams.length === 1
+            ? config.teams[0]
+            : findTeamForGame(
+                game,
+                config.teams
+              );
 
         result.push({
           date: game.date,
@@ -657,16 +646,13 @@ async function scrapePage(browser, config) {
           awayScore: score(
             game.awayScore
           ),
-          team:
-            config.teams.length === 1
-              ? config.teams[0]
-              : config.teams[0]
+          team
         });
       }
     }
 
     /*
-     * Duplikate entfernen.
+     * Duplikate entfernen
      */
     const unique = new Map();
 
@@ -685,7 +671,9 @@ async function scrapePage(browser, config) {
       }
     }
 
-    const games = [...unique.values()];
+    const games = [
+      ...unique.values()
+    ];
 
     console.log(
       `Gefundene Spiele: ${games.length}`
@@ -697,71 +685,688 @@ async function scrapePage(browser, config) {
   }
 }
 
-async function main() {
+/* =========================================================
+   TEAM ZUORDNUNG
+   ========================================================= */
+
+function findTeamForGame(game, teams) {
+  const text =
+    `${game.home} ${game.away}`.toLowerCase();
+
+  if (
+    teams.includes("U15 A") &&
+    /u15.*a/i.test(text)
+  ) {
+    return "U15 A";
+  }
+
+  if (
+    teams.includes("U15 B") &&
+    /u15.*b/i.test(text)
+  ) {
+    return "U15 B";
+  }
+
+  if (
+    teams.includes("U13 A") &&
+    /u13.*a/i.test(text)
+  ) {
+    return "U13 A";
+  }
+
+  if (
+    teams.includes("U13 B") &&
+    /u13.*b/i.test(text)
+  ) {
+    return "U13 B";
+  }
+
+  /*
+   * Fallback.
+   */
+  return teams[0];
+}
+
+/* =========================================================
+   TABELLE + ERGEBNISSE
+   ========================================================= */
+
+async function scrapeTableResultsPage(browser, config) {
+  console.log("");
   console.log("========================================");
-  console.log("KÖLNER JUNGHÄIE – SPIELPLAN SCRAPER");
+  console.log(`Seite: ${config.url}`);
+  console.log(`Teams: ${config.teams.join(", ")}`);
+  console.log("Typ: Tabelle + Spielergebnisse");
   console.log("========================================");
 
-  const browser = await chromium.launch({
-    headless: true
+  const page = await browser.newPage({
+    locale: "de-DE",
+    userAgent:
+      "Mozilla/5.0 (X11; Linux x86_64) " +
+      "AppleWebKit/537.36 " +
+      "(KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36"
   });
 
+  try {
+    await page.goto(config.url, {
+      waitUntil: "domcontentloaded",
+      timeout: 60000
+    });
+
+    console.log(
+      "Warte auf gerenderte Tabelle und Ergebnisse..."
+    );
+
+    /*
+     * Die Daten werden nach dem Laden gerendert.
+     */
+    await page.waitForTimeout(15000);
+    await page.waitForTimeout(3000);
+
+    const data = await page.evaluate(
+      () => {
+        function clean(value) {
+          return String(value ?? "")
+            .replace(/\+/g, " ")
+            .replace(/\u00a0/g, " ")
+            .replace(/\s+/g, " ")
+            .trim();
+        }
+
+        function number(value) {
+          const n = Number(
+            clean(value)
+              .replace("+", "")
+          );
+
+          return Number.isFinite(n)
+            ? n
+            : null;
+        }
+
+        const standings = [];
+        const results = [];
+
+        /*
+         * ============================================
+         * TABELLE
+         * ============================================
+         */
+
+        /*
+         * Wir suchen Tabellen anhand ihres sichtbaren
+         * Inhalts und ihrer Spalten.
+         */
+        const allTables = [
+          ...document.querySelectorAll("table")
+        ];
+
+        for (const table of allTables) {
+          const rows = [
+            ...table.querySelectorAll("tr")
+          ];
+
+          if (rows.length < 2) {
+            continue;
+          }
+
+          const tableText =
+            clean(table.innerText);
+
+          /*
+           * Tabelle erkennen:
+           * Team + SP + TD + P
+           */
+          if (
+            !/\bTeam\b/i.test(tableText) ||
+            !/\bSP\b/i.test(tableText) ||
+            !/\bTD\b/i.test(tableText) ||
+            !/\bP\b/i.test(tableText)
+          ) {
+            continue;
+          }
+
+          for (const row of rows) {
+            const cells = [
+              ...row.querySelectorAll("th, td")
+            ].map((cell) =>
+              clean(cell.innerText)
+            );
+
+            if (cells.length < 4) {
+              continue;
+            }
+
+            /*
+             * Beispiel:
+             * 1 | Eisbären Juniors Berlin | 5 | +7 | 10
+             */
+            let position = null;
+            let team = "";
+            let games = null;
+            let goalDifference = null;
+            let points = null;
+
+            if (/^\d+$/.test(cells[0])) {
+              position = Number(cells[0]);
+              team = cells[1] || "";
+              games = number(cells[2]);
+              goalDifference = number(cells[3]);
+              points = number(cells[4]);
+            } else {
+              /*
+               * Fallback, falls keine Platz-Spalte
+               * vorhanden ist.
+               */
+              team = cells[0] || "";
+              games = number(cells[1]);
+              goalDifference = number(cells[2]);
+              points = number(cells[3]);
+            }
+
+            if (!team) {
+              continue;
+            }
+
+            if (
+              team.toLowerCase() === "team"
+            ) {
+              continue;
+            }
+
+            standings.push({
+              position,
+              team,
+              games,
+              goalDifference,
+              points
+            });
+          }
+        }
+
+        /*
+         * ============================================
+         * SPIELERGEBNISSE
+         * ============================================
+         */
+
+        for (const table of allTables) {
+          const rows = [
+            ...table.querySelectorAll("tr")
+          ];
+
+          if (rows.length < 2) {
+            continue;
+          }
+
+          const tableText =
+            clean(table.innerText);
+
+          /*
+           * Ergebnis-Tabelle erkennen.
+           */
+          if (
+            !/\bDatum\b/i.test(tableText) ||
+            !/\bZeit\b/i.test(tableText) ||
+            !/\bHeim\b/i.test(tableText) ||
+            !/\bGast\b/i.test(tableText)
+          ) {
+            continue;
+          }
+
+          for (const row of rows) {
+            const cells = [
+              ...row.querySelectorAll("th, td")
+            ].map((cell) =>
+              clean(cell.innerText)
+            );
+
+            if (cells.length < 5) {
+              continue;
+            }
+
+            const dateIndex =
+              cells.findIndex((value) =>
+                /^\d{1,2}\.\d{1,2}\.\d{4}$/.test(
+                  value
+                )
+              );
+
+            if (dateIndex === -1) {
+              continue;
+            }
+
+            const date =
+              cells[dateIndex];
+
+            const time =
+              cells[dateIndex + 1] || null;
+
+            /*
+             * Bei Hockeydata ist der Aufbau:
+             *
+             * Datum
+             * Zeit
+             * Heim
+             * leer
+             * Heimscore
+             * :
+             * Auswärtsscore
+             * leer
+             * Gast
+             */
+
+            const home =
+              cells[dateIndex + 2] || "";
+
+            let homeScore = null;
+            let awayScore = null;
+            let away = "";
+
+            /*
+             * Suche nach ":" und Scores.
+             */
+            const colonIndex =
+              cells.findIndex(
+                (value, index) =>
+                  index > dateIndex &&
+                  value === ":"
+              );
+
+            if (
+              colonIndex > dateIndex
+            ) {
+              homeScore =
+                number(
+                  cells[colonIndex - 1]
+                );
+
+              awayScore =
+                number(
+                  cells[colonIndex + 1]
+                );
+
+              /*
+               * Gast steht normalerweise
+               * zwei Felder nach dem Auswärtsscore.
+               */
+              for (
+                let i = colonIndex + 2;
+                i < cells.length;
+                i++
+              ) {
+                if (
+                  cells[i] &&
+                  !/^\d+$/.test(cells[i]) &&
+                  cells[i] !== ":"
+                ) {
+                  away = cells[i];
+                  break;
+                }
+              }
+            }
+
+            /*
+             * Falls die Struktur anders ist,
+             * verwenden wir die letzten sinnvollen
+             * Textwerte.
+             */
+            if (!away) {
+              const possibleTeams =
+                cells.filter((value, index) => {
+                  if (index <= dateIndex + 1) {
+                    return false;
+                  }
+
+                  if (!value) {
+                    return false;
+                  }
+
+                  if (
+                    value === ":"
+                  ) {
+                    return false;
+                  }
+
+                  if (
+                    /^\d+$/.test(value)
+                  ) {
+                    return false;
+                  }
+
+                  return true;
+                });
+
+              if (
+                possibleTeams.length >= 2
+              ) {
+                /*
+                 * Erster sinnvoller Wert = Heim
+                 * letzter sinnvoller Wert = Gast
+                 */
+                if (!home) {
+                  home =
+                    possibleTeams[0];
+                }
+
+                away =
+                  possibleTeams[
+                    possibleTeams.length - 1
+                  ];
+              }
+            }
+
+            if (
+              !date ||
+              !home ||
+              !away
+            ) {
+              continue;
+            }
+
+            results.push({
+              date,
+              time,
+              datetime: parseDateTime(
+                date,
+                time
+              ),
+              home,
+              away,
+              homeScore,
+              awayScore
+            });
+          }
+        }
+
+        return {
+          standings,
+          results
+        };
+      }
+    );
+
+    /*
+     * U20 hinzufügen
+     */
+    const standings =
+      data.standings.map((entry) => ({
+        ...entry,
+        team: "U20"
+      }));
+
+    const results =
+      data.results.map((game) => ({
+        ...game,
+        team: "U20"
+      }));
+
+    console.log(
+      `Gefundene Tabellenplätze: ${standings.length}`
+    );
+
+    console.log(
+      `Gefundene Spielergebnisse: ${results.length}`
+    );
+
+    return {
+      standings,
+      results
+    };
+  } finally {
+    await page.close();
+  }
+}
+
+/* =========================================================
+   JSON SPEICHERN
+   ========================================================= */
+
+async function writeJsonIfValid(
+  filename,
+  data,
+  label
+) {
+  if (!Array.isArray(data) || data.length === 0) {
+    console.log(
+      `WARNUNG: ${label} leer – ${filename} wird NICHT überschrieben.`
+    );
+
+    return;
+  }
+
+  await fs.writeFile(
+    filename,
+    JSON.stringify(
+      {
+        generatedAt:
+          new Date().toISOString(),
+        source:
+          "https://www.junghaie.de/",
+        [label]: data
+      },
+      null,
+      2
+    ) + "\n",
+    "utf8"
+  );
+
+  console.log(
+    `Gespeichert: ${filename}`
+  );
+}
+
+/* =========================================================
+   MAIN
+   ========================================================= */
+
+async function main() {
+  console.log(
+    "========================================"
+  );
+
+  console.log(
+    "KÖLNER JUNGHÄIE – SPIELPLAN + ERGEBNISSE + TABELLE"
+  );
+
+  console.log(
+    "========================================"
+  );
+
+  const browser =
+    await chromium.launch({
+      headless: true
+    });
+
   const allGames = [];
+  let allResults = [];
+  let allStandings = [];
 
   try {
     for (const config of PAGES) {
-      const games = await scrapePage(
-        browser,
-        config
-      );
+      if (
+        config.type === "schedule"
+      ) {
+        const games =
+          await scrapeSchedulePage(
+            browser,
+            config
+          );
 
-      allGames.push(...games);
+        allGames.push(...games);
+      }
+
+      if (
+        config.type === "table-results"
+      ) {
+        const data =
+          await scrapeTableResultsPage(
+            browser,
+            config
+          );
+
+        allResults.push(
+          ...data.results
+        );
+
+        allStandings.push(
+          ...data.standings
+        );
+      }
     }
   } finally {
     await browser.close();
   }
 
   /*
-   * Gesamte Duplikate entfernen.
+   * ============================================
+   * SPIELE DUPLIKATE ENTFERNEN
+   * ============================================
    */
-  const unique = new Map();
+
+  const uniqueGames = new Map();
 
   for (const game of allGames) {
     const key = [
       game.date,
       game.time,
       game.home,
-      game.away
+      game.away,
+      game.team
     ]
       .map(clean)
       .join("|");
 
-    if (!unique.has(key)) {
-      unique.set(key, game);
+    if (!uniqueGames.has(key)) {
+      uniqueGames.set(
+        key,
+        game
+      );
     }
   }
 
-  const games = [...unique.values()];
+  const games = [
+    ...uniqueGames.values()
+  ];
 
   /*
-   * Chronologisch sortieren.
+   * Chronologisch sortieren
    */
-  games.sort((a, b) => {
-    return String(a.datetime).localeCompare(
-      String(b.datetime)
-    );
-  });
+  games.sort((a, b) =>
+    String(a.datetime)
+      .localeCompare(
+        String(b.datetime)
+      )
+  );
+
+  /*
+   * ============================================
+   * ERGEBNISSE DUPLIKATE
+   * ============================================
+   */
+
+  const uniqueResults =
+    new Map();
+
+  for (const result of allResults) {
+    const key = [
+      result.date,
+      result.time,
+      result.home,
+      result.away,
+      result.team
+    ]
+      .map(clean)
+      .join("|");
+
+    if (
+      !uniqueResults.has(key)
+    ) {
+      uniqueResults.set(
+        key,
+        result
+      );
+    }
+  }
+
+  const results = [
+    ...uniqueResults.values()
+  ];
+
+  results.sort((a, b) =>
+    String(b.datetime)
+      .localeCompare(
+        String(a.datetime)
+      )
+  );
+
+  /*
+   * ============================================
+   * TABELLE DUPLIKATE
+   * ============================================
+   */
+
+  const uniqueStandings =
+    new Map();
+
+  for (const entry of allStandings) {
+    const key = [
+      entry.team,
+      entry.position,
+      entry.points
+    ]
+      .map(clean)
+      .join("|");
+
+    if (
+      !uniqueStandings.has(key)
+    ) {
+      uniqueStandings.set(
+        key,
+        entry
+      );
+    }
+  }
+
+  const standings = [
+    ...uniqueStandings.values()
+  ];
+
+  standings.sort(
+    (a, b) =>
+      (a.position ?? 999) -
+      (b.position ?? 999)
+  );
+
+  /*
+   * ============================================
+   * AUSGABE
+   * ============================================
+   */
 
   console.log("");
-  console.log("========================================");
-  console.log(`GESAMT: ${games.length} Spiele`);
-  console.log("========================================");
+  console.log(
+    "========================================"
+  );
+
+  console.log(
+    `GESAMT: ${games.length} Spiele`
+  );
+
+  console.log(
+    `ERGEBNISSE: ${results.length}`
+  );
+
+  console.log(
+    `TABELLE: ${standings.length} Mannschaften`
+  );
+
+  console.log(
+    "========================================"
+  );
 
   /*
-   * Sicherheitsprüfung:
-   *
-   * Wenn ALLE Seiten plötzlich nichts liefern,
-   * überschreiben wir niemals die bestehende JSON.
+   * Spielplan ist weiterhin Pflicht.
    */
   if (games.length === 0) {
     throw new Error(
@@ -769,24 +1374,66 @@ async function main() {
     );
   }
 
-  await fs.mkdir("data", {
-    recursive: true
-  });
+  await fs.mkdir(
+    "data",
+    {
+      recursive: true
+    }
+  );
 
+  /*
+   * games.json
+   */
   await fs.writeFile(
-    OUTPUT,
-    JSON.stringify(games, null, 2) + "\n",
+    OUTPUT_GAMES,
+    JSON.stringify(
+      {
+        generatedAt:
+          new Date().toISOString(),
+        source:
+          "https://www.junghaie.de/",
+        games
+      },
+      null,
+      2
+    ) + "\n",
     "utf8"
   );
 
   console.log(
-    `Gespeichert: ${OUTPUT}`
+    `Gespeichert: ${OUTPUT_GAMES}`
+  );
+
+  /*
+   * results.json
+   */
+  await writeJsonIfValid(
+    OUTPUT_RESULTS,
+    results,
+    "results"
+  );
+
+  /*
+   * standings.json
+   */
+  await writeJsonIfValid(
+    OUTPUT_STANDINGS,
+    standings,
+    "standings"
+  );
+
+  console.log("");
+  console.log(
+    "Scraper erfolgreich abgeschlossen."
   );
 }
 
 main().catch((error) => {
   console.error("");
-  console.error("SCRAPER FEHLER:");
+  console.error(
+    "SCRAPER FEHLER:"
+  );
   console.error(error);
+
   process.exit(1);
 });
