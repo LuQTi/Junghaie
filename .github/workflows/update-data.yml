@@ -1,4 +1,4 @@
-name: Update Junghaie games
+name: Update Junghaie Spiele, Ergebnisse und Tabelle
 
 on:
   workflow_dispatch:
@@ -10,40 +10,47 @@ permissions:
   contents: write
 
 jobs:
-  update-games:
+  update-junghaie-data:
+    name: Junghaie Daten aktualisieren
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Repository auschecken
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Node.js einrichten
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Install dependencies
+      - name: Abhängigkeiten installieren
         run: npm install
 
-      - name: Install Playwright Chromium
+      - name: Playwright Chromium installieren
         run: npx playwright install --with-deps chromium
 
-      - name: Scrape all games
+      - name: Spiele, Ergebnisse und Tabelle abrufen
         run: npm run scrape
 
-      - name: Show games.json
+      - name: Spiele anzeigen
         run: cat data/games.json
 
-      - name: Commit updated games
+      - name: Ergebnisse anzeigen
+        run: cat data/results.json
+
+      - name: Tabelle anzeigen
+        run: cat data/standings.json
+
+      - name: Aktualisierte Daten speichern
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add data/games.json
+          git add data/
 
           if git diff --cached --quiet; then
             echo "Keine Änderungen."
           else
-            git commit -m "Update games"
+            git commit -m "Update Junghaie Spiele, Ergebnisse und Tabelle"
             git push
           fi
