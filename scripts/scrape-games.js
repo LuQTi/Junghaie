@@ -1,1065 +1,486 @@
-import fs from "node:fs/promises";
+import fs from "fs/promises";
 import { chromium } from "playwright";
-
-const OUTPUT_GAMES = "data/games.json";
-const OUTPUT_RESULTS = "data/results.json";
-const OUTPUT_STANDINGS = "data/standings.json";
 
 const PAGES = [
   {
     url: "https://www.junghaie.de/spielplan.menuid23.html",
     teams: ["U20"],
-    type: "schedule"
   },
   {
     url: "https://www.junghaie.de/spielplan.menuid27.html",
     teams: ["U17"],
-    type: "schedule"
   },
   {
     url: "https://www.junghaie.de/spielplan.menuid31.html",
     teams: ["U15 A", "U15 B"],
-    type: "schedule"
   },
   {
     url: "https://www.junghaie.de/spielplan.menuid35.html",
     teams: ["U13 A", "U13 B"],
-    type: "schedule"
   },
   {
     url: "https://www.junghaie.de/spielplan.menuid51.html",
     teams: ["Frauen 1"],
-    type: "schedule"
   },
   {
     url: "https://www.junghaie.de/spielplan.menuid47.html",
     teams: ["Frauen 2"],
-    type: "schedule"
   },
   {
     url: "https://www.junghaie.de/spielplan.menuid55.html",
     teams: ["Frauen 3"],
-    type: "schedule"
   },
-
-  // U20 Tabelle + Spielergebnisse
   {
     url: "https://www.junghaie.de/tabelle-spielergebnisse.menuid24.html",
     teams: ["U20"],
-    type: "table-results"
-  }
+    type: "table-results",
+  },
 ];
+
+const OUTPUT_DIR = "data";
 
 function clean(value) {
   return String(value ?? "")
-    .replace(/\+/g, " ")
-    .replace(/\u00a0/g, " ")
     .replace(/\s+/g, " ")
     .trim();
 }
 
-function score(value) {
-  const valueClean = clean(value);
-
-  if (!valueClean || valueClean === "-") {
-    return null;
-  }
-
-  const number = Number(valueClean);
-
-  return Number.isFinite(number) ? number : null;
-}
-
-function parseDateTime(date, time) {
-  const d = clean(date);
-  const t = clean(time);
-
-  const match = d.match(
+function parseDateTime(dateText, timeText = "") {
+  const m = clean(dateText).match(
     /^(\d{1,2})\.(\d{1,2})\.(\d{4})$/
   );
 
-  if (!match) {
-    return null;
-  }
+  if (!m) return null;
 
-  const [, day, month, year] = match;
+  const time = clean(timeText);
+  const t = time.match(/^(\d{1,2}):(\d{2})$/);
 
-  const datePart =
-    `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+  const hour = t ? Number(t[1]) : 0;
+  const minute = t ? Number(t[2]) : 0;
 
-  if (!t) {
-    return `${datePart}T00:00:00`;
-  }
-
-  const timeMatch = t.match(
-    /^(\d{1,2}):(\d{2})$/
+  const d = new Date(
+    Number(m[3]),
+    Number(m[2]) - 1,
+    Number(m[1]),
+    hour,
+    minute
   );
 
-  if (!timeMatch) {
-    return `${datePart}T00:00:00`;
-  }
+  if (Number.isNaN(d.getTime())) return null;
 
-  const [, hour, minute] = timeMatch;
-
-  return `${datePart}T${hour.padStart(2, "0")}:${minute}:00`;
+  return d.toISOString();
 }
 
-function getText(element) {
-  if (!element) {
-    return "";
-  }
-
-  return clean(
-    element.getAttribute("value") ||
-      element.textContent ||
-      ""
-  );
+function score(value) {
+  const m = clean(value).match(/\d+/);
+  return m ? Number(m[0]) : null;
 }
 
-/* =========================================================
-   SPIELPLAN
-   ========================================================= */
+function uniqueGames(games) {
+  const map = new Map();
 
-function parseScheduleHtml(html, team) {
-  const games = [];
+  for (const game of games) {
+    const key = [
+      game.datetime || "",
+      clean(game.date),
+      clean(game.time),
+      clean(game.home),
+      clean(game.away),
+    ].join("|");
 
-  const parser = new DOMParser();
-
-  const doc = parser.parseFromString(
-    html,
-    "text/html"
-  );
-
-  function get(selector, root) {
-    const element = root.querySelector(selector);
-
-    if (!element) {
-      return "";
-    }
-
-    return clean(
-      element.getAttribute("value") ||
-        element.textContent ||
-        ""
-    );
-  }
-
-  /*
-   * Hockeydata Schedule Rows
-   */
-  const rows = [
-    ...doc.querySelectorAll(
-      ".-hd-los-schedule-row"
-    )
-  ];
-
-  for (const row of rows) {
-    const date = get(
-      ".-hd-los-schedule-scheduled-date",
-      row
-    );
-
-    const time = get(
-      ".-hd-los-schedule-scheduled-time",
-      row
-    );
-
-    const home = get(
-      ".-hd-los-schedule-home-team-name",
-      row
-    );
-
-    const away = get(
-      ".-hd-los-schedule-away-team-name",
-      row
-    );
-
-    const homeScore = get(
-      ".-hd-los-schedule-home-team-score",
-      row
-    );
-
-    const awayScore = get(
-      ".-hd-los-schedule-away-team-score",
-      row
-    );
-
-    if (!date || !home || !away) {
-      continue;
-    }
-
-    games.push({
-      date,
-      time: time || null,
-      datetime: parseDateTime(date, time),
-      home,
-      away,
-      homeScore: score(homeScore),
-      awayScore: score(awayScore),
-      team
-    });
-  }
-
-  /*
-   * Hockeydata nextgames Tabelle
-   */
-  const tables = [
-    ...doc.querySelectorAll(
-      "table.hockeydata_nextgames"
-    )
-  ];
-
-  for (const table of tables) {
-    const rows = [
-      ...table.querySelectorAll("tr")
-    ];
-
-    for (const row of rows) {
-      const cells = [
-        ...row.querySelectorAll("td")
-      ].map((cell) => clean(cell.innerText));
-
-      if (cells.length < 6) {
-        continue;
-      }
-
-      const date = cells[0];
-
-      if (
-        !/^\d{1,2}\.\d{1,2}\.\d{4}$/.test(date)
-      ) {
-        continue;
-      }
-
-      const time = cells[1] || null;
-
-      const home = cells[2] || "";
-
-      const homeScore = score(
-        cells[4] || ""
-      );
-
-      const awayScore = score(
-        cells[6] || ""
-      );
-
-      const away = cells[9] || "";
-
-      if (!home || !away) {
-        continue;
-      }
-
-      games.push({
-        date,
-        time,
-        datetime: parseDateTime(date, time),
-        home,
-        away,
-        homeScore,
-        awayScore,
-        team
-      });
+    if (!map.has(key)) {
+      map.set(key, game);
     }
   }
 
-  return games;
+  return [...map.values()];
 }
 
-/* =========================================================
-   SPIELPLAN-SEITE SCRAPEN
-   ========================================================= */
+function sortGames(games) {
+  return [...games].sort((a, b) => {
+    const da = a.datetime
+      ? new Date(a.datetime).getTime()
+      : Number.MAX_SAFE_INTEGER;
+
+    const db = b.datetime
+      ? new Date(b.datetime).getTime()
+      : Number.MAX_SAFE_INTEGER;
+
+    return da - db;
+  });
+}
+
+function findJunghaieTeam(home, away) {
+  const h = clean(home).toLowerCase();
+  const a = clean(away).toLowerCase();
+
+  if (h.includes("junghaie")) return "home";
+  if (a.includes("junghaie")) return "away";
+
+  return null;
+}
+
+function addLocation(game) {
+  const location = findJunghaieTeam(game.home, game.away);
+
+  if (location === "home") {
+    return {
+      ...game,
+      location: "home",
+    };
+  }
+
+  if (location === "away") {
+    return {
+      ...game,
+      location: "away",
+    };
+  }
+
+  return {
+    ...game,
+    location: null,
+  };
+}
+
+async function waitForHockeydata(page) {
+  console.log("Warte auf Hockeydata...");
+
+  await page.waitForTimeout(5000);
+
+  try {
+    await page.waitForFunction(
+      () => {
+        const text = document.body?.innerText || "";
+
+        return (
+          text.includes("Datum") ||
+          text.includes("Heim") ||
+          text.includes("Gast") ||
+          document.querySelectorAll("table").length > 0
+        );
+      },
+      { timeout: 20000 }
+    );
+  } catch {
+    // Seite kann trotzdem bereits Daten enthalten.
+  }
+
+  await page.waitForTimeout(3000);
+}
 
 async function scrapeSchedulePage(browser, config) {
-  console.log("");
   console.log("========================================");
   console.log(`Seite: ${config.url}`);
   console.log(`Teams: ${config.teams.join(", ")}`);
   console.log("Typ: Spielplan");
   console.log("========================================");
 
-  const page = await browser.newPage({
-    locale: "de-DE",
-    userAgent:
-      "Mozilla/5.0 (X11; Linux x86_64) " +
-      "AppleWebKit/537.36 " +
-      "(KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36"
-  });
-
-  const responses = [];
-
-  page.on("response", async (response) => {
-    try {
-      const url = response.url();
-
-      if (
-        url.includes("ajax-hockeydata-filter.php") ||
-        url.includes("hockeydata")
-      ) {
-        const body = await response.text();
-
-        if (body && body.length > 100) {
-          responses.push({
-            url,
-            body
-          });
-        }
-      }
-    } catch {
-      // Response konnte nicht gelesen werden.
-    }
-  });
+  const page = await browser.newPage();
 
   try {
     await page.goto(config.url, {
       waitUntil: "domcontentloaded",
-      timeout: 60000
+      timeout: 60000,
     });
 
-    console.log("Warte auf Hockeydata...");
+    await waitForHockeydata(page);
 
-    await page.waitForTimeout(15000);
-    await page.waitForTimeout(3000);
-
-    const renderedHtml =
-      await page.locator("body").innerHTML();
-
-    const renderedGames =
-      await page.evaluate(
-        () => {
-          function clean(value) {
-            return String(value ?? "")
-              .replace(/\+/g, " ")
-              .replace(/\u00a0/g, " ")
-              .replace(/\s+/g, " ")
-              .trim();
-          }
-
-          function get(selector, root) {
-            const element =
-              root.querySelector(selector);
-
-            if (!element) {
-              return "";
-            }
-
-            return clean(
-              element.getAttribute("value") ||
-                element.textContent ||
-                ""
-            );
-          }
-
-          const result = [];
-
-          const rows = [
-            ...document.querySelectorAll(
-              ".-hd-los-schedule-row"
-            )
-          ];
-
-          for (const row of rows) {
-            const date = get(
-              ".-hd-los-schedule-scheduled-date",
-              row
-            );
-
-            const time = get(
-              ".-hd-los-schedule-scheduled-time",
-              row
-            );
-
-            const home = get(
-              ".-hd-los-schedule-home-team-name",
-              row
-            );
-
-            const away = get(
-              ".-hd-los-schedule-away-team-name",
-              row
-            );
-
-            if (!date || !home || !away) {
-              continue;
-            }
-
-            result.push({
-              date,
-              time: time || null,
-              home,
-              away,
-              homeScore: get(
-                ".-hd-los-schedule-home-team-score",
-                row
-              ),
-              awayScore: get(
-                ".-hd-los-schedule-away-team-score",
-                row
-              )
-            });
-          }
-
-          const tables = [
-            ...document.querySelectorAll(
-              "table.hockeydata_nextgames"
-            )
-          ];
-
-          for (const table of tables) {
-            const rows = [
-              ...table.querySelectorAll("tr")
-            ];
-
-            for (const row of rows) {
-              const cells = [
-                ...row.querySelectorAll("td")
-              ].map((cell) =>
-                clean(cell.innerText)
-              );
-
-              if (cells.length < 6) {
-                continue;
-              }
-
-              const date = cells[0];
-
-              if (
-                !/^\d{1,2}\.\d{1,2}\.\d{4}$/.test(
-                  date
-                )
-              ) {
-                continue;
-              }
-
-              result.push({
-                date,
-                time: cells[1] || null,
-                home: cells[2] || "",
-                homeScore: cells[4] || "",
-                awayScore: cells[6] || "",
-                away: cells[9] || ""
-              });
-            }
-          }
-
-          return result;
-        }
-      );
-
-    const result = [];
-
-    /*
-     * Gerenderte Spiele
-     */
-    for (const game of renderedGames) {
-      if (!game.home || !game.away) {
-        continue;
+    const games = await page.evaluate(() => {
+      function clean(value) {
+        return String(value ?? "")
+          .replace(/\s+/g, " ")
+          .trim();
       }
 
-      const team =
-        config.teams.length === 1
-          ? config.teams[0]
-          : findTeamForGame(
-              game,
-              config.teams
-            );
-
-      result.push({
-        date: game.date,
-        time: game.time,
-        datetime: parseDateTime(
-          game.date,
-          game.time
-        ),
-        home: game.home,
-        away: game.away,
-        homeScore: score(
-          game.homeScore
-        ),
-        awayScore: score(
-          game.awayScore
-        ),
-        team
-      });
-    }
-
-    /*
-     * AJAX Responses
-     */
-    for (const response of responses) {
-      const responseGames =
-        await page.evaluate(
-          (html) => {
-            const parser =
-              new DOMParser();
-
-            const doc =
-              parser.parseFromString(
-                html,
-                "text/html"
-              );
-
-            const games = [];
-
-            function clean(value) {
-              return String(value ?? "")
-                .replace(/\+/g, " ")
-                .replace(/\u00a0/g, " ")
-                .replace(/\s+/g, " ")
-                .trim();
-            }
-
-            function get(selector, root) {
-              const element =
-                root.querySelector(selector);
-
-              if (!element) {
-                return "";
-              }
-
-              return clean(
-                element.getAttribute("value") ||
-                  element.textContent ||
-                  ""
-              );
-            }
-
-            const rows = [
-              ...doc.querySelectorAll(
-                ".-hd-los-schedule-row"
-              )
-            ];
-
-            for (const row of rows) {
-              const date = get(
-                ".-hd-los-schedule-scheduled-date",
-                row
-              );
-
-              const time = get(
-                ".-hd-los-schedule-scheduled-time",
-                row
-              );
-
-              const home = get(
-                ".-hd-los-schedule-home-team-name",
-                row
-              );
-
-              const away = get(
-                ".-hd-los-schedule-away-team-name",
-                row
-              );
-
-              if (!date || !home || !away) {
-                continue;
-              }
-
-              games.push({
-                date,
-                time: time || null,
-                home,
-                away,
-                homeScore: get(
-                  ".-hd-los-schedule-home-team-score",
-                  row
-                ),
-                awayScore: get(
-                  ".-hd-los-schedule-away-team-score",
-                  row
-                )
-              });
-            }
-
-            const tables = [
-              ...doc.querySelectorAll(
-                "table.hockeydata_nextgames"
-              )
-            ];
-
-            for (const table of tables) {
-              const rows = [
-                ...table.querySelectorAll("tr")
-              ];
-
-              for (const row of rows) {
-                const cells = [
-                  ...row.querySelectorAll("td")
-                ].map((cell) =>
-                  clean(cell.innerText)
-                );
-
-                if (cells.length < 6) {
-                  continue;
-                }
-
-                const date = cells[0];
-
-                if (
-                  !/^\d{1,2}\.\d{1,2}\.\d{4}$/.test(
-                    date
-                  )
-                ) {
-                  continue;
-                }
-
-                games.push({
-                  date,
-                  time: cells[1] || null,
-                  home: cells[2] || "",
-                  homeScore: cells[4] || "",
-                  awayScore: cells[6] || "",
-                  away: cells[9] || ""
-                });
-              }
-            }
-
-            return games;
-          },
-          response.body
+      function parseDateTime(dateText, timeText = "") {
+        const m = clean(dateText).match(
+          /^(\d{1,2})\.(\d{1,2})\.(\d{4})$/
         );
 
-      for (const game of responseGames) {
-        if (!game.home || !game.away) {
-          continue;
-        }
+        if (!m) return null;
 
-        const team =
-          config.teams.length === 1
-            ? config.teams[0]
-            : findTeamForGame(
-                game,
-                config.teams
-              );
+        const t = clean(timeText).match(
+          /^(\d{1,2}):(\d{2})$/
+        );
 
-        result.push({
-          date: game.date,
-          time: game.time,
-          datetime: parseDateTime(
-            game.date,
-            game.time
-          ),
-          home: game.home,
-          away: game.away,
-          homeScore: score(
-            game.homeScore
-          ),
-          awayScore: score(
-            game.awayScore
-          ),
-          team
-        });
+        const hour = t ? Number(t[1]) : 0;
+        const minute = t ? Number(t[2]) : 0;
+
+        const d = new Date(
+          Number(m[3]),
+          Number(m[2]) - 1,
+          Number(m[1]),
+          hour,
+          minute
+        );
+
+        return Number.isNaN(d.getTime())
+          ? null
+          : d.toISOString();
       }
-    }
 
-    /*
-     * Duplikate entfernen
-     */
-    const unique = new Map();
+      function score(value) {
+        const m = clean(value).match(/\d+/);
+        return m ? Number(m[0]) : null;
+      }
 
-    for (const game of result) {
-      const key = [
-        game.date,
-        game.time,
+      const tables = [
+        ...document.querySelectorAll("table"),
+      ];
+
+      const games = [];
+
+      for (const table of tables) {
+        const rows = [
+          ...table.querySelectorAll("tr"),
+        ];
+
+        for (const row of rows) {
+          const cells = [
+            ...row.querySelectorAll("th, td"),
+          ]
+            .map(cell => clean(cell.innerText))
+            .filter(Boolean);
+
+          if (cells.length < 5) continue;
+
+          const dateIndex = cells.findIndex(v =>
+            /^\d{1,2}\.\d{1,2}\.\d{4}$/.test(v)
+          );
+
+          if (dateIndex === -1) continue;
+
+          const date = cells[dateIndex];
+          const time = cells[dateIndex + 1] || "";
+
+          let home = "";
+          let away = "";
+          let homeScore = null;
+          let awayScore = null;
+
+          const colonIndex = cells.findIndex(
+            (v, i) => i > dateIndex && v === ":"
+          );
+
+          if (colonIndex !== -1) {
+            homeScore = score(
+              cells[colonIndex - 1]
+            );
+
+            awayScore = score(
+              cells[colonIndex + 1]
+            );
+
+            home =
+              cells[dateIndex + 2] || "";
+
+            away =
+              cells[colonIndex + 2] || "";
+          } else {
+            continue;
+          }
+
+          if (!home || !away) continue;
+
+          if (
+            home.toLowerCase() === "heim" ||
+            away.toLowerCase() === "gast"
+          ) {
+            continue;
+          }
+
+          games.push({
+            date,
+            time,
+            datetime: parseDateTime(date, time),
+            home,
+            away,
+            homeScore,
+            awayScore,
+          });
+        }
+      }
+
+      return games;
+    });
+
+    console.log(`Gefundene Spiele: ${games.length}`);
+
+    return games.map(game => ({
+      ...game,
+      location: findJunghaieTeam(
         game.home,
         game.away
-      ]
-        .map(clean)
-        .join("|");
-
-      if (!unique.has(key)) {
-        unique.set(key, game);
-      }
-    }
-
-    const games = [
-      ...unique.values()
-    ];
-
-    console.log(
-      `Gefundene Spiele: ${games.length}`
-    );
-
-    return games;
+      ),
+    }));
   } finally {
     await page.close();
   }
 }
 
-/* =========================================================
-   TEAM ZUORDNUNG
-   ========================================================= */
-
-function findTeamForGame(game, teams) {
-  const text =
-    `${game.home} ${game.away}`.toLowerCase();
-
-  if (
-    teams.includes("U15 A") &&
-    /u15.*a/i.test(text)
-  ) {
-    return "U15 A";
-  }
-
-  if (
-    teams.includes("U15 B") &&
-    /u15.*b/i.test(text)
-  ) {
-    return "U15 B";
-  }
-
-  if (
-    teams.includes("U13 A") &&
-    /u13.*a/i.test(text)
-  ) {
-    return "U13 A";
-  }
-
-  if (
-    teams.includes("U13 B") &&
-    /u13.*b/i.test(text)
-  ) {
-    return "U13 B";
-  }
-
-  /*
-   * Fallback.
-   */
-  return teams[0];
-}
-
-/* =========================================================
-   TABELLE + ERGEBNISSE
-   ========================================================= */
-
 async function scrapeTableResultsPage(browser, config) {
-  console.log("");
   console.log("========================================");
   console.log(`Seite: ${config.url}`);
   console.log(`Teams: ${config.teams.join(", ")}`);
   console.log("Typ: Tabelle + Spielergebnisse");
   console.log("========================================");
+  console.log(
+    "Warte auf gerenderte Tabelle und Ergebnisse..."
+  );
 
-  const page = await browser.newPage({
-    locale: "de-DE",
-    userAgent:
-      "Mozilla/5.0 (X11; Linux x86_64) " +
-      "AppleWebKit/537.36 " +
-      "(KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36"
-  });
+  const page = await browser.newPage();
 
   try {
     await page.goto(config.url, {
       waitUntil: "domcontentloaded",
-      timeout: 60000
+      timeout: 60000,
     });
 
-    console.log(
-      "Warte auf gerenderte Tabelle und Ergebnisse..."
-    );
-
     /*
-     * Die Daten werden nach dem Laden gerendert.
+     * Hockeydata braucht etwas Zeit, um die Tabelle
+     * und die Ergebnisse in den DOM einzubauen.
      */
-    await page.waitForTimeout(15000);
+    await page.waitForTimeout(7000);
+
+    try {
+      await page.waitForFunction(
+        () => {
+          const text = document.body?.innerText || "";
+
+          return (
+            text.includes("Spielergebnisse") ||
+            text.includes("Tabelle U20") ||
+            document.querySelectorAll("table").length >= 1
+          );
+        },
+        { timeout: 30000 }
+      );
+    } catch {
+      // Danach trotzdem auslesen.
+    }
+
     await page.waitForTimeout(3000);
 
-    const data = await page.evaluate(
-      () => {
-        function clean(value) {
-          return String(value ?? "")
-            .replace(/\+/g, " ")
-            .replace(/\u00a0/g, " ")
-            .replace(/\s+/g, " ")
-            .trim();
-        }
+    const extracted = await page.evaluate(() => {
+      function clean(value) {
+        return String(value ?? "")
+          .replace(/\s+/g, " ")
+          .trim();
+      }
 
-        function number(value) {
-          const n = Number(
-            clean(value)
-              .replace("+", "")
-          );
+      function score(value) {
+        const m = clean(value).match(/\d+/);
+        return m ? Number(m[0]) : null;
+      }
 
-          return Number.isFinite(n)
-            ? n
-            : null;
-        }
+      /*
+       * WICHTIG:
+       * Diese Funktion befindet sich innerhalb von
+       * page.evaluate(), damit sie im Browser-Kontext
+       * verfügbar ist.
+       */
+      function parseDateTime(dateText, timeText = "") {
+        const m = clean(dateText).match(
+          /^(\d{1,2})\.(\d{1,2})\.(\d{4})$/
+        );
 
-        const standings = [];
-        const results = [];
+        if (!m) return null;
 
-        /*
-         * ============================================
-         * TABELLE
-         * ============================================
-         */
+        const t = clean(timeText).match(
+          /^(\d{1,2}):(\d{2})$/
+        );
 
-        /*
-         * Wir suchen Tabellen anhand ihres sichtbaren
-         * Inhalts und ihrer Spalten.
-         */
-        const allTables = [
-          ...document.querySelectorAll("table")
+        const hour = t ? Number(t[1]) : 0;
+        const minute = t ? Number(t[2]) : 0;
+
+        const d = new Date(
+          Number(m[3]),
+          Number(m[2]) - 1,
+          Number(m[1]),
+          hour,
+          minute
+        );
+
+        return Number.isNaN(d.getTime())
+          ? null
+          : d.toISOString();
+      }
+
+      const tables = [
+        ...document.querySelectorAll("table"),
+      ];
+
+      const results = [];
+      const standings = [];
+
+      for (const table of tables) {
+        const text = clean(table.innerText);
+
+        const rows = [
+          ...table.querySelectorAll("tr"),
         ];
 
-        for (const table of allTables) {
-          const rows = [
-            ...table.querySelectorAll("tr")
-          ];
-
-          if (rows.length < 2) {
-            continue;
-          }
-
-          const tableText =
-            clean(table.innerText);
-
-          /*
-           * Tabelle erkennen:
-           * Team + SP + TD + P
-           */
-          if (
-            !/\bTeam\b/i.test(tableText) ||
-            !/\bSP\b/i.test(tableText) ||
-            !/\bTD\b/i.test(tableText) ||
-            !/\bP\b/i.test(tableText)
-          ) {
-            continue;
-          }
-
-          for (const row of rows) {
-            const cells = [
-              ...row.querySelectorAll("th, td")
-            ].map((cell) =>
-              clean(cell.innerText)
-            );
-
-            if (cells.length < 4) {
-              continue;
-            }
-
-            /*
-             * Beispiel:
-             * 1 | Eisbären Juniors Berlin | 5 | +7 | 10
-             */
-            let position = null;
-            let team = "";
-            let games = null;
-            let goalDifference = null;
-            let points = null;
-
-            if (/^\d+$/.test(cells[0])) {
-              position = Number(cells[0]);
-              team = cells[1] || "";
-              games = number(cells[2]);
-              goalDifference = number(cells[3]);
-              points = number(cells[4]);
-            } else {
-              /*
-               * Fallback, falls keine Platz-Spalte
-               * vorhanden ist.
-               */
-              team = cells[0] || "";
-              games = number(cells[1]);
-              goalDifference = number(cells[2]);
-              points = number(cells[3]);
-            }
-
-            if (!team) {
-              continue;
-            }
-
-            if (
-              team.toLowerCase() === "team"
-            ) {
-              continue;
-            }
-
-            standings.push({
-              position,
-              team,
-              games,
-              goalDifference,
-              points
-            });
-          }
-        }
+        if (!rows.length) continue;
 
         /*
-         * ============================================
+         * ========================================
          * SPIELERGEBNISSE
-         * ============================================
+         * ========================================
          */
 
-        for (const table of allTables) {
-          const rows = [
-            ...table.querySelectorAll("tr")
-          ];
-
-          if (rows.length < 2) {
-            continue;
-          }
-
-          const tableText =
-            clean(table.innerText);
-
-          /*
-           * Ergebnis-Tabelle erkennen.
-           */
-          if (
-            !/\bDatum\b/i.test(tableText) ||
-            !/\bZeit\b/i.test(tableText) ||
-            !/\bHeim\b/i.test(tableText) ||
-            !/\bGast\b/i.test(tableText)
-          ) {
-            continue;
-          }
-
+        if (
+          text.includes("Datum") &&
+          text.includes("Zeit") &&
+          text.includes("Heim") &&
+          text.includes("Gast")
+        ) {
           for (const row of rows) {
             const cells = [
-              ...row.querySelectorAll("th, td")
-            ].map((cell) =>
-              clean(cell.innerText)
+              ...row.querySelectorAll("th, td"),
+            ]
+              .map(cell => clean(cell.innerText))
+              .filter(Boolean);
+
+            if (cells.length < 5) continue;
+
+            const dateIndex = cells.findIndex(v =>
+              /^\d{1,2}\.\d{1,2}\.\d{4}$/.test(v)
             );
 
-            if (cells.length < 5) {
-              continue;
-            }
+            if (dateIndex === -1) continue;
 
-            const dateIndex =
-              cells.findIndex((value) =>
-                /^\d{1,2}\.\d{1,2}\.\d{4}$/.test(
-                  value
-                )
-              );
-
-            if (dateIndex === -1) {
-              continue;
-            }
-
-            const date =
-              cells[dateIndex];
-
+            const date = cells[dateIndex];
             const time =
-              cells[dateIndex + 1] || null;
+              cells[dateIndex + 1] || "";
 
-            /*
-             * Bei Hockeydata ist der Aufbau:
-             *
-             * Datum
-             * Zeit
-             * Heim
-             * leer
-             * Heimscore
-             * :
-             * Auswärtsscore
-             * leer
-             * Gast
-             */
+            const colonIndex = cells.findIndex(
+              (v, i) =>
+                i > dateIndex && v === ":"
+            );
+
+            if (colonIndex === -1) continue;
 
             const home =
               cells[dateIndex + 2] || "";
 
-            let homeScore = null;
-            let awayScore = null;
-            let away = "";
+            const homeScore =
+              score(cells[colonIndex - 1]);
+
+            const awayScore =
+              score(cells[colonIndex + 1]);
+
+            const away =
+              cells[colonIndex + 2] || "";
+
+            if (!home || !away) continue;
 
             /*
-             * Suche nach ":" und Scores.
+             * Tabellen-Kopf nicht als Spiel übernehmen.
              */
-            const colonIndex =
-              cells.findIndex(
-                (value, index) =>
-                  index > dateIndex &&
-                  value === ":"
-              );
-
             if (
-              colonIndex > dateIndex
-            ) {
-              homeScore =
-                number(
-                  cells[colonIndex - 1]
-                );
-
-              awayScore =
-                number(
-                  cells[colonIndex + 1]
-                );
-
-              /*
-               * Gast steht normalerweise
-               * zwei Felder nach dem Auswärtsscore.
-               */
-              for (
-                let i = colonIndex + 2;
-                i < cells.length;
-                i++
-              ) {
-                if (
-                  cells[i] &&
-                  !/^\d+$/.test(cells[i]) &&
-                  cells[i] !== ":"
-                ) {
-                  away = cells[i];
-                  break;
-                }
-              }
-            }
-
-            /*
-             * Falls die Struktur anders ist,
-             * verwenden wir die letzten sinnvollen
-             * Textwerte.
-             */
-            if (!away) {
-              const possibleTeams =
-                cells.filter((value, index) => {
-                  if (index <= dateIndex + 1) {
-                    return false;
-                  }
-
-                  if (!value) {
-                    return false;
-                  }
-
-                  if (
-                    value === ":"
-                  ) {
-                    return false;
-                  }
-
-                  if (
-                    /^\d+$/.test(value)
-                  ) {
-                    return false;
-                  }
-
-                  return true;
-                });
-
-              if (
-                possibleTeams.length >= 2
-              ) {
-                /*
-                 * Erster sinnvoller Wert = Heim
-                 * letzter sinnvoller Wert = Gast
-                 */
-                if (!home) {
-                  home =
-                    possibleTeams[0];
-                }
-
-                away =
-                  possibleTeams[
-                    possibleTeams.length - 1
-                  ];
-              }
-            }
-
-            if (
-              !date ||
-              !home ||
-              !away
+              home.toLowerCase() === "heim" ||
+              away.toLowerCase() === "gast"
             ) {
               continue;
             }
@@ -1074,366 +495,395 @@ async function scrapeTableResultsPage(browser, config) {
               home,
               away,
               homeScore,
-              awayScore
+              awayScore,
+            });
+          }
+
+          continue;
+        }
+
+        /*
+         * ========================================
+         * U20 TABELLE
+         * ========================================
+         */
+
+        if (
+          text.includes("Team") &&
+          text.includes("SP") &&
+          text.includes("TD") &&
+          text.includes("P")
+        ) {
+          for (const row of rows) {
+            const cells = [
+              ...row.querySelectorAll("th, td"),
+            ]
+              .map(cell => clean(cell.innerText))
+              .filter(Boolean);
+
+            if (cells.length < 4) continue;
+
+            /*
+             * Typischer Aufbau:
+             *
+             * 1
+             * Eisbären Juniors Berlin
+             * 5
+             * +7
+             * 10
+             */
+
+            const rank = score(cells[0]);
+
+            if (
+              rank === null ||
+              rank < 1 ||
+              rank > 50
+            ) {
+              continue;
+            }
+
+            const team = cells[1];
+
+            if (!team) continue;
+
+            const sp = score(cells[2]);
+            const td = cells[3];
+            const points =
+              score(cells[4]);
+
+            /*
+             * Nur echte Tabellenzeilen.
+             */
+            if (sp === null) continue;
+
+            standings.push({
+              rank,
+              team,
+              games: sp,
+              goalDifference: td,
+              points:
+                points !== null
+                  ? points
+                  : null,
             });
           }
         }
-
-        return {
-          standings,
-          results
-        };
       }
+
+      return {
+        results,
+        standings,
+      };
+    });
+
+    console.log(
+      `Gefundene Spielergebnisse: ${extracted.results.length}`
+    );
+
+    console.log(
+      `Gefundene Tabellenplätze: ${extracted.standings.length}`
     );
 
     /*
-     * U20 hinzufügen
+     * Debug-Ausgabe, falls Hockeydata später
+     * seine Struktur verändert.
      */
-    const standings =
-      data.standings.map((entry) => ({
-        ...entry,
-        team: "U20"
-      }));
+    if (
+      extracted.results.length === 0 ||
+      extracted.standings.length === 0
+    ) {
+      const bodyText = await page.locator("body").innerText();
 
-    const results =
-      data.results.map((game) => ({
-        ...game,
-        team: "U20"
-      }));
+      console.log(
+        "----------------------------------------"
+      );
+      console.log(
+        "WARNUNG: Tabelle oder Ergebnisse konnten"
+      );
+      console.log(
+        "nicht vollständig erkannt werden."
+      );
+      console.log(
+        "Erste 3000 Zeichen des gerenderten DOM:"
+      );
+      console.log(
+        bodyText.substring(0, 3000)
+      );
+      console.log(
+        "----------------------------------------"
+      );
+    }
 
-    console.log(
-      `Gefundene Tabellenplätze: ${standings.length}`
-    );
-
-    console.log(
-      `Gefundene Spielergebnisse: ${results.length}`
-    );
-
-    return {
-      standings,
-      results
-    };
+    return extracted;
   } finally {
     await page.close();
   }
 }
 
-/* =========================================================
-   JSON SPEICHERN
-   ========================================================= */
-
 async function writeJsonIfValid(
   filename,
   data,
-  label
+  minimumItems = 1
 ) {
-  if (!Array.isArray(data) || data.length === 0) {
+  const count = Array.isArray(data)
+    ? data.length
+    : Array.isArray(data?.games)
+      ? data.games.length
+      : Array.isArray(data?.results)
+        ? data.results.length
+        : Array.isArray(data?.standings)
+          ? data.standings.length
+          : 0;
+
+  if (count < minimumItems) {
     console.log(
-      `WARNUNG: ${label} leer – ${filename} wird NICHT überschrieben.`
+      `WARNUNG: ${filename} enthält keine ausreichenden Daten – Datei wird nicht überschrieben.`
     );
 
     return;
   }
 
   await fs.writeFile(
-    filename,
-    JSON.stringify(
-      {
-        generatedAt:
-          new Date().toISOString(),
-        source:
-          "https://www.junghaie.de/",
-        [label]: data
-      },
-      null,
-      2
-    ) + "\n",
+    `${OUTPUT_DIR}/${filename}`,
+    JSON.stringify(data, null, 2),
     "utf8"
   );
 
   console.log(
-    `Gespeichert: ${filename}`
+    `Geschrieben: ${OUTPUT_DIR}/${filename}`
   );
 }
 
-/* =========================================================
-   MAIN
-   ========================================================= */
-
 async function main() {
-  console.log(
-    "========================================"
-  );
-
+  console.log("");
+  console.log("========================================");
   console.log(
     "KÖLNER JUNGHÄIE – SPIELPLAN + ERGEBNISSE + TABELLE"
   );
+  console.log("========================================");
+  console.log("");
 
-  console.log(
-    "========================================"
-  );
+  await fs.mkdir(OUTPUT_DIR, {
+    recursive: true,
+  });
 
-  const browser =
-    await chromium.launch({
-      headless: true
-    });
-
-  const allGames = [];
-  let allResults = [];
-  let allStandings = [];
+  const browser = await chromium.launch({
+    headless: true,
+  });
 
   try {
+    const allGames = [];
+    let tableResults = {
+      results: [],
+      standings: [],
+    };
+
     for (const config of PAGES) {
-      if (
-        config.type === "schedule"
-      ) {
+      if (config.type === "table-results") {
+        tableResults =
+          await scrapeTableResultsPage(
+            browser,
+            config
+          );
+      } else {
         const games =
           await scrapeSchedulePage(
             browser,
             config
           );
 
-        allGames.push(...games);
-      }
+        for (const game of games) {
+          /*
+           * Team-Zuordnung:
+           *
+           * Bei Seiten mit nur einer Mannschaft
+           * ist die Zuordnung eindeutig.
+           */
+          let team = config.teams[0];
 
-      if (
-        config.type === "table-results"
-      ) {
-        const data =
-          await scrapeTableResultsPage(
-            browser,
-            config
-          );
+          /*
+           * U15/U13 haben zwei Mannschaften.
+           * Falls Hockeydata den Namen in der
+           * Heim-/Gast-Mannschaft erkennen lässt,
+           * versuchen wir ihn zuzuordnen.
+           */
+          const combined =
+            `${game.home} ${game.away}`
+              .toLowerCase();
 
-        allResults.push(
-          ...data.results
-        );
+          if (
+            config.teams.includes("U15 A") &&
+            config.teams.includes("U15 B")
+          ) {
+            if (combined.includes("u15 b")) {
+              team = "U15 B";
+            } else {
+              team = "U15 A";
+            }
+          }
 
-        allStandings.push(
-          ...data.standings
-        );
+          if (
+            config.teams.includes("U13 A") &&
+            config.teams.includes("U13 B")
+          ) {
+            if (combined.includes("u13 b")) {
+              team = "U13 B";
+            } else {
+              team = "U13 A";
+            }
+          }
+
+          allGames.push({
+            ...game,
+            team,
+          });
+        }
       }
     }
+
+    /*
+     * ========================================
+     * SPIELPLAN
+     * ========================================
+     */
+
+    let games = uniqueGames(allGames)
+      .map(addLocation)
+      .map(game => ({
+        ...game,
+        team: game.team || null,
+      }));
+
+    games = sortGames(games);
+
+    console.log("");
+    console.log("========================================");
+    console.log(
+      `Gesamt gefundene Spiele: ${games.length}`
+    );
+    console.log("========================================");
+
+    if (games.length === 0) {
+      throw new Error(
+        "Keine Spiele gefunden. games.json wird nicht überschrieben."
+      );
+    }
+
+    const generatedAt =
+      new Date().toISOString();
+
+    /*
+     * ========================================
+     * games.json
+     * ========================================
+     */
+
+    await writeJsonIfValid(
+      "games.json",
+      {
+        generatedAt,
+        source:
+          "https://www.junghaie.de/",
+        games,
+      },
+      1
+    );
+
+    /*
+     * ========================================
+     * results.json
+     * ========================================
+     */
+
+    const results = uniqueGames(
+      tableResults.results
+    );
+
+    const resultsWithLocation = results
+      .map(addLocation)
+      .sort((a, b) => {
+        const da = a.datetime
+          ? new Date(a.datetime).getTime()
+          : 0;
+
+        const db = b.datetime
+          ? new Date(b.datetime).getTime()
+          : 0;
+
+        /*
+         * Neueste Ergebnisse zuerst.
+         */
+        return db - da;
+      });
+
+    await writeJsonIfValid(
+      "results.json",
+      {
+        generatedAt,
+        source:
+          "https://www.junghaie.de/tabelle-spielergebnisse.menuid24.html",
+        results: resultsWithLocation,
+      },
+      1
+    );
+
+    /*
+     * ========================================
+     * standings.json
+     * ========================================
+     */
+
+    const standings =
+      tableResults.standings
+        .filter(row => row.team)
+        .sort(
+          (a, b) =>
+            Number(a.rank) -
+            Number(b.rank)
+        );
+
+    await writeJsonIfValid(
+      "standings.json",
+      {
+        generatedAt,
+        source:
+          "https://www.junghaie.de/tabelle-spielergebnisse.menuid24.html",
+        league: "U20 DNL",
+        standings,
+      },
+      1
+    );
+
+    /*
+     * ========================================
+     * ABSCHLUSS
+     * ========================================
+     */
+
+    console.log("");
+    console.log("========================================");
+    console.log("SCRAPER ERFOLGREICH");
+    console.log("========================================");
+    console.log(
+      `Spiele:        ${games.length}`
+    );
+    console.log(
+      `Ergebnisse:    ${resultsWithLocation.length}`
+    );
+    console.log(
+      `Tabelle:       ${standings.length} Teams`
+    );
+    console.log("========================================");
+    console.log("");
   } finally {
     await browser.close();
   }
-
-  /*
-   * ============================================
-   * SPIELE DUPLIKATE ENTFERNEN
-   * ============================================
-   */
-
-  const uniqueGames = new Map();
-
-  for (const game of allGames) {
-    const key = [
-      game.date,
-      game.time,
-      game.home,
-      game.away,
-      game.team
-    ]
-      .map(clean)
-      .join("|");
-
-    if (!uniqueGames.has(key)) {
-      uniqueGames.set(
-        key,
-        game
-      );
-    }
-  }
-
-  const games = [
-    ...uniqueGames.values()
-  ];
-
-  /*
-   * Chronologisch sortieren
-   */
-  games.sort((a, b) =>
-    String(a.datetime)
-      .localeCompare(
-        String(b.datetime)
-      )
-  );
-
-  /*
-   * ============================================
-   * ERGEBNISSE DUPLIKATE
-   * ============================================
-   */
-
-  const uniqueResults =
-    new Map();
-
-  for (const result of allResults) {
-    const key = [
-      result.date,
-      result.time,
-      result.home,
-      result.away,
-      result.team
-    ]
-      .map(clean)
-      .join("|");
-
-    if (
-      !uniqueResults.has(key)
-    ) {
-      uniqueResults.set(
-        key,
-        result
-      );
-    }
-  }
-
-  const results = [
-    ...uniqueResults.values()
-  ];
-
-  results.sort((a, b) =>
-    String(b.datetime)
-      .localeCompare(
-        String(a.datetime)
-      )
-  );
-
-  /*
-   * ============================================
-   * TABELLE DUPLIKATE
-   * ============================================
-   */
-
-  const uniqueStandings =
-    new Map();
-
-  for (const entry of allStandings) {
-    const key = [
-      entry.team,
-      entry.position,
-      entry.points
-    ]
-      .map(clean)
-      .join("|");
-
-    if (
-      !uniqueStandings.has(key)
-    ) {
-      uniqueStandings.set(
-        key,
-        entry
-      );
-    }
-  }
-
-  const standings = [
-    ...uniqueStandings.values()
-  ];
-
-  standings.sort(
-    (a, b) =>
-      (a.position ?? 999) -
-      (b.position ?? 999)
-  );
-
-  /*
-   * ============================================
-   * AUSGABE
-   * ============================================
-   */
-
-  console.log("");
-  console.log(
-    "========================================"
-  );
-
-  console.log(
-    `GESAMT: ${games.length} Spiele`
-  );
-
-  console.log(
-    `ERGEBNISSE: ${results.length}`
-  );
-
-  console.log(
-    `TABELLE: ${standings.length} Mannschaften`
-  );
-
-  console.log(
-    "========================================"
-  );
-
-  /*
-   * Spielplan ist weiterhin Pflicht.
-   */
-  if (games.length === 0) {
-    throw new Error(
-      "Es wurden überhaupt keine Spiele gefunden. games.json wird NICHT überschrieben."
-    );
-  }
-
-  await fs.mkdir(
-    "data",
-    {
-      recursive: true
-    }
-  );
-
-  /*
-   * games.json
-   */
-  await fs.writeFile(
-    OUTPUT_GAMES,
-    JSON.stringify(
-      {
-        generatedAt:
-          new Date().toISOString(),
-        source:
-          "https://www.junghaie.de/",
-        games
-      },
-      null,
-      2
-    ) + "\n",
-    "utf8"
-  );
-
-  console.log(
-    `Gespeichert: ${OUTPUT_GAMES}`
-  );
-
-  /*
-   * results.json
-   */
-  await writeJsonIfValid(
-    OUTPUT_RESULTS,
-    results,
-    "results"
-  );
-
-  /*
-   * standings.json
-   */
-  await writeJsonIfValid(
-    OUTPUT_STANDINGS,
-    standings,
-    "standings"
-  );
-
-  console.log("");
-  console.log(
-    "Scraper erfolgreich abgeschlossen."
-  );
 }
 
-main().catch((error) => {
+main().catch(error => {
   console.error("");
-  console.error(
-    "SCRAPER FEHLER:"
-  );
+  console.error("SCRAPER FEHLER:");
   console.error(error);
-
   process.exit(1);
 });
