@@ -989,9 +989,8 @@
                 .trim();
 
         return (
-            normalized === "kölner junghaie" ||
-            normalized === 'kec "die haie"' ||
-            normalized === "kölner junghaie 1b"
+            normalized.includes('kölner junghaie') || 
+            normalized.includes('kec die haie')
         );
     }
 
