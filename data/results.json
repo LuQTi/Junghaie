@@ -1,7 +1,40 @@
 {
-  "generatedAt": "2026-09-13T10:07:32.836Z",
+  "generatedAt": "2026-09-14T08:54:29.370Z",
   "source": "https://www.junghaie.de/",
   "results": [
+    {
+      "date": "13.09.2026",
+      "time": "17:30",
+      "datetime": "2026-09-13T17:30:00.000Z",
+      "home": "Kölner Junghaie 1b",
+      "away": "Iserlohner EC 1b",
+      "homeScore": 13,
+      "awayScore": 2,
+      "team": "U15 B",
+      "location": "home"
+    },
+    {
+      "date": "13.09.2026",
+      "time": "12:00",
+      "datetime": "2026-09-13T12:00:00.000Z",
+      "home": "Iserlohner EC",
+      "away": "Kölner Junghaie",
+      "homeScore": 2,
+      "awayScore": 6,
+      "team": "U20",
+      "location": "away"
+    },
+    {
+      "date": "13.09.2026",
+      "time": "12:00",
+      "datetime": "2026-09-13T12:00:00.000Z",
+      "home": "Kölner Junghaie",
+      "away": "ES Weißwasser",
+      "homeScore": 9,
+      "awayScore": 3,
+      "team": "U17",
+      "location": "home"
+    },
     {
       "date": "12.09.2026",
       "time": "16:30",
