@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-14T08:54:29.370Z",
+  "generatedAt": "2026-09-15T08:40:56.159Z",
   "source": "https://www.junghaie.de/",
   "standings": [
     {
@@ -133,13 +133,21 @@
     {
       "rank": 1,
       "team": "Frauen 3",
+      "teamName": "KEC \"Die Haie\" 1c",
+      "games": 1,
+      "goalDifference": "+5",
+      "points": 3
+    },
+    {
+      "rank": 2,
+      "team": "Frauen 3",
       "teamName": "DSC Krefeld",
       "games": 0,
       "goalDifference": "+0",
       "points": 0
     },
     {
-      "rank": 1,
+      "rank": 2,
       "team": "Frauen 3",
       "teamName": "EHC Gelsenkirchen",
       "games": 0,
@@ -147,7 +155,7 @@
       "points": 0
     },
     {
-      "rank": 1,
+      "rank": 2,
       "team": "Frauen 3",
       "teamName": "ESV Grizzlys Bergkamen",
       "games": 0,
@@ -155,7 +163,7 @@
       "points": 0
     },
     {
-      "rank": 1,
+      "rank": 2,
       "team": "Frauen 3",
       "teamName": "TSVE Bielefeld",
       "games": 0,
@@ -163,7 +171,7 @@
       "points": 0
     },
     {
-      "rank": 1,
+      "rank": 2,
       "team": "Frauen 3",
       "teamName": "ESV Bergisch Gladbach 1b",
       "games": 0,
@@ -171,19 +179,11 @@
       "points": 0
     },
     {
-      "rank": 1,
-      "team": "Frauen 3",
-      "teamName": "KEC \"Die Haie\" 1c",
-      "games": 0,
-      "goalDifference": "+0",
-      "points": 0
-    },
-    {
-      "rank": 1,
+      "rank": 7,
       "team": "Frauen 3",
       "teamName": "Herforder EV",
-      "games": 0,
-      "goalDifference": "+0",
+      "games": 1,
+      "goalDifference": "-5",
       "points": 0
     },
     {
