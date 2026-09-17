@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-16T08:35:22.163Z",
+  "generatedAt": "2026-09-17T08:39:53.995Z",
   "source": "https://www.junghaie.de/",
   "standings": [
     {
@@ -309,21 +309,21 @@
     {
       "rank": 2,
       "team": "U15 A",
-      "teamName": "Krefelder EV",
-      "games": 2,
-      "goalDifference": "-9",
+      "teamName": "Iserlohner EC",
+      "games": 1,
+      "goalDifference": "+6",
       "points": 3
     },
     {
       "rank": 3,
       "team": "U15 A",
-      "teamName": "Iserlohner EC",
-      "games": 0,
-      "goalDifference": "+0",
-      "points": 0
+      "teamName": "Krefelder EV",
+      "games": 3,
+      "goalDifference": "-15",
+      "points": 3
     },
     {
-      "rank": 3,
+      "rank": 4,
       "team": "U15 A",
       "teamName": "Kölner Junghaie",
       "games": 0,
