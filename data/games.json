@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-18T08:15:28.521Z",
+  "generatedAt": "2026-09-19T08:03:52.501Z",
   "source": "https://www.junghaie.de/",
   "games": [
     {
@@ -290,8 +290,8 @@
     },
     {
       "date": "10.10.2026",
-      "time": "13:30",
-      "datetime": "2026-10-10T13:30:00.000Z",
+      "time": "12:00",
+      "datetime": "2026-10-10T12:00:00.000Z",
       "home": "Düsseldorfer EG",
       "away": "Kölner Junghaie",
       "homeScore": null,
@@ -1093,8 +1093,8 @@
     },
     {
       "date": "06.02.2027",
-      "time": "13:30",
-      "datetime": "2027-02-06T13:30:00.000Z",
+      "time": "12:00",
+      "datetime": "2027-02-06T12:00:00.000Z",
       "home": "Düsseldorfer EG",
       "away": "Kölner Junghaie",
       "homeScore": null,
