@@ -1,51 +1,7 @@
 {
-  "generatedAt": "2026-09-19T08:03:52.501Z",
+  "generatedAt": "2026-09-20T08:35:29.214Z",
   "source": "https://www.junghaie.de/",
   "games": [
-    {
-      "date": "19.09.2026",
-      "time": "16:30",
-      "datetime": "2026-09-19T16:30:00.000Z",
-      "home": "Düsseldorfer EG",
-      "away": "Kölner Junghaie",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "U17",
-      "location": "away"
-    },
-    {
-      "date": "19.09.2026",
-      "time": "17:00",
-      "datetime": "2026-09-19T17:00:00.000Z",
-      "home": "Kölner Junghaie",
-      "away": "Augsburger EV",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "U20",
-      "location": "home"
-    },
-    {
-      "date": "19.09.2026",
-      "time": "19:45",
-      "datetime": "2026-09-19T19:45:00.000Z",
-      "home": "Kölner Junghaie",
-      "away": "Düsseldorfer EG",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "U15 A",
-      "location": "home"
-    },
-    {
-      "date": "20.09.2026",
-      "time": "10:00",
-      "datetime": "2026-09-20T10:00:00.000Z",
-      "home": "Herforder EV",
-      "away": "KEC \"Die Haie\" 1c",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "Frauen 3",
-      "location": "away"
-    },
     {
       "date": "20.09.2026",
       "time": "12:00",
