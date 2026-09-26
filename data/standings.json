@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-25T08:49:43.173Z",
+  "generatedAt": "2026-09-26T08:36:17.942Z",
   "source": "https://www.junghaie.de/",
   "standings": [
     {
@@ -237,25 +237,25 @@
     {
       "rank": 3,
       "team": "U13 B",
+      "teamName": "Herforder EV",
+      "games": 4,
+      "goalDifference": "-20",
+      "points": 6
+    },
+    {
+      "rank": 4,
+      "team": "U13 B",
       "teamName": "Iserlohner EC 1b",
       "games": 1,
       "goalDifference": "+6",
       "points": 3
     },
     {
-      "rank": 4,
+      "rank": 5,
       "team": "U13 B",
       "teamName": "EHC Troisdorf",
       "games": 2,
       "goalDifference": "-3",
-      "points": 3
-    },
-    {
-      "rank": 5,
-      "team": "U13 B",
-      "teamName": "Herforder EV",
-      "games": 3,
-      "goalDifference": "-21",
       "points": 3
     },
     {
@@ -294,8 +294,8 @@
       "rank": 10,
       "team": "U13 B",
       "teamName": "EV Duisburg",
-      "games": 3,
-      "goalDifference": "-47",
+      "games": 4,
+      "goalDifference": "-48",
       "points": 0
     },
     {
@@ -405,25 +405,25 @@
     {
       "rank": 2,
       "team": "U17",
+      "teamName": "Krefelder EV",
+      "games": 7,
+      "goalDifference": "+7",
+      "points": 15
+    },
+    {
+      "rank": 3,
+      "team": "U17",
       "teamName": "ESC Dresden",
       "games": 6,
       "goalDifference": "+20",
       "points": 12
     },
     {
-      "rank": 3,
-      "team": "U17",
-      "teamName": "Krefelder EV",
-      "games": 6,
-      "goalDifference": "+5",
-      "points": 12
-    },
-    {
       "rank": 4,
       "team": "U17",
       "teamName": "Düsseldorfer EG",
-      "games": 6,
-      "goalDifference": "-1",
+      "games": 7,
+      "goalDifference": "-3",
       "points": 12
     },
     {
