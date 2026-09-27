@@ -1,73 +1,7 @@
 {
-  "generatedAt": "2026-09-26T08:36:17.942Z",
+  "generatedAt": "2026-09-27T09:15:12.987Z",
   "source": "https://www.junghaie.de/",
   "games": [
-    {
-      "date": "26.09.2026",
-      "time": "12:15",
-      "datetime": "2026-09-26T12:15:00.000Z",
-      "home": "Iserlohner EC",
-      "away": "Kölner Junghaie",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "U15 A",
-      "location": "away"
-    },
-    {
-      "date": "26.09.2026",
-      "time": "16:45",
-      "datetime": "2026-09-26T16:45:00.000Z",
-      "home": "Jungadler Mannheim",
-      "away": "Kölner Junghaie",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "U20",
-      "location": "away"
-    },
-    {
-      "date": "26.09.2026",
-      "time": "16:45",
-      "datetime": "2026-09-26T16:45:00.000Z",
-      "home": "ESC Dresden",
-      "away": "Kölner Junghaie",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "U17",
-      "location": "away"
-    },
-    {
-      "date": "26.09.2026",
-      "time": "19:15",
-      "datetime": "2026-09-26T19:15:00.000Z",
-      "home": "KEC \"Die Haie\"",
-      "away": "FASS Berlin",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "Frauen 1",
-      "location": "home"
-    },
-    {
-      "date": "26.09.2026",
-      "time": "19:30",
-      "datetime": "2026-09-26T19:30:00.000Z",
-      "home": "Krefelder EV",
-      "away": "Kölner Junghaie",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "U13 A",
-      "location": "away"
-    },
-    {
-      "date": "27.09.2026",
-      "time": "10:00",
-      "datetime": "2026-09-27T10:00:00.000Z",
-      "home": "ESC Dresden",
-      "away": "Kölner Junghaie",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "U17",
-      "location": "away"
-    },
     {
       "date": "27.09.2026",
       "time": "14:00",
@@ -355,6 +289,17 @@
       "location": "home"
     },
     {
+      "date": "20.10.2026",
+      "time": "17:00",
+      "datetime": "2026-10-20T17:00:00.000Z",
+      "home": "Düsseldorfer EG",
+      "away": "Kölner Junghaie",
+      "homeScore": null,
+      "awayScore": null,
+      "team": "U15 A",
+      "location": "away"
+    },
+    {
       "date": "21.10.2026",
       "time": "18:30",
       "datetime": "2026-10-21T18:30:00.000Z",
@@ -419,17 +364,6 @@
       "awayScore": null,
       "team": "U15 B",
       "location": "home"
-    },
-    {
-      "date": "27.10.2026",
-      "time": "18:30",
-      "datetime": "2026-10-27T18:30:00.000Z",
-      "home": "Düsseldorfer EG",
-      "away": "Kölner Junghaie",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "U15 A",
-      "location": "away"
     },
     {
       "date": "29.10.2026",
