@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-29T09:49:07.706Z",
+  "generatedAt": "2026-09-30T09:41:44.957Z",
   "source": "https://www.junghaie.de/",
   "standings": [
     {
@@ -438,9 +438,9 @@
       "rank": 6,
       "team": "U17",
       "teamName": "Eisbären Juniors Berlin",
-      "games": 8,
-      "goalDifference": "-8",
-      "points": 8
+      "games": 9,
+      "goalDifference": "-7",
+      "points": 11
     },
     {
       "rank": 7,
@@ -454,8 +454,8 @@
       "rank": 8,
       "team": "U17",
       "teamName": "EHC GA Wolfsburg",
-      "games": 8,
-      "goalDifference": "-30",
+      "games": 9,
+      "goalDifference": "-31",
       "points": 3
     },
     {
