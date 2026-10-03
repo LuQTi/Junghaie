@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-02T09:45:20.559Z",
+  "generatedAt": "2026-10-03T09:09:12.896Z",
   "source": "https://www.junghaie.de/",
   "standings": [
     {
@@ -350,9 +350,9 @@
       "rank": 3,
       "team": "U15 B",
       "teamName": "Düsseldorfer EG 1b",
-      "games": 1,
-      "goalDifference": "+19",
-      "points": 3
+      "games": 2,
+      "goalDifference": "+37",
+      "points": 6
     },
     {
       "rank": 4,
@@ -374,8 +374,8 @@
       "rank": 6,
       "team": "U15 B",
       "teamName": "EHC Troisdorf",
-      "games": 4,
-      "goalDifference": "-19",
+      "games": 5,
+      "goalDifference": "-37",
       "points": 3
     },
     {
