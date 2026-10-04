@@ -1,7 +1,62 @@
 {
-  "generatedAt": "2026-10-03T09:09:12.896Z",
+  "generatedAt": "2026-10-04T09:46:40.141Z",
   "source": "https://www.junghaie.de/",
   "results": [
+    {
+      "date": "03.10.2026",
+      "time": "19:15",
+      "datetime": "2026-10-03T19:15:00.000Z",
+      "home": "Kölner Junghaie",
+      "away": "Iserlohner EC",
+      "homeScore": 16,
+      "awayScore": 0,
+      "team": "U15 A",
+      "location": "home"
+    },
+    {
+      "date": "03.10.2026",
+      "time": "17:00",
+      "datetime": "2026-10-03T17:00:00.000Z",
+      "home": "EC Bad Tölz",
+      "away": "Kölner Junghaie",
+      "homeScore": 3,
+      "awayScore": 4,
+      "team": "U20",
+      "location": "away"
+    },
+    {
+      "date": "03.10.2026",
+      "time": "16:30",
+      "datetime": "2026-10-03T16:30:00.000Z",
+      "home": "Kölner Junghaie",
+      "away": "Iserlohner EC",
+      "homeScore": 12,
+      "awayScore": 5,
+      "team": "U13 A",
+      "location": "home"
+    },
+    {
+      "date": "03.10.2026",
+      "time": "12:20",
+      "datetime": "2026-10-03T12:20:00.000Z",
+      "home": "Iserlohner EC",
+      "away": "Kölner Junghaie",
+      "homeScore": 0,
+      "awayScore": 3,
+      "team": "U17",
+      "location": "away"
+    },
+    {
+      "date": "03.10.2026",
+      "time": "09:30",
+      "datetime": "2026-10-03T09:30:00.000Z",
+      "home": "EJ Kassel",
+      "away": "Kölner Junghaie 1b",
+      "homeScore": 1,
+      "awayScore": 11,
+      "team": "U15 B",
+      "location": "away"
+    },
     {
       "date": "27.09.2026",
       "time": "17:30",
