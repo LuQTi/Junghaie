@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-08T10:33:59.602Z",
+  "generatedAt": "2026-10-09T10:32:07.160Z",
   "source": "https://www.junghaie.de/",
   "standings": [
     {
@@ -199,24 +199,24 @@
       "team": "U13 A",
       "teamName": "Düsseldorfer EG",
       "games": 4,
-      "goalDifference": "+4",
-      "points": 9
+      "goalDifference": "-6",
+      "points": 6
     },
     {
       "rank": 3,
       "team": "U13 A",
-      "teamName": "Krefelder EV",
-      "games": 5,
-      "goalDifference": "-20",
+      "teamName": "Iserlohner EC",
+      "games": 3,
+      "goalDifference": "-4",
       "points": 3
     },
     {
       "rank": 4,
       "team": "U13 A",
-      "teamName": "Iserlohner EC",
-      "games": 3,
-      "goalDifference": "-14",
-      "points": 0
+      "teamName": "Krefelder EV",
+      "games": 5,
+      "goalDifference": "-20",
+      "points": 3
     },
     {
       "rank": 1,
