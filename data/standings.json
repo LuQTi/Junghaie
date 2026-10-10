@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-09T10:32:07.160Z",
+  "generatedAt": "2026-10-10T09:49:48.003Z",
   "source": "https://www.junghaie.de/",
   "standings": [
     {
@@ -200,22 +200,22 @@
       "teamName": "Düsseldorfer EG",
       "games": 4,
       "goalDifference": "-6",
-      "points": 6
+      "points": 5
     },
     {
       "rank": 3,
       "team": "U13 A",
-      "teamName": "Iserlohner EC",
-      "games": 3,
-      "goalDifference": "-4",
-      "points": 3
+      "teamName": "Krefelder EV",
+      "games": 5,
+      "goalDifference": "-20",
+      "points": 4
     },
     {
       "rank": 4,
       "team": "U13 A",
-      "teamName": "Krefelder EV",
-      "games": 5,
-      "goalDifference": "-20",
+      "teamName": "Iserlohner EC",
+      "games": 3,
+      "goalDifference": "-4",
       "points": 3
     },
     {
@@ -229,13 +229,21 @@
     {
       "rank": 2,
       "team": "U13 B",
+      "teamName": "Iserlohner EC 1b",
+      "games": 4,
+      "goalDifference": "+8",
+      "points": 7
+    },
+    {
+      "rank": 3,
+      "team": "U13 B",
       "teamName": "Düsseldorfer EG 1b",
       "games": 2,
       "goalDifference": "+24",
       "points": 6
     },
     {
-      "rank": 3,
+      "rank": 4,
       "team": "U13 B",
       "teamName": "Herforder EV",
       "games": 4,
@@ -243,20 +251,12 @@
       "points": 6
     },
     {
-      "rank": 4,
+      "rank": 5,
       "team": "U13 B",
       "teamName": "Herner EV",
       "games": 3,
       "goalDifference": "-2",
       "points": 5
-    },
-    {
-      "rank": 5,
-      "team": "U13 B",
-      "teamName": "Iserlohner EC 1b",
-      "games": 3,
-      "goalDifference": "+4",
-      "points": 4
     },
     {
       "rank": 6,
@@ -278,8 +278,8 @@
       "rank": 8,
       "team": "U13 B",
       "teamName": "EJ Kassel",
-      "games": 2,
-      "goalDifference": "-16",
+      "games": 3,
+      "goalDifference": "-20",
       "points": 3
     },
     {
@@ -365,33 +365,33 @@
     {
       "rank": 5,
       "team": "U15 B",
+      "teamName": "EHC Troisdorf",
+      "games": 6,
+      "goalDifference": "-36",
+      "points": 5
+    },
+    {
+      "rank": 6,
+      "team": "U15 B",
       "teamName": "Krefelder EV 1b",
       "games": 2,
       "goalDifference": "-7",
       "points": 3
     },
     {
-      "rank": 6,
-      "team": "U15 B",
-      "teamName": "EHC Troisdorf",
-      "games": 5,
-      "goalDifference": "-37",
-      "points": 3
-    },
-    {
       "rank": 7,
       "team": "U15 B",
-      "teamName": "Herner EV",
-      "games": 3,
-      "goalDifference": "-4",
-      "points": 0
+      "teamName": "Iserlohner EC 1b",
+      "games": 4,
+      "goalDifference": "-33",
+      "points": 1
     },
     {
       "rank": 8,
       "team": "U15 B",
-      "teamName": "Iserlohner EC 1b",
+      "teamName": "Herner EV",
       "games": 3,
-      "goalDifference": "-32",
+      "goalDifference": "-4",
       "points": 0
     },
     {

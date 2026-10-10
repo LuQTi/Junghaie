@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-09T10:32:07.160Z",
+  "generatedAt": "2026-10-10T09:49:48.003Z",
   "source": "https://www.junghaie.de/",
   "games": [
     {
@@ -8,8 +8,8 @@
       "datetime": "2026-10-10T12:00:00.000Z",
       "home": "Düsseldorfer EG",
       "away": "Kölner Junghaie",
-      "homeScore": null,
-      "awayScore": null,
+      "homeScore": 0,
+      "awayScore": 0,
       "team": "U13 A",
       "location": "away"
     },
@@ -45,17 +45,6 @@
       "awayScore": null,
       "team": "U15 A",
       "location": "away"
-    },
-    {
-      "date": "10.10.2026",
-      "time": "19:15",
-      "datetime": "2026-10-10T19:15:00.000Z",
-      "home": "KEC \"Die Haie\" 1c",
-      "away": "ESV Bergisch Gladbach 1b",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "Frauen 3",
-      "location": "home"
     },
     {
       "date": "11.10.2026",
