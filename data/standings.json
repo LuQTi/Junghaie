@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-10T09:49:48.003Z",
+  "generatedAt": "2026-10-11T09:59:50.763Z",
   "source": "https://www.junghaie.de/",
   "standings": [
     {
@@ -190,16 +190,16 @@
       "rank": 1,
       "team": "U13 A",
       "teamName": "Kölner Junghaie",
-      "games": 4,
-      "goalDifference": "+30",
-      "points": 12
+      "games": 5,
+      "goalDifference": "+37",
+      "points": 15
     },
     {
       "rank": 2,
       "team": "U13 A",
       "teamName": "Düsseldorfer EG",
-      "games": 4,
-      "goalDifference": "-6",
+      "games": 5,
+      "goalDifference": "-13",
       "points": 5
     },
     {
@@ -245,26 +245,26 @@
     {
       "rank": 4,
       "team": "U13 B",
+      "teamName": "Krefelder EV 1b",
+      "games": 2,
+      "goalDifference": "+3",
+      "points": 6
+    },
+    {
+      "rank": 5,
+      "team": "U13 B",
       "teamName": "Herforder EV",
       "games": 4,
       "goalDifference": "-20",
       "points": 6
     },
     {
-      "rank": 5,
+      "rank": 6,
       "team": "U13 B",
       "teamName": "Herner EV",
       "games": 3,
       "goalDifference": "-2",
       "points": 5
-    },
-    {
-      "rank": 6,
-      "team": "U13 B",
-      "teamName": "Krefelder EV 1b",
-      "games": 1,
-      "goalDifference": "+1",
-      "points": 3
     },
     {
       "rank": 7,
@@ -294,40 +294,40 @@
       "rank": 10,
       "team": "U13 B",
       "teamName": "EV Duisburg",
-      "games": 5,
-      "goalDifference": "-49",
+      "games": 6,
+      "goalDifference": "-51",
       "points": 0
     },
     {
       "rank": 1,
       "team": "U15 A",
       "teamName": "Kölner Junghaie",
-      "games": 6,
-      "goalDifference": "+32",
-      "points": 14
+      "games": 7,
+      "goalDifference": "+35",
+      "points": 17
     },
     {
       "rank": 2,
       "team": "U15 A",
-      "teamName": "Düsseldorfer EG",
-      "games": 7,
-      "goalDifference": "+22",
-      "points": 13
+      "teamName": "Krefelder EV",
+      "games": 9,
+      "goalDifference": "-13",
+      "points": 15
     },
     {
       "rank": 3,
       "team": "U15 A",
-      "teamName": "Krefelder EV",
-      "games": 7,
-      "goalDifference": "-15",
-      "points": 9
+      "teamName": "Düsseldorfer EG",
+      "games": 8,
+      "goalDifference": "+19",
+      "points": 13
     },
     {
       "rank": 4,
       "team": "U15 A",
       "teamName": "Iserlohner EC",
-      "games": 6,
-      "goalDifference": "-39",
+      "games": 8,
+      "goalDifference": "-41",
       "points": 3
     },
     {
@@ -341,25 +341,25 @@
     {
       "rank": 2,
       "team": "U15 B",
+      "teamName": "Düsseldorfer EG 1b",
+      "games": 4,
+      "goalDifference": "+57",
+      "points": 12
+    },
+    {
+      "rank": 3,
+      "team": "U15 B",
       "teamName": "EV Duisburg",
       "games": 6,
       "goalDifference": "-6",
       "points": 12
     },
     {
-      "rank": 3,
-      "team": "U15 B",
-      "teamName": "Düsseldorfer EG 1b",
-      "games": 3,
-      "goalDifference": "+48",
-      "points": 9
-    },
-    {
       "rank": 4,
       "team": "U15 B",
       "teamName": "EJ Kassel",
-      "games": 5,
-      "goalDifference": "-15",
+      "games": 6,
+      "goalDifference": "-24",
       "points": 6
     },
     {
@@ -398,128 +398,128 @@
       "rank": 1,
       "team": "U17",
       "teamName": "Kölner Junghaie",
-      "games": 10,
-      "goalDifference": "+57",
-      "points": 30
+      "games": 11,
+      "goalDifference": "+56",
+      "points": 31
     },
     {
       "rank": 2,
       "team": "U17",
       "teamName": "Krefelder EV",
-      "games": 10,
-      "goalDifference": "+16",
+      "games": 11,
+      "goalDifference": "+14",
       "points": 21
     },
     {
       "rank": 3,
       "team": "U17",
       "teamName": "Düsseldorfer EG",
-      "games": 10,
-      "goalDifference": "-3",
+      "games": 11,
+      "goalDifference": "-5",
       "points": 18
     },
     {
       "rank": 4,
       "team": "U17",
-      "teamName": "Eisbären Juniors Berlin",
-      "games": 10,
-      "goalDifference": "-6",
-      "points": 13
+      "teamName": "ESC Dresden",
+      "games": 11,
+      "goalDifference": "+9",
+      "points": 15
     },
     {
       "rank": 5,
       "team": "U17",
-      "teamName": "Iserlohner EC",
-      "games": 10,
-      "goalDifference": "-12",
-      "points": 13
+      "teamName": "Eisbären Juniors Berlin",
+      "games": 11,
+      "goalDifference": "-5",
+      "points": 15
     },
     {
       "rank": 6,
       "team": "U17",
-      "teamName": "ESC Dresden",
-      "games": 10,
-      "goalDifference": "+7",
-      "points": 12
+      "teamName": "Iserlohner EC",
+      "games": 11,
+      "goalDifference": "-15",
+      "points": 13
     },
     {
       "rank": 7,
       "team": "U17",
       "teamName": "ES Weißwasser",
-      "games": 10,
-      "goalDifference": "-27",
-      "points": 9
+      "games": 11,
+      "goalDifference": "-25",
+      "points": 12
     },
     {
       "rank": 8,
       "team": "U17",
       "teamName": "EHC GA Wolfsburg",
-      "games": 10,
-      "goalDifference": "-32",
-      "points": 4
+      "games": 11,
+      "goalDifference": "-29",
+      "points": 7
     },
     {
       "rank": 1,
       "team": "U20",
       "teamName": "Jungadler Mannheim",
-      "games": 10,
-      "goalDifference": "+33",
-      "points": 29
+      "games": 11,
+      "goalDifference": "+44",
+      "points": 32
     },
     {
       "rank": 2,
       "team": "U20",
       "teamName": "Kölner Junghaie",
-      "games": 10,
-      "goalDifference": "+45",
+      "games": 11,
+      "goalDifference": "+43",
       "points": 24
     },
     {
       "rank": 3,
       "team": "U20",
       "teamName": "Eisbären Juniors Berlin",
-      "games": 10,
-      "goalDifference": "+20",
-      "points": 19
+      "games": 11,
+      "goalDifference": "+22",
+      "points": 22
     },
     {
       "rank": 4,
       "team": "U20",
       "teamName": "Düsseldorfer EG",
-      "games": 10,
-      "goalDifference": "+7",
-      "points": 15
+      "games": 11,
+      "goalDifference": "+9",
+      "points": 18
     },
     {
       "rank": 5,
       "team": "U20",
       "teamName": "EC Bad Tölz",
-      "games": 10,
-      "goalDifference": "-6",
+      "games": 11,
+      "goalDifference": "-10",
       "points": 15
     },
     {
       "rank": 6,
       "team": "U20",
       "teamName": "Iserlohner EC",
-      "games": 10,
-      "goalDifference": "-8",
-      "points": 10
+      "games": 11,
+      "goalDifference": "-4",
+      "points": 13
     },
     {
       "rank": 7,
       "team": "U20",
       "teamName": "Augsburger EV",
-      "games": 10,
-      "goalDifference": "-13",
+      "games": 11,
+      "goalDifference": "-15",
       "points": 8
     },
     {
       "rank": 8,
       "team": "U20",
       "teamName": "EV Füssen",
-      "games": 10,
-      "goalDifference": "-78",
+      "games": 11,
+      "goalDifference": "-89",
       "points": 0
     }
   ]
