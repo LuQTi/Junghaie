@@ -1,7 +1,40 @@
 {
-  "generatedAt": "2026-10-11T09:59:50.763Z",
+  "generatedAt": "2026-10-12T10:46:22.847Z",
   "source": "https://www.junghaie.de/",
   "results": [
+    {
+      "date": "11.10.2026",
+      "time": "17:30",
+      "datetime": "2026-10-11T17:30:00.000Z",
+      "home": "Kölner Junghaie",
+      "away": "Düsseldorfer EG",
+      "homeScore": 4,
+      "awayScore": 5,
+      "team": "U15 A",
+      "location": "home"
+    },
+    {
+      "date": "11.10.2026",
+      "time": "12:00",
+      "datetime": "2026-10-11T12:00:00.000Z",
+      "home": "Kölner Junghaie",
+      "away": "Eisbären Juniors Berlin",
+      "homeScore": 8,
+      "awayScore": 2,
+      "team": "U17",
+      "location": "home"
+    },
+    {
+      "date": "11.10.2026",
+      "time": "10:00",
+      "datetime": "2026-10-11T10:00:00.000Z",
+      "home": "Eisbären Juniors Berlin",
+      "away": "SO",
+      "homeScore": 1,
+      "awayScore": 2,
+      "team": "U20",
+      "location": null
+    },
     {
       "date": "10.10.2026",
       "time": "16:30",
