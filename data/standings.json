@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-12T10:46:22.847Z",
+  "generatedAt": "2026-10-13T10:33:48.999Z",
   "source": "https://www.junghaie.de/",
   "standings": [
     {
@@ -69,7 +69,7 @@
     {
       "rank": 1,
       "team": "Frauen 2",
-      "teamName": "ESC Darmstadt",
+      "teamName": "DEC Düsseldorfer Devils",
       "games": 1,
       "goalDifference": "+2",
       "points": 3
@@ -77,45 +77,21 @@
     {
       "rank": 2,
       "team": "Frauen 2",
-      "teamName": "ESV Bergisch Gladbach",
-      "games": 0,
-      "goalDifference": "+0",
-      "points": 0
+      "teamName": "ESC Darmstadt",
+      "games": 2,
+      "goalDifference": "+1",
+      "points": 3
     },
     {
-      "rank": 2,
+      "rank": 3,
       "team": "Frauen 2",
-      "teamName": "EJ Kassel Huskies Ladies",
-      "games": 0,
-      "goalDifference": "+0",
-      "points": 0
+      "teamName": "Tornado Women Luxembourg",
+      "games": 2,
+      "goalDifference": "-1",
+      "points": 3
     },
     {
-      "rank": 2,
-      "team": "Frauen 2",
-      "teamName": "Ratinger Ice Aliens",
-      "games": 0,
-      "goalDifference": "+0",
-      "points": 0
-    },
-    {
-      "rank": 2,
-      "team": "Frauen 2",
-      "teamName": "DEC Düsseldorfer Devils",
-      "games": 0,
-      "goalDifference": "+0",
-      "points": 0
-    },
-    {
-      "rank": 2,
-      "team": "Frauen 2",
-      "teamName": "Eisadler Dortmund",
-      "games": 0,
-      "goalDifference": "+0",
-      "points": 0
-    },
-    {
-      "rank": 2,
+      "rank": 4,
       "team": "Frauen 2",
       "teamName": "KEC \"Die Haie\" 1b",
       "games": 0,
@@ -123,9 +99,33 @@
       "points": 0
     },
     {
+      "rank": 4,
+      "team": "Frauen 2",
+      "teamName": "ESV Bergisch Gladbach",
+      "games": 0,
+      "goalDifference": "+0",
+      "points": 0
+    },
+    {
+      "rank": 4,
+      "team": "Frauen 2",
+      "teamName": "EJ Kassel Huskies Ladies",
+      "games": 0,
+      "goalDifference": "+0",
+      "points": 0
+    },
+    {
+      "rank": 4,
+      "team": "Frauen 2",
+      "teamName": "Ratinger Ice Aliens",
+      "games": 0,
+      "goalDifference": "+0",
+      "points": 0
+    },
+    {
       "rank": 8,
       "team": "Frauen 2",
-      "teamName": "Tornado Women Luxembourg",
+      "teamName": "Eisadler Dortmund",
       "games": 1,
       "goalDifference": "-2",
       "points": 0
