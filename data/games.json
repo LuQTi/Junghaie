@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-13T10:33:48.999Z",
+  "generatedAt": "2026-10-14T08:42:24.457Z",
   "source": "https://www.junghaie.de/",
   "games": [
     {
@@ -620,6 +620,17 @@
     },
     {
       "date": "17.01.2027",
+      "time": "17:00",
+      "datetime": "2027-01-17T17:00:00.000Z",
+      "home": "EHC Gelsenkirchen",
+      "away": "KEC \"Die Haie\" 1c",
+      "homeScore": null,
+      "awayScore": null,
+      "team": "Frauen 3",
+      "location": "away"
+    },
+    {
+      "date": "17.01.2027",
       "time": "17:30",
       "datetime": "2027-01-17T17:30:00.000Z",
       "home": "Kölner Junghaie 1b",
@@ -628,17 +639,6 @@
       "awayScore": null,
       "team": "U13 B",
       "location": "home"
-    },
-    {
-      "date": "17.01.2027",
-      "time": "17:30",
-      "datetime": "2027-01-17T17:30:00.000Z",
-      "home": "EHC Gelsenkirchen",
-      "away": "KEC \"Die Haie\" 1c",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "Frauen 3",
-      "location": "away"
     },
     {
       "date": "23.01.2027",
