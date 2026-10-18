@@ -1,7 +1,40 @@
 {
-  "generatedAt": "2026-10-17T07:47:37.952Z",
+  "generatedAt": "2026-10-18T08:01:46.445Z",
   "source": "https://www.junghaie.de/",
   "results": [
+    {
+      "date": "17.10.2026",
+      "time": "19:30",
+      "datetime": "2026-10-17T19:30:00.000Z",
+      "home": "Krefelder EV 1b",
+      "away": "Kölner Junghaie 1b",
+      "homeScore": 2,
+      "awayScore": 8,
+      "team": "U15 B",
+      "location": "away"
+    },
+    {
+      "date": "17.10.2026",
+      "time": "17:00",
+      "datetime": "2026-10-17T17:00:00.000Z",
+      "home": "Kölner Junghaie",
+      "away": "Düsseldorfer EG",
+      "homeScore": 4,
+      "awayScore": 1,
+      "team": "U20",
+      "location": "home"
+    },
+    {
+      "date": "17.10.2026",
+      "time": "13:30",
+      "datetime": "2026-10-17T13:30:00.000Z",
+      "home": "Krefelder EV",
+      "away": "Kölner Junghaie",
+      "homeScore": 0,
+      "awayScore": 6,
+      "team": "U17",
+      "location": "away"
+    },
     {
       "date": "11.10.2026",
       "time": "17:30",
