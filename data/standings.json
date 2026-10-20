@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-19T08:52:42.006Z",
+  "generatedAt": "2026-10-20T08:31:16.026Z",
   "source": "https://www.junghaie.de/",
   "standings": [
     {
@@ -296,6 +296,102 @@
       "teamName": "EV Duisburg",
       "games": 6,
       "goalDifference": "-51",
+      "points": 0
+    },
+    {
+      "rank": 1,
+      "team": "U15 A",
+      "teamName": "Kölner Junghaie",
+      "games": 9,
+      "goalDifference": "+37",
+      "points": 20
+    },
+    {
+      "rank": 2,
+      "team": "U15 A",
+      "teamName": "Düsseldorfer EG",
+      "games": 9,
+      "goalDifference": "+20",
+      "points": 16
+    },
+    {
+      "rank": 3,
+      "team": "U15 A",
+      "teamName": "Krefelder EV",
+      "games": 9,
+      "goalDifference": "-9",
+      "points": 15
+    },
+    {
+      "rank": 4,
+      "team": "U15 A",
+      "teamName": "Iserlohner EC",
+      "games": 9,
+      "goalDifference": "-48",
+      "points": 3
+    },
+    {
+      "rank": 1,
+      "team": "U15 B",
+      "teamName": "Kölner Junghaie 1b",
+      "games": 6,
+      "goalDifference": "+59",
+      "points": 18
+    },
+    {
+      "rank": 2,
+      "team": "U15 B",
+      "teamName": "Düsseldorfer EG 1b",
+      "games": 5,
+      "goalDifference": "+62",
+      "points": 15
+    },
+    {
+      "rank": 3,
+      "team": "U15 B",
+      "teamName": "EV Duisburg",
+      "games": 7,
+      "goalDifference": "-5",
+      "points": 14
+    },
+    {
+      "rank": 4,
+      "team": "U15 B",
+      "teamName": "EJ Kassel",
+      "games": 7,
+      "goalDifference": "-25",
+      "points": 7
+    },
+    {
+      "rank": 5,
+      "team": "U15 B",
+      "teamName": "Krefelder EV 1b",
+      "games": 4,
+      "goalDifference": "-7",
+      "points": 6
+    },
+    {
+      "rank": 6,
+      "team": "U15 B",
+      "teamName": "EHC Troisdorf",
+      "games": 6,
+      "goalDifference": "-36",
+      "points": 5
+    },
+    {
+      "rank": 7,
+      "team": "U15 B",
+      "teamName": "Iserlohner EC 1b",
+      "games": 4,
+      "goalDifference": "-33",
+      "points": 1
+    },
+    {
+      "rank": 8,
+      "team": "U15 B",
+      "teamName": "Herner EV",
+      "games": 5,
+      "goalDifference": "-15",
       "points": 0
     },
     {
