@@ -1,18 +1,7 @@
 {
-  "generatedAt": "2026-10-20T08:31:16.026Z",
+  "generatedAt": "2026-10-21T08:33:25.283Z",
   "source": "https://www.junghaie.de/",
   "games": [
-    {
-      "date": "20.10.2026",
-      "time": "17:00",
-      "datetime": "2026-10-20T17:00:00.000Z",
-      "home": "Düsseldorfer EG",
-      "away": "Kölner Junghaie",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "U15 A",
-      "location": "away"
-    },
     {
       "date": "21.10.2026",
       "time": "18:30",

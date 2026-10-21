@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-20T08:31:16.026Z",
+  "generatedAt": "2026-10-21T08:33:25.283Z",
   "source": "https://www.junghaie.de/",
   "standings": [
     {
@@ -302,16 +302,16 @@
       "rank": 1,
       "team": "U15 A",
       "teamName": "Kölner Junghaie",
-      "games": 9,
-      "goalDifference": "+37",
-      "points": 20
+      "games": 10,
+      "goalDifference": "+42",
+      "points": 23
     },
     {
       "rank": 2,
       "team": "U15 A",
       "teamName": "Düsseldorfer EG",
-      "games": 9,
-      "goalDifference": "+20",
+      "games": 10,
+      "goalDifference": "+15",
       "points": 16
     },
     {
