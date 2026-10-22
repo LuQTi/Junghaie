@@ -1,18 +1,7 @@
 {
-  "generatedAt": "2026-10-21T08:33:25.283Z",
+  "generatedAt": "2026-10-22T08:36:02.533Z",
   "source": "https://www.junghaie.de/",
   "games": [
-    {
-      "date": "21.10.2026",
-      "time": "18:30",
-      "datetime": "2026-10-21T18:30:00.000Z",
-      "home": "Kölner Junghaie",
-      "away": "Krefelder EV",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "U15 A",
-      "location": "home"
-    },
     {
       "date": "24.10.2026",
       "time": "12:30",

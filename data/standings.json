@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-21T08:33:25.283Z",
+  "generatedAt": "2026-10-22T08:36:02.533Z",
   "source": "https://www.junghaie.de/",
   "standings": [
     {
@@ -302,9 +302,9 @@
       "rank": 1,
       "team": "U15 A",
       "teamName": "Kölner Junghaie",
-      "games": 10,
-      "goalDifference": "+42",
-      "points": 23
+      "games": 11,
+      "goalDifference": "+60",
+      "points": 26
     },
     {
       "rank": 2,
@@ -318,8 +318,8 @@
       "rank": 3,
       "team": "U15 A",
       "teamName": "Krefelder EV",
-      "games": 9,
-      "goalDifference": "-9",
+      "games": 10,
+      "goalDifference": "-27",
       "points": 15
     },
     {
