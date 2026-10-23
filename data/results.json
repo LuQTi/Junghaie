@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-22T08:36:02.533Z",
+  "generatedAt": "2026-10-23T08:32:20.063Z",
   "source": "https://www.junghaie.de/",
   "results": [
     {
@@ -26,28 +26,6 @@
     },
     {
       "date": "18.10.2026",
-      "time": "14:45",
-      "datetime": "2026-10-18T14:45:00.000Z",
-      "home": "Kölner Junghaie",
-      "away": "Krefelder EV",
-      "homeScore": 2,
-      "awayScore": 3,
-      "team": "U17",
-      "location": "home"
-    },
-    {
-      "date": "18.10.2026",
-      "time": "12:00",
-      "datetime": "2026-10-18T12:00:00.000Z",
-      "home": "Kölner Junghaie",
-      "away": "Düsseldorfer EG",
-      "homeScore": 3,
-      "awayScore": 1,
-      "team": "U20",
-      "location": "home"
-    },
-    {
-      "date": "18.10.2026",
       "time": "09:00",
       "datetime": "2026-10-18T09:00:00.000Z",
       "home": "Iserlohner EC",
@@ -69,28 +47,6 @@
       "location": "away"
     },
     {
-      "date": "17.10.2026",
-      "time": "17:00",
-      "datetime": "2026-10-17T17:00:00.000Z",
-      "home": "Kölner Junghaie",
-      "away": "Düsseldorfer EG",
-      "homeScore": 4,
-      "awayScore": 1,
-      "team": "U20",
-      "location": "home"
-    },
-    {
-      "date": "17.10.2026",
-      "time": "13:30",
-      "datetime": "2026-10-17T13:30:00.000Z",
-      "home": "Krefelder EV",
-      "away": "Kölner Junghaie",
-      "homeScore": 0,
-      "awayScore": 6,
-      "team": "U17",
-      "location": "away"
-    },
-    {
       "date": "11.10.2026",
       "time": "17:30",
       "datetime": "2026-10-11T17:30:00.000Z",
@@ -102,39 +58,6 @@
       "location": "home"
     },
     {
-      "date": "11.10.2026",
-      "time": "12:00",
-      "datetime": "2026-10-11T12:00:00.000Z",
-      "home": "Kölner Junghaie",
-      "away": "Eisbären Juniors Berlin",
-      "homeScore": 8,
-      "awayScore": 2,
-      "team": "U17",
-      "location": "home"
-    },
-    {
-      "date": "11.10.2026",
-      "time": "10:00",
-      "datetime": "2026-10-11T10:00:00.000Z",
-      "home": "Eisbären Juniors Berlin",
-      "away": "SO",
-      "homeScore": 1,
-      "awayScore": 2,
-      "team": "U20",
-      "location": null
-    },
-    {
-      "date": "10.10.2026",
-      "time": "16:30",
-      "datetime": "2026-10-10T16:30:00.000Z",
-      "home": "Kölner Junghaie",
-      "away": "SO",
-      "homeScore": 4,
-      "awayScore": 5,
-      "team": "U17",
-      "location": "home"
-    },
-    {
       "date": "10.10.2026",
       "time": "16:30",
       "datetime": "2026-10-10T16:30:00.000Z",
@@ -143,17 +66,6 @@
       "homeScore": 2,
       "awayScore": 5,
       "team": "U15 A",
-      "location": "away"
-    },
-    {
-      "date": "10.10.2026",
-      "time": "16:00",
-      "datetime": "2026-10-10T16:00:00.000Z",
-      "home": "Eisbären Juniors Berlin",
-      "away": "Kölner Junghaie",
-      "homeScore": 5,
-      "awayScore": 3,
-      "team": "U20",
       "location": "away"
     },
     {
@@ -190,28 +102,6 @@
       "location": "home"
     },
     {
-      "date": "04.10.2026",
-      "time": "12:00",
-      "datetime": "2026-10-04T12:00:00.000Z",
-      "home": "EC Bad Tölz",
-      "away": "Kölner Junghaie",
-      "homeScore": 3,
-      "awayScore": 9,
-      "team": "U20",
-      "location": "away"
-    },
-    {
-      "date": "04.10.2026",
-      "time": "12:00",
-      "datetime": "2026-10-04T12:00:00.000Z",
-      "home": "Kölner Junghaie",
-      "away": "Iserlohner EC",
-      "homeScore": 9,
-      "awayScore": 1,
-      "team": "U17",
-      "location": "home"
-    },
-    {
       "date": "03.10.2026",
       "time": "19:15",
       "datetime": "2026-10-03T19:15:00.000Z",
@@ -224,17 +114,6 @@
     },
     {
       "date": "03.10.2026",
-      "time": "17:00",
-      "datetime": "2026-10-03T17:00:00.000Z",
-      "home": "EC Bad Tölz",
-      "away": "Kölner Junghaie",
-      "homeScore": 3,
-      "awayScore": 4,
-      "team": "U20",
-      "location": "away"
-    },
-    {
-      "date": "03.10.2026",
       "time": "16:30",
       "datetime": "2026-10-03T16:30:00.000Z",
       "home": "Kölner Junghaie",
@@ -243,17 +122,6 @@
       "awayScore": 5,
       "team": "U13 A",
       "location": "home"
-    },
-    {
-      "date": "03.10.2026",
-      "time": "12:20",
-      "datetime": "2026-10-03T12:20:00.000Z",
-      "home": "Iserlohner EC",
-      "away": "Kölner Junghaie",
-      "homeScore": 0,
-      "awayScore": 3,
-      "team": "U17",
-      "location": "away"
     },
     {
       "date": "03.10.2026",
@@ -279,17 +147,6 @@
     },
     {
       "date": "27.09.2026",
-      "time": "14:45",
-      "datetime": "2026-09-27T14:45:00.000Z",
-      "home": "Kölner Junghaie",
-      "away": "Jungadler Mannheim",
-      "homeScore": 3,
-      "awayScore": 5,
-      "team": "U20",
-      "location": "home"
-    },
-    {
-      "date": "27.09.2026",
       "time": "14:00",
       "datetime": "2026-09-27T14:00:00.000Z",
       "home": "Krefelder EV",
@@ -297,17 +154,6 @@
       "homeScore": 3,
       "awayScore": 4,
       "team": "U15 A",
-      "location": "away"
-    },
-    {
-      "date": "27.09.2026",
-      "time": "10:00",
-      "datetime": "2026-09-27T10:00:00.000Z",
-      "home": "ESC Dresden",
-      "away": "Kölner Junghaie",
-      "homeScore": 1,
-      "awayScore": 4,
-      "team": "U17",
       "location": "away"
     },
     {
@@ -319,28 +165,6 @@
       "homeScore": 2,
       "awayScore": 15,
       "team": "U13 A",
-      "location": "away"
-    },
-    {
-      "date": "26.09.2026",
-      "time": "16:45",
-      "datetime": "2026-09-26T16:45:00.000Z",
-      "home": "Jungadler Mannheim",
-      "away": "Kölner Junghaie",
-      "homeScore": 5,
-      "awayScore": 1,
-      "team": "U20",
-      "location": "away"
-    },
-    {
-      "date": "26.09.2026",
-      "time": "16:45",
-      "datetime": "2026-09-26T16:45:00.000Z",
-      "home": "ESC Dresden",
-      "away": "Kölner Junghaie",
-      "homeScore": 2,
-      "awayScore": 5,
-      "team": "U17",
       "location": "away"
     },
     {
@@ -377,28 +201,6 @@
       "location": "away"
     },
     {
-      "date": "20.09.2026",
-      "time": "14:45",
-      "datetime": "2026-09-20T14:45:00.000Z",
-      "home": "Kölner Junghaie",
-      "away": "Düsseldorfer EG",
-      "homeScore": 6,
-      "awayScore": 1,
-      "team": "U17",
-      "location": "home"
-    },
-    {
-      "date": "20.09.2026",
-      "time": "12:00",
-      "datetime": "2026-09-20T12:00:00.000Z",
-      "home": "Kölner Junghaie",
-      "away": "Augsburger EV",
-      "homeScore": 6,
-      "awayScore": 2,
-      "team": "U20",
-      "location": "home"
-    },
-    {
       "date": "19.09.2026",
       "time": "19:45",
       "datetime": "2026-09-19T19:45:00.000Z",
@@ -408,28 +210,6 @@
       "awayScore": 5,
       "team": "U15 A",
       "location": "home"
-    },
-    {
-      "date": "19.09.2026",
-      "time": "17:00",
-      "datetime": "2026-09-19T17:00:00.000Z",
-      "home": "Kölner Junghaie",
-      "away": "Augsburger EV",
-      "homeScore": 7,
-      "awayScore": 2,
-      "team": "U20",
-      "location": "home"
-    },
-    {
-      "date": "19.09.2026",
-      "time": "16:30",
-      "datetime": "2026-09-19T16:30:00.000Z",
-      "home": "Düsseldorfer EG",
-      "away": "Kölner Junghaie",
-      "homeScore": 3,
-      "awayScore": 10,
-      "team": "U17",
-      "location": "away"
     },
     {
       "date": "13.09.2026",
@@ -443,39 +223,6 @@
       "location": "home"
     },
     {
-      "date": "13.09.2026",
-      "time": "12:00",
-      "datetime": "2026-09-13T12:00:00.000Z",
-      "home": "Iserlohner EC",
-      "away": "Kölner Junghaie",
-      "homeScore": 2,
-      "awayScore": 6,
-      "team": "U20",
-      "location": "away"
-    },
-    {
-      "date": "13.09.2026",
-      "time": "12:00",
-      "datetime": "2026-09-13T12:00:00.000Z",
-      "home": "Kölner Junghaie",
-      "away": "ES Weißwasser",
-      "homeScore": 9,
-      "awayScore": 3,
-      "team": "U17",
-      "location": "home"
-    },
-    {
-      "date": "12.09.2026",
-      "time": "16:30",
-      "datetime": "2026-09-12T16:30:00.000Z",
-      "home": "Kölner Junghaie",
-      "away": "ES Weißwasser",
-      "homeScore": 10,
-      "awayScore": 0,
-      "team": "U17",
-      "location": "home"
-    },
-    {
       "date": "12.09.2026",
       "time": "13:30",
       "datetime": "2026-09-12T13:30:00.000Z",
@@ -484,17 +231,6 @@
       "homeScore": 3,
       "awayScore": 24,
       "team": "U13 B",
-      "location": "away"
-    },
-    {
-      "date": "12.09.2026",
-      "time": "12:15",
-      "datetime": "2026-09-12T12:15:00.000Z",
-      "home": "Iserlohner EC",
-      "away": "Kölner Junghaie",
-      "homeScore": 1,
-      "awayScore": 4,
-      "team": "U20",
       "location": "away"
     },
     {
@@ -520,39 +256,6 @@
       "location": "home"
     },
     {
-      "date": "06.09.2026",
-      "time": "12:00",
-      "datetime": "2026-09-06T12:00:00.000Z",
-      "home": "Kölner Junghaie",
-      "away": "EV Füssen",
-      "homeScore": 15,
-      "awayScore": 3,
-      "team": "U20",
-      "location": "home"
-    },
-    {
-      "date": "06.09.2026",
-      "time": "11:00",
-      "datetime": "2026-09-06T11:00:00.000Z",
-      "home": "EHC GA Wolfsburg",
-      "away": "Kölner Junghaie",
-      "homeScore": 2,
-      "awayScore": 9,
-      "team": "U17",
-      "location": "away"
-    },
-    {
-      "date": "05.09.2026",
-      "time": "19:30",
-      "datetime": "2026-09-05T19:30:00.000Z",
-      "home": "EHC GA Wolfsburg",
-      "away": "Kölner Junghaie",
-      "homeScore": 0,
-      "awayScore": 5,
-      "team": "U17",
-      "location": "away"
-    },
-    {
       "date": "05.09.2026",
       "time": "19:30",
       "datetime": "2026-09-05T19:30:00.000Z",
@@ -562,17 +265,6 @@
       "awayScore": 8,
       "team": "U13 A",
       "location": "away"
-    },
-    {
-      "date": "05.09.2026",
-      "time": "17:00",
-      "datetime": "2026-09-05T17:00:00.000Z",
-      "home": "Kölner Junghaie",
-      "away": "EV Füssen",
-      "homeScore": 17,
-      "awayScore": 1,
-      "team": "U20",
-      "location": "home"
     },
     {
       "date": "04.09.2026",
