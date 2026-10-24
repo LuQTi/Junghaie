@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-23T08:32:20.063Z",
+  "generatedAt": "2026-10-24T08:07:15.438Z",
   "source": "https://www.junghaie.de/",
   "standings": [
     {
@@ -221,18 +221,18 @@
     {
       "rank": 1,
       "team": "U13 B",
-      "teamName": "Kölner Junghaie 1b",
-      "games": 3,
-      "goalDifference": "+64",
-      "points": 9
+      "teamName": "Herner EV",
+      "games": 5,
+      "goalDifference": "+5",
+      "points": 11
     },
     {
       "rank": 2,
       "team": "U13 B",
-      "teamName": "Herner EV",
-      "games": 4,
-      "goalDifference": "+3",
-      "points": 8
+      "teamName": "Kölner Junghaie 1b",
+      "games": 3,
+      "goalDifference": "+64",
+      "points": 9
     },
     {
       "rank": 3,
@@ -294,8 +294,8 @@
       "rank": 10,
       "team": "U13 B",
       "teamName": "EV Duisburg",
-      "games": 6,
-      "goalDifference": "-51",
+      "games": 7,
+      "goalDifference": "-53",
       "points": 0
     },
     {
@@ -310,9 +310,9 @@
       "rank": 2,
       "team": "U15 A",
       "teamName": "Düsseldorfer EG",
-      "games": 10,
-      "goalDifference": "+15",
-      "points": 16
+      "games": 11,
+      "goalDifference": "+23",
+      "points": 19
     },
     {
       "rank": 3,
@@ -326,8 +326,8 @@
       "rank": 4,
       "team": "U15 A",
       "teamName": "Iserlohner EC",
-      "games": 9,
-      "goalDifference": "-48",
+      "games": 10,
+      "goalDifference": "-56",
       "points": 3
     },
     {
