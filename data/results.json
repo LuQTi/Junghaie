@@ -1,7 +1,40 @@
 {
-  "generatedAt": "2026-10-25T08:24:32.107Z",
+  "generatedAt": "2026-10-26T08:53:03.616Z",
   "source": "https://www.junghaie.de/",
   "results": [
+    {
+      "date": "25.10.2026",
+      "time": "17:30",
+      "datetime": "2026-10-25T17:30:00.000Z",
+      "home": "Kölner Junghaie 1b",
+      "away": "EHC Troisdorf",
+      "homeScore": 11,
+      "awayScore": 2,
+      "team": "U13 B",
+      "location": "home"
+    },
+    {
+      "date": "25.10.2026",
+      "time": "14:45",
+      "datetime": "2026-10-25T14:45:00.000Z",
+      "home": "Kölner Junghaie",
+      "away": "Düsseldorfer EG",
+      "homeScore": 17,
+      "awayScore": 2,
+      "team": "U13 A",
+      "location": "home"
+    },
+    {
+      "date": "25.10.2026",
+      "time": "12:00",
+      "datetime": "2026-10-25T12:00:00.000Z",
+      "home": "Kölner Junghaie",
+      "away": "EV Landshut",
+      "homeScore": 4,
+      "awayScore": 1,
+      "team": "U20",
+      "location": "home"
+    },
     {
       "date": "24.10.2026",
       "time": "17:00",
@@ -22,6 +55,17 @@
       "homeScore": 1,
       "awayScore": 6,
       "team": "U13 A",
+      "location": "away"
+    },
+    {
+      "date": "24.10.2026",
+      "time": "12:30",
+      "datetime": "2026-10-24T12:30:00.000Z",
+      "home": "Dinslakener Kobras",
+      "away": "KEC \"Die Haie\"",
+      "homeScore": 4,
+      "awayScore": 1,
+      "team": "Frauen 1",
       "location": "away"
     },
     {
@@ -191,6 +235,17 @@
     },
     {
       "date": "26.09.2026",
+      "time": "19:15",
+      "datetime": "2026-09-26T19:15:00.000Z",
+      "home": "KEC \"Die Haie\"",
+      "away": "FASS Berlin",
+      "homeScore": 5,
+      "awayScore": 1,
+      "team": "Frauen 1",
+      "location": "home"
+    },
+    {
+      "date": "26.09.2026",
       "time": "12:15",
       "datetime": "2026-09-26T12:15:00.000Z",
       "home": "Iserlohner EC",
@@ -223,6 +278,17 @@
       "location": "away"
     },
     {
+      "date": "20.09.2026",
+      "time": "10:00",
+      "datetime": "2026-09-20T10:00:00.000Z",
+      "home": "Herforder EV",
+      "away": "KEC \"Die Haie\" 1c",
+      "homeScore": 2,
+      "awayScore": 18,
+      "team": "Frauen 3",
+      "location": "away"
+    },
+    {
       "date": "19.09.2026",
       "time": "19:45",
       "datetime": "2026-09-19T19:45:00.000Z",
@@ -242,6 +308,17 @@
       "homeScore": 13,
       "awayScore": 2,
       "team": "U15 B",
+      "location": "home"
+    },
+    {
+      "date": "12.09.2026",
+      "time": "19:15",
+      "datetime": "2026-09-12T19:15:00.000Z",
+      "home": "KEC \"Die Haie\" 1c",
+      "away": "Herforder EV",
+      "homeScore": 7,
+      "awayScore": 2,
+      "team": "Frauen 3",
       "location": "home"
     },
     {
