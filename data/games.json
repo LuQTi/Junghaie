@@ -1,18 +1,7 @@
 {
-  "generatedAt": "2026-10-26T08:53:03.616Z",
+  "generatedAt": "2026-10-27T09:08:30.009Z",
   "source": "https://www.junghaie.de/",
   "games": [
-    {
-      "date": "26.10.2026",
-      "time": "18:15",
-      "datetime": "2026-10-26T18:15:00.000Z",
-      "home": "Kölner Junghaie 1b",
-      "away": "Düsseldorfer EG 1b",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "U15 B",
-      "location": "home"
-    },
     {
       "date": "29.10.2026",
       "time": "19:00",
@@ -235,8 +224,8 @@
     },
     {
       "date": "15.11.2026",
-      "time": "16:15",
-      "datetime": "2026-11-15T16:15:00.000Z",
+      "time": "16:30",
+      "datetime": "2026-11-15T16:30:00.000Z",
       "home": "Iserlohner EC",
       "away": "Kölner Junghaie",
       "homeScore": null,
