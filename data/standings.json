@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-29T09:56:21.195Z",
+  "generatedAt": "2026-10-30T09:59:45.427Z",
   "source": "https://www.junghaie.de/",
   "standings": [
     {
@@ -334,17 +334,17 @@
       "rank": 1,
       "team": "U15 B",
       "teamName": "Kölner Junghaie 1b",
-      "games": 6,
-      "goalDifference": "+59",
-      "points": 18
+      "games": 7,
+      "goalDifference": "+66",
+      "points": 21
     },
     {
       "rank": 2,
       "team": "U15 B",
       "teamName": "EV Duisburg",
-      "games": 8,
-      "goalDifference": "-2",
-      "points": 17
+      "games": 9,
+      "goalDifference": "+1",
+      "points": 20
     },
     {
       "rank": 3,
@@ -382,16 +382,16 @@
       "rank": 7,
       "team": "U15 B",
       "teamName": "Iserlohner EC 1b",
-      "games": 4,
-      "goalDifference": "-33",
+      "games": 5,
+      "goalDifference": "-40",
       "points": 1
     },
     {
       "rank": 8,
       "team": "U15 B",
       "teamName": "Herner EV",
-      "games": 5,
-      "goalDifference": "-15",
+      "games": 6,
+      "goalDifference": "-18",
       "points": 0
     },
     {
