@@ -1,73 +1,7 @@
 {
-  "generatedAt": "2026-10-31T09:36:49.526Z",
+  "generatedAt": "2026-11-01T10:26:41.892Z",
   "source": "https://www.junghaie.de/",
   "games": [
-    {
-      "date": "31.10.2026",
-      "time": "16:30",
-      "datetime": "2026-10-31T16:30:00.000Z",
-      "home": "Düsseldorfer EG",
-      "away": "Kölner Junghaie",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "U13 A",
-      "location": "away"
-    },
-    {
-      "date": "31.10.2026",
-      "time": "17:00",
-      "datetime": "2026-10-31T17:00:00.000Z",
-      "home": "EC Bad Tölz",
-      "away": "Kölner Junghaie",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "U17",
-      "location": "away"
-    },
-    {
-      "date": "31.10.2026",
-      "time": "19:00",
-      "datetime": "2026-10-31T19:00:00.000Z",
-      "home": "ERC Ingolstadt",
-      "away": "Kölner Junghaie",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "U20",
-      "location": "away"
-    },
-    {
-      "date": "31.10.2026",
-      "time": "19:15",
-      "datetime": "2026-10-31T19:15:00.000Z",
-      "home": "KEC \"Die Haie\" 1c",
-      "away": "DSC Krefeld",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "Frauen 3",
-      "location": "home"
-    },
-    {
-      "date": "01.11.2026",
-      "time": "10:15",
-      "datetime": "2026-11-01T10:15:00.000Z",
-      "home": "ERC Ingolstadt",
-      "away": "Kölner Junghaie",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "U20",
-      "location": "away"
-    },
-    {
-      "date": "01.11.2026",
-      "time": "11:00",
-      "datetime": "2026-11-01T11:00:00.000Z",
-      "home": "EC Bad Tölz",
-      "away": "Kölner Junghaie",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "U17",
-      "location": "away"
-    },
     {
       "date": "01.11.2026",
       "time": "11:55",

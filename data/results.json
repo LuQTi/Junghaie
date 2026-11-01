@@ -1,7 +1,40 @@
 {
-  "generatedAt": "2026-10-31T09:36:49.526Z",
+  "generatedAt": "2026-11-01T10:26:41.892Z",
   "source": "https://www.junghaie.de/",
   "results": [
+    {
+      "date": "31.10.2026",
+      "time": "19:00",
+      "datetime": "2026-10-31T19:00:00.000Z",
+      "home": "ERC Ingolstadt",
+      "away": "OT",
+      "homeScore": 2,
+      "awayScore": 3,
+      "team": "U20",
+      "location": null
+    },
+    {
+      "date": "31.10.2026",
+      "time": "17:00",
+      "datetime": "2026-10-31T17:00:00.000Z",
+      "home": "EC Bad Tölz",
+      "away": "Kölner Junghaie",
+      "homeScore": 2,
+      "awayScore": 6,
+      "team": "U17",
+      "location": "away"
+    },
+    {
+      "date": "31.10.2026",
+      "time": "16:30",
+      "datetime": "2026-10-31T16:30:00.000Z",
+      "home": "Düsseldorfer EG",
+      "away": "Kölner Junghaie",
+      "homeScore": 2,
+      "awayScore": 4,
+      "team": "U13 A",
+      "location": "away"
+    },
     {
       "date": "29.10.2026",
       "time": "19:00",
