@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-02T11:00:12.015Z",
+  "generatedAt": "2026-11-03T10:49:42.525Z",
   "source": "https://www.junghaie.de/",
   "results": [
     {
@@ -45,6 +45,17 @@
       "awayScore": 5,
       "team": "U20",
       "location": "away"
+    },
+    {
+      "date": "31.10.2026",
+      "time": "19:15",
+      "datetime": "2026-10-31T19:15:00.000Z",
+      "home": "KEC \"Die Haie\" 1c",
+      "away": "DSC Krefeld",
+      "homeScore": 1,
+      "awayScore": 3,
+      "team": "Frauen 3",
+      "location": "home"
     },
     {
       "date": "31.10.2026",
