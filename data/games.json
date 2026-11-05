@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-04T10:53:03.894Z",
+  "generatedAt": "2026-11-05T10:50:59.176Z",
   "source": "https://www.junghaie.de/",
   "games": [
     {
@@ -147,6 +147,17 @@
     },
     {
       "date": "21.11.2026",
+      "time": "12:00",
+      "datetime": "2026-11-21T12:00:00.000Z",
+      "home": "Kölner Junghaie",
+      "away": "Krefelder EV",
+      "homeScore": null,
+      "awayScore": null,
+      "team": "U13 A",
+      "location": "home"
+    },
+    {
+      "date": "21.11.2026",
       "time": "16:30",
       "datetime": "2026-11-21T16:30:00.000Z",
       "home": "Düsseldorfer EG",
@@ -155,6 +166,17 @@
       "awayScore": null,
       "team": "U17",
       "location": "away"
+    },
+    {
+      "date": "21.11.2026",
+      "time": "16:30",
+      "datetime": "2026-11-21T16:30:00.000Z",
+      "home": "Kölner Junghaie 1b",
+      "away": "Düsseldorfer EG 1b",
+      "homeScore": null,
+      "awayScore": null,
+      "team": "U15 B",
+      "location": "home"
     },
     {
       "date": "21.11.2026",
@@ -363,17 +385,6 @@
       "homeScore": null,
       "awayScore": null,
       "team": "U20",
-      "location": "home"
-    },
-    {
-      "date": "06.12.2026",
-      "time": "17:30",
-      "datetime": "2026-12-06T17:30:00.000Z",
-      "home": "Kölner Junghaie",
-      "away": "Krefelder EV",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "U13 A",
       "location": "home"
     },
     {
@@ -917,8 +928,8 @@
     },
     {
       "date": "31.01.2027",
-      "time": "14:45",
-      "datetime": "2027-01-31T14:45:00.000Z",
+      "time": "17:30",
+      "datetime": "2027-01-31T17:30:00.000Z",
       "home": "Kölner Junghaie",
       "away": "Düsseldorfer EG",
       "homeScore": null,
