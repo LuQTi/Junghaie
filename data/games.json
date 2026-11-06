@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-05T10:50:59.176Z",
+  "generatedAt": "2026-11-06T10:50:36.943Z",
   "source": "https://www.junghaie.de/",
   "games": [
     {
@@ -11,17 +11,6 @@
       "homeScore": null,
       "awayScore": null,
       "team": "Frauen 1",
-      "location": "home"
-    },
-    {
-      "date": "08.11.2026",
-      "time": "14:45",
-      "datetime": "2026-11-08T14:45:00.000Z",
-      "home": "Kölner Junghaie 1b",
-      "away": "Iserlohner EC 1b",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "U13 B",
       "location": "home"
     },
     {
@@ -221,17 +210,6 @@
       "awayScore": null,
       "team": "U13 A",
       "location": "home"
-    },
-    {
-      "date": "27.11.2026",
-      "time": "19:30",
-      "datetime": "2026-11-27T19:30:00.000Z",
-      "home": "EV Duisburg",
-      "away": "Kölner Junghaie 1b",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "U15 B",
-      "location": "away"
     },
     {
       "date": "28.11.2026",
@@ -1236,6 +1214,17 @@
     },
     {
       "date": "07.03.2027",
+      "time": "10:00",
+      "datetime": "2027-03-07T10:00:00.000Z",
+      "home": "EV Duisburg",
+      "away": "Kölner Junghaie 1b",
+      "homeScore": null,
+      "awayScore": null,
+      "team": "U15 B",
+      "location": "away"
+    },
+    {
+      "date": "07.03.2027",
       "time": "17:30",
       "datetime": "2027-03-07T17:30:00.000Z",
       "home": "Kölner Junghaie",
@@ -1375,6 +1364,17 @@
       "homeScore": null,
       "awayScore": null,
       "team": "U13 A",
+      "location": "home"
+    },
+    {
+      "date": "28.03.2027",
+      "time": "17:30",
+      "datetime": "2027-03-28T17:30:00.000Z",
+      "home": "Kölner Junghaie 1b",
+      "away": "Iserlohner EC 1b",
+      "homeScore": null,
+      "awayScore": null,
+      "team": "U13 B",
       "location": "home"
     }
   ]
