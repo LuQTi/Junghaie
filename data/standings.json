@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-06T10:50:36.943Z",
+  "generatedAt": "2026-11-07T10:03:28.433Z",
   "source": "https://www.junghaie.de/",
   "standings": [
     {
@@ -70,20 +70,28 @@
       "rank": 1,
       "team": "Frauen 2",
       "teamName": "Ratinger Ice Aliens",
-      "games": 2,
-      "goalDifference": "+17",
+      "games": 3,
+      "goalDifference": "+16",
       "points": 6
     },
     {
       "rank": 2,
       "team": "Frauen 2",
-      "teamName": "EJ Kassel Huskies Ladies",
-      "games": 1,
-      "goalDifference": "+10",
-      "points": 3
+      "teamName": "ESC Darmstadt",
+      "games": 5,
+      "goalDifference": "-10",
+      "points": 5
     },
     {
       "rank": 3,
+      "team": "Frauen 2",
+      "teamName": "EJ Kassel Huskies Ladies",
+      "games": 2,
+      "goalDifference": "+9",
+      "points": 4
+    },
+    {
+      "rank": 4,
       "team": "Frauen 2",
       "teamName": "DEC Düsseldorfer Devils",
       "games": 1,
@@ -91,7 +99,15 @@
       "points": 3
     },
     {
-      "rank": 4,
+      "rank": 5,
+      "team": "Frauen 2",
+      "teamName": "ESV Bergisch Gladbach",
+      "games": 1,
+      "goalDifference": "+1",
+      "points": 3
+    },
+    {
+      "rank": 6,
       "team": "Frauen 2",
       "teamName": "Eisadler Dortmund",
       "games": 3,
@@ -99,15 +115,7 @@
       "points": 3
     },
     {
-      "rank": 5,
-      "team": "Frauen 2",
-      "teamName": "ESC Darmstadt",
-      "games": 4,
-      "goalDifference": "-11",
-      "points": 3
-    },
-    {
-      "rank": 6,
+      "rank": 7,
       "team": "Frauen 2",
       "teamName": "Tornado Women Luxembourg",
       "games": 3,
@@ -115,17 +123,9 @@
       "points": 3
     },
     {
-      "rank": 7,
+      "rank": 8,
       "team": "Frauen 2",
       "teamName": "KEC \"Die Haie\" 1b",
-      "games": 0,
-      "goalDifference": "+0",
-      "points": 0
-    },
-    {
-      "rank": 7,
-      "team": "Frauen 2",
-      "teamName": "ESV Bergisch Gladbach",
       "games": 0,
       "goalDifference": "+0",
       "points": 0
@@ -134,9 +134,9 @@
       "rank": 1,
       "team": "Frauen 3",
       "teamName": "KEC \"Die Haie\" 1c",
-      "games": 3,
-      "goalDifference": "+19",
-      "points": 6
+      "games": 4,
+      "goalDifference": "+24",
+      "points": 9
     },
     {
       "rank": 2,
@@ -165,16 +165,16 @@
     {
       "rank": 5,
       "team": "Frauen 3",
-      "teamName": "ESV Bergisch Gladbach 1b",
-      "games": 0,
-      "goalDifference": "+0",
+      "teamName": "EHC Gelsenkirchen",
+      "games": 2,
+      "goalDifference": "-5",
       "points": 0
     },
     {
       "rank": 6,
       "team": "Frauen 3",
-      "teamName": "EHC Gelsenkirchen",
-      "games": 2,
+      "teamName": "ESV Bergisch Gladbach 1b",
+      "games": 1,
       "goalDifference": "-5",
       "points": 0
     },
@@ -221,26 +221,26 @@
     {
       "rank": 1,
       "team": "U13 B",
+      "teamName": "Herner EV",
+      "games": 7,
+      "goalDifference": "+7",
+      "points": 14
+    },
+    {
+      "rank": 2,
+      "team": "U13 B",
       "teamName": "Kölner Junghaie 1b",
       "games": 4,
       "goalDifference": "+73",
       "points": 12
     },
     {
-      "rank": 2,
+      "rank": 3,
       "team": "U13 B",
       "teamName": "EJ Kassel",
       "games": 6,
       "goalDifference": "+0",
       "points": 12
-    },
-    {
-      "rank": 3,
-      "team": "U13 B",
-      "teamName": "Herner EV",
-      "games": 6,
-      "goalDifference": "+4",
-      "points": 11
     },
     {
       "rank": 4,
@@ -270,8 +270,8 @@
       "rank": 7,
       "team": "U13 B",
       "teamName": "Krefelder EV 1b",
-      "games": 3,
-      "goalDifference": "+2",
+      "games": 4,
+      "goalDifference": "-1",
       "points": 6
     },
     {
