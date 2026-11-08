@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-11-07T10:03:28.433Z",
+  "generatedAt": "2026-11-08T10:18:15.695Z",
   "source": "https://www.junghaie.de/",
   "standings": [
     {
       "rank": 1,
       "team": "Frauen 1",
       "teamName": "KEC \"Die Haie\"",
-      "games": 3,
-      "goalDifference": "+4",
-      "points": 6
+      "games": 4,
+      "goalDifference": "+5",
+      "points": 9
     },
     {
       "rank": 2,
@@ -54,12 +54,12 @@
       "rank": 7,
       "team": "Frauen 1",
       "teamName": "EC Bergisch Land",
-      "games": 1,
-      "goalDifference": "-2",
+      "games": 2,
+      "goalDifference": "-3",
       "points": 0
     },
     {
-      "rank": 8,
+      "rank": 7,
       "team": "Frauen 1",
       "teamName": "Sharks Woman Mechelen",
       "games": 1,
@@ -141,34 +141,34 @@
     {
       "rank": 2,
       "team": "Frauen 3",
-      "teamName": "ESV Grizzlys Bergkamen",
+      "teamName": "TSVE Bielefeld",
       "games": 3,
-      "goalDifference": "+13",
-      "points": 6
+      "goalDifference": "+22",
+      "points": 9
     },
     {
       "rank": 3,
       "team": "Frauen 3",
-      "teamName": "TSVE Bielefeld",
-      "games": 2,
-      "goalDifference": "+10",
-      "points": 6
+      "teamName": "ESV Grizzlys Bergkamen",
+      "games": 4,
+      "goalDifference": "+14",
+      "points": 8
     },
     {
       "rank": 4,
       "team": "Frauen 3",
       "teamName": "DSC Krefeld",
-      "games": 1,
-      "goalDifference": "+2",
+      "games": 2,
+      "goalDifference": "-10",
       "points": 3
     },
     {
       "rank": 5,
       "team": "Frauen 3",
       "teamName": "EHC Gelsenkirchen",
-      "games": 2,
-      "goalDifference": "-5",
-      "points": 0
+      "games": 3,
+      "goalDifference": "-6",
+      "points": 1
     },
     {
       "rank": 6,
@@ -222,8 +222,8 @@
       "rank": 1,
       "team": "U13 B",
       "teamName": "Herner EV",
-      "games": 7,
-      "goalDifference": "+7",
+      "games": 8,
+      "goalDifference": "+0",
       "points": 14
     },
     {
@@ -245,26 +245,26 @@
     {
       "rank": 4,
       "team": "U13 B",
-      "teamName": "ESC Darmstadt",
+      "teamName": "Düsseldorfer EG 1b",
       "games": 3,
-      "goalDifference": "+11",
+      "goalDifference": "+31",
       "points": 9
     },
     {
       "rank": 5,
       "team": "U13 B",
-      "teamName": "Iserlohner EC 1b",
-      "games": 5,
-      "goalDifference": "+3",
-      "points": 7
+      "teamName": "ESC Darmstadt",
+      "games": 4,
+      "goalDifference": "+10",
+      "points": 9
     },
     {
       "rank": 6,
       "team": "U13 B",
-      "teamName": "Düsseldorfer EG 1b",
-      "games": 2,
-      "goalDifference": "+24",
-      "points": 6
+      "teamName": "Iserlohner EC 1b",
+      "games": 5,
+      "goalDifference": "+3",
+      "points": 7
     },
     {
       "rank": 7,
@@ -285,17 +285,17 @@
     {
       "rank": 9,
       "team": "U13 B",
-      "teamName": "EHC Troisdorf",
-      "games": 5,
-      "goalDifference": "-20",
-      "points": 3
+      "teamName": "EV Duisburg",
+      "games": 9,
+      "goalDifference": "-51",
+      "points": 6
     },
     {
       "rank": 10,
       "team": "U13 B",
-      "teamName": "EV Duisburg",
-      "games": 8,
-      "goalDifference": "-52",
+      "teamName": "EHC Troisdorf",
+      "games": 5,
+      "goalDifference": "-20",
       "points": 3
     },
     {
@@ -358,9 +358,9 @@
       "rank": 4,
       "team": "U15 B",
       "teamName": "EJ Kassel",
-      "games": 8,
-      "goalDifference": "-23",
-      "points": 10
+      "games": 9,
+      "goalDifference": "-16",
+      "points": 13
     },
     {
       "rank": 5,
@@ -374,8 +374,8 @@
       "rank": 6,
       "team": "U15 B",
       "teamName": "EHC Troisdorf",
-      "games": 7,
-      "goalDifference": "-37",
+      "games": 8,
+      "goalDifference": "-44",
       "points": 5
     },
     {
