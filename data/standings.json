@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-08T10:18:15.695Z",
+  "generatedAt": "2026-11-09T11:28:12.416Z",
   "source": "https://www.junghaie.de/",
   "standings": [
     {
@@ -134,9 +134,9 @@
       "rank": 1,
       "team": "Frauen 3",
       "teamName": "KEC \"Die Haie\" 1c",
-      "games": 4,
-      "goalDifference": "+24",
-      "points": 9
+      "games": 5,
+      "goalDifference": "+28",
+      "points": 12
     },
     {
       "rank": 2,
@@ -174,8 +174,8 @@
       "rank": 6,
       "team": "Frauen 3",
       "teamName": "ESV Bergisch Gladbach 1b",
-      "games": 1,
-      "goalDifference": "-5",
+      "games": 2,
+      "goalDifference": "-9",
       "points": 0
     },
     {
@@ -191,7 +191,7 @@
       "team": "U13 A",
       "teamName": "Kölner Junghaie",
       "games": 8,
-      "goalDifference": "+59",
+      "goalDifference": "+62",
       "points": 24
     },
     {
@@ -207,7 +207,7 @@
       "team": "U13 A",
       "teamName": "Düsseldorfer EG",
       "games": 8,
-      "goalDifference": "-31",
+      "goalDifference": "-34",
       "points": 5
     },
     {
