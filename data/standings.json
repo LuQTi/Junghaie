@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-09T11:28:12.416Z",
+  "generatedAt": "2026-11-10T11:08:51.552Z",
   "source": "https://www.junghaie.de/",
   "standings": [
     {
@@ -93,9 +93,9 @@
     {
       "rank": 4,
       "team": "Frauen 2",
-      "teamName": "DEC Düsseldorfer Devils",
+      "teamName": "KEC \"Die Haie\" 1b",
       "games": 1,
-      "goalDifference": "+2",
+      "goalDifference": "+8",
       "points": 3
     },
     {
@@ -109,26 +109,26 @@
     {
       "rank": 6,
       "team": "Frauen 2",
+      "teamName": "DEC Düsseldorfer Devils",
+      "games": 2,
+      "goalDifference": "-6",
+      "points": 3
+    },
+    {
+      "rank": 7,
+      "team": "Frauen 2",
       "teamName": "Eisadler Dortmund",
       "games": 3,
       "goalDifference": "-7",
       "points": 3
     },
     {
-      "rank": 7,
+      "rank": 8,
       "team": "Frauen 2",
       "teamName": "Tornado Women Luxembourg",
       "games": 3,
       "goalDifference": "-11",
       "points": 3
-    },
-    {
-      "rank": 8,
-      "team": "Frauen 2",
-      "teamName": "KEC \"Die Haie\" 1b",
-      "games": 0,
-      "goalDifference": "+0",
-      "points": 0
     },
     {
       "rank": 1,
