@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-10T11:08:51.552Z",
+  "generatedAt": "2026-11-11T10:54:10.655Z",
   "source": "https://www.junghaie.de/",
   "games": [
     {
@@ -67,17 +67,6 @@
       "awayScore": null,
       "team": "U17",
       "location": "home"
-    },
-    {
-      "date": "15.11.2026",
-      "time": "16:30",
-      "datetime": "2026-11-15T16:30:00.000Z",
-      "home": "Iserlohner EC",
-      "away": "Kölner Junghaie",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "U20",
-      "location": "away"
     },
     {
       "date": "15.11.2026",
@@ -576,17 +565,6 @@
     },
     {
       "date": "09.01.2027",
-      "time": "16:30",
-      "datetime": "2027-01-09T16:30:00.000Z",
-      "home": "Düsseldorfer EG",
-      "away": "Kölner Junghaie",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "U13 A",
-      "location": "away"
-    },
-    {
-      "date": "09.01.2027",
       "time": "17:00",
       "datetime": "2027-01-09T17:00:00.000Z",
       "home": "Kölner Junghaie",
@@ -598,17 +576,6 @@
     },
     {
       "date": "09.01.2027",
-      "time": "18:15",
-      "datetime": "2027-01-09T18:15:00.000Z",
-      "home": "Kölner Junghaie",
-      "away": "Düsseldorfer EG",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "U17",
-      "location": "home"
-    },
-    {
-      "date": "09.01.2027",
       "time": "19:15",
       "datetime": "2027-01-09T19:15:00.000Z",
       "home": "KEC \"Die Haie\" 1c",
@@ -616,6 +583,17 @@
       "homeScore": null,
       "awayScore": null,
       "team": "Frauen 3",
+      "location": "home"
+    },
+    {
+      "date": "09.01.2027",
+      "time": "19:45",
+      "datetime": "2027-01-09T19:45:00.000Z",
+      "home": "Kölner Junghaie",
+      "away": "Düsseldorfer EG",
+      "homeScore": null,
+      "awayScore": null,
+      "team": "U17",
       "location": "home"
     },
     {
@@ -760,6 +738,17 @@
       "awayScore": null,
       "team": "U17",
       "location": "home"
+    },
+    {
+      "date": "23.01.2027",
+      "time": "16:30",
+      "datetime": "2027-01-23T16:30:00.000Z",
+      "home": "Düsseldorfer EG",
+      "away": "Kölner Junghaie",
+      "homeScore": null,
+      "awayScore": null,
+      "team": "U13 A",
+      "location": "away"
     },
     {
       "date": "23.01.2027",
