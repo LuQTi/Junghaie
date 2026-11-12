@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-11T10:54:10.655Z",
+  "generatedAt": "2026-11-12T11:02:49.217Z",
   "source": "https://www.junghaie.de/",
   "games": [
     {
@@ -275,17 +275,6 @@
       "homeScore": null,
       "awayScore": null,
       "team": "U20",
-      "location": "home"
-    },
-    {
-      "date": "05.12.2026",
-      "time": "19:15",
-      "datetime": "2026-12-05T19:15:00.000Z",
-      "home": "KEC \"Die Haie\"",
-      "away": "Soester EG",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "Frauen 1",
       "location": "home"
     },
     {
@@ -1276,6 +1265,17 @@
       "homeScore": null,
       "awayScore": null,
       "team": "Frauen 2",
+      "location": "home"
+    },
+    {
+      "date": "21.03.2027",
+      "time": "17:30",
+      "datetime": "2027-03-21T17:30:00.000Z",
+      "home": "KEC \"Die Haie\"",
+      "away": "Soester EG",
+      "homeScore": null,
+      "awayScore": null,
+      "team": "Frauen 1",
       "location": "home"
     },
     {
