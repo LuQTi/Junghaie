@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-12T11:02:49.217Z",
+  "generatedAt": "2026-11-13T10:57:30.883Z",
   "source": "https://www.junghaie.de/",
   "games": [
     {
@@ -89,17 +89,6 @@
       "awayScore": null,
       "team": "U13 B",
       "location": "away"
-    },
-    {
-      "date": "21.11.2026",
-      "time": "12:00",
-      "datetime": "2026-11-21T12:00:00.000Z",
-      "home": "Kölner Junghaie",
-      "away": "Krefelder EV",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "U13 A",
-      "location": "home"
     },
     {
       "date": "21.11.2026",
@@ -232,6 +221,17 @@
       "awayScore": null,
       "team": "U17",
       "location": "away"
+    },
+    {
+      "date": "29.11.2026",
+      "time": "12:00",
+      "datetime": "2026-11-29T12:00:00.000Z",
+      "home": "Kölner Junghaie",
+      "away": "Krefelder EV",
+      "homeScore": null,
+      "awayScore": null,
+      "team": "U13 A",
+      "location": "home"
     },
     {
       "date": "29.11.2026",

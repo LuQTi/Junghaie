@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-12T11:02:49.217Z",
+  "generatedAt": "2026-11-13T10:57:30.883Z",
   "source": "https://www.junghaie.de/",
   "standings": [
     {
@@ -342,17 +342,17 @@
       "rank": 2,
       "team": "U15 B",
       "teamName": "EV Duisburg",
-      "games": 9,
-      "goalDifference": "+1",
+      "games": 10,
+      "goalDifference": "-3",
       "points": 20
     },
     {
       "rank": 3,
       "team": "U15 B",
       "teamName": "Düsseldorfer EG 1b",
-      "games": 5,
-      "goalDifference": "+62",
-      "points": 15
+      "games": 6,
+      "goalDifference": "+66",
+      "points": 18
     },
     {
       "rank": 4,
