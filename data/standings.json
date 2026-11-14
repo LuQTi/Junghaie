@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-13T10:57:30.883Z",
+  "generatedAt": "2026-11-14T10:21:16.703Z",
   "source": "https://www.junghaie.de/",
   "standings": [
     {
@@ -77,13 +77,21 @@
     {
       "rank": 2,
       "team": "Frauen 2",
+      "teamName": "ESV Bergisch Gladbach",
+      "games": 2,
+      "goalDifference": "+4",
+      "points": 6
+    },
+    {
+      "rank": 3,
+      "team": "Frauen 2",
       "teamName": "ESC Darmstadt",
       "games": 5,
       "goalDifference": "-10",
       "points": 5
     },
     {
-      "rank": 3,
+      "rank": 4,
       "team": "Frauen 2",
       "teamName": "EJ Kassel Huskies Ladies",
       "games": 2,
@@ -91,7 +99,7 @@
       "points": 4
     },
     {
-      "rank": 4,
+      "rank": 5,
       "team": "Frauen 2",
       "teamName": "KEC \"Die Haie\" 1b",
       "games": 1,
@@ -99,27 +107,19 @@
       "points": 3
     },
     {
-      "rank": 5,
-      "team": "Frauen 2",
-      "teamName": "ESV Bergisch Gladbach",
-      "games": 1,
-      "goalDifference": "+1",
-      "points": 3
-    },
-    {
       "rank": 6,
       "team": "Frauen 2",
-      "teamName": "DEC Düsseldorfer Devils",
-      "games": 2,
-      "goalDifference": "-6",
+      "teamName": "Eisadler Dortmund",
+      "games": 3,
+      "goalDifference": "-7",
       "points": 3
     },
     {
       "rank": 7,
       "team": "Frauen 2",
-      "teamName": "Eisadler Dortmund",
+      "teamName": "DEC Düsseldorfer Devils",
       "games": 3,
-      "goalDifference": "-7",
+      "goalDifference": "-9",
       "points": 3
     },
     {

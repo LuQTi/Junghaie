@@ -1,18 +1,7 @@
 {
-  "generatedAt": "2026-11-13T10:57:30.883Z",
+  "generatedAt": "2026-11-14T10:21:16.703Z",
   "source": "https://www.junghaie.de/",
   "games": [
-    {
-      "date": "14.11.2026",
-      "time": "11:00",
-      "datetime": "2026-11-14T11:00:00.000Z",
-      "home": "EJ Kassel",
-      "away": "Kölner Junghaie 1b",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "U13 B",
-      "location": "away"
-    },
     {
       "date": "14.11.2026",
       "time": "16:30",
@@ -521,8 +510,8 @@
     },
     {
       "date": "05.01.2027",
-      "time": "18:30",
-      "datetime": "2027-01-05T18:30:00.000Z",
+      "time": "16:30",
+      "datetime": "2027-01-05T16:30:00.000Z",
       "home": "Kölner Junghaie",
       "away": "Düsseldorfer EG",
       "homeScore": null,
@@ -543,8 +532,8 @@
     },
     {
       "date": "06.01.2027",
-      "time": "18:30",
-      "datetime": "2027-01-06T18:30:00.000Z",
+      "time": "16:00",
+      "datetime": "2027-01-06T16:00:00.000Z",
       "home": "Kölner Junghaie 1b",
       "away": "Düsseldorfer EG 1b",
       "homeScore": null,
@@ -796,17 +785,6 @@
     },
     {
       "date": "30.01.2027",
-      "time": "16:30",
-      "datetime": "2027-01-30T16:30:00.000Z",
-      "home": "Starbulls Rosenheim",
-      "away": "Kölner Junghaie",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "U17",
-      "location": "away"
-    },
-    {
-      "date": "30.01.2027",
       "time": "17:00",
       "datetime": "2027-01-30T17:00:00.000Z",
       "home": "Kölner Junghaie",
@@ -815,6 +793,17 @@
       "awayScore": null,
       "team": "U20",
       "location": "home"
+    },
+    {
+      "date": "30.01.2027",
+      "time": "19:30",
+      "datetime": "2027-01-30T19:30:00.000Z",
+      "home": "Starbulls Rosenheim",
+      "away": "Kölner Junghaie",
+      "homeScore": null,
+      "awayScore": null,
+      "team": "U17",
+      "location": "away"
     },
     {
       "date": "31.01.2027",
