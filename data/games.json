@@ -1,51 +1,7 @@
 {
-  "generatedAt": "2026-11-14T10:21:16.703Z",
+  "generatedAt": "2026-11-15T10:49:57.990Z",
   "source": "https://www.junghaie.de/",
   "games": [
-    {
-      "date": "14.11.2026",
-      "time": "16:30",
-      "datetime": "2026-11-14T16:30:00.000Z",
-      "home": "Kölner Junghaie",
-      "away": "ERC Ingolstadt",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "U17",
-      "location": "home"
-    },
-    {
-      "date": "14.11.2026",
-      "time": "19:00",
-      "datetime": "2026-11-14T19:00:00.000Z",
-      "home": "EC Hannover Indians",
-      "away": "KEC \"Die Haie\"",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "Frauen 1",
-      "location": "away"
-    },
-    {
-      "date": "14.11.2026",
-      "time": "19:15",
-      "datetime": "2026-11-14T19:15:00.000Z",
-      "home": "KEC \"Die Haie\" 1c",
-      "away": "TSVE Bielefeld",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "Frauen 3",
-      "location": "home"
-    },
-    {
-      "date": "14.11.2026",
-      "time": "19:30",
-      "datetime": "2026-11-14T19:30:00.000Z",
-      "home": "Iserlohner EC",
-      "away": "Kölner Junghaie",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "U20",
-      "location": "away"
-    },
     {
       "date": "15.11.2026",
       "time": "13:15",
