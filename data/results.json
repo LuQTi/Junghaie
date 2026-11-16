@@ -1,7 +1,40 @@
 {
-  "generatedAt": "2026-11-15T10:49:57.990Z",
+  "generatedAt": "2026-11-16T11:10:57.568Z",
   "source": "https://www.junghaie.de/",
   "results": [
+    {
+      "date": "15.11.2026",
+      "time": "18:00",
+      "datetime": "2026-11-15T18:00:00.000Z",
+      "home": "EHC Troisdorf",
+      "away": "Kölner Junghaie 1b",
+      "homeScore": 0,
+      "awayScore": 10,
+      "team": "U15 B",
+      "location": "away"
+    },
+    {
+      "date": "15.11.2026",
+      "time": "16:30",
+      "datetime": "2026-11-15T16:30:00.000Z",
+      "home": "Iserlohner EC",
+      "away": "Kölner Junghaie",
+      "homeScore": 1,
+      "awayScore": 5,
+      "team": "U20",
+      "location": "away"
+    },
+    {
+      "date": "15.11.2026",
+      "time": "13:15",
+      "datetime": "2026-11-15T13:15:00.000Z",
+      "home": "Kölner Junghaie",
+      "away": "ERC Ingolstadt",
+      "homeScore": 4,
+      "awayScore": 2,
+      "team": "U17",
+      "location": "home"
+    },
     {
       "date": "14.11.2026",
       "time": "19:30",
