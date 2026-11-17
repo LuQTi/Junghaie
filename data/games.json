@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-16T11:10:57.568Z",
+  "generatedAt": "2026-11-17T11:49:08.299Z",
   "source": "https://www.junghaie.de/",
   "games": [
     {
@@ -78,17 +78,6 @@
       "awayScore": null,
       "team": "U13 A",
       "location": "home"
-    },
-    {
-      "date": "28.11.2026",
-      "time": "09:30",
-      "datetime": "2026-11-28T09:30:00.000Z",
-      "home": "Iserlohner EC",
-      "away": "Kölner Junghaie",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "U13 A",
-      "location": "away"
     },
     {
       "date": "28.11.2026",
