@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T11:32:27.629Z",
+  "generatedAt": "2026-11-21T10:59:10.019Z",
   "source": "https://www.junghaie.de/",
   "standings": [
     {
@@ -229,18 +229,18 @@
     {
       "rank": 2,
       "team": "U13 B",
-      "teamName": "Herner EV",
+      "teamName": "EJ Kassel",
       "games": 8,
-      "goalDifference": "+0",
-      "points": 14
+      "goalDifference": "-1",
+      "points": 15
     },
     {
       "rank": 3,
       "team": "U13 B",
-      "teamName": "EJ Kassel",
-      "games": 7,
-      "goalDifference": "-4",
-      "points": 12
+      "teamName": "Herner EV",
+      "games": 8,
+      "goalDifference": "+0",
+      "points": 14
     },
     {
       "rank": 4,
@@ -270,8 +270,8 @@
       "rank": 7,
       "team": "U13 B",
       "teamName": "Herforder EV",
-      "games": 9,
-      "goalDifference": "-43",
+      "games": 10,
+      "goalDifference": "-46",
       "points": 9
     },
     {
@@ -358,9 +358,9 @@
       "rank": 4,
       "team": "U15 B",
       "teamName": "EJ Kassel",
-      "games": 10,
-      "goalDifference": "-17",
-      "points": 14
+      "games": 11,
+      "goalDifference": "-16",
+      "points": 17
     },
     {
       "rank": 5,
@@ -390,8 +390,8 @@
       "rank": 8,
       "team": "U15 B",
       "teamName": "Herner EV",
-      "games": 7,
-      "goalDifference": "-20",
+      "games": 8,
+      "goalDifference": "-21",
       "points": 0
     },
     {
