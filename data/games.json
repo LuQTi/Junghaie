@@ -1,51 +1,7 @@
 {
-  "generatedAt": "2026-11-21T10:59:10.019Z",
+  "generatedAt": "2026-11-22T11:18:03.513Z",
   "source": "https://www.junghaie.de/",
   "games": [
-    {
-      "date": "21.11.2026",
-      "time": "16:30",
-      "datetime": "2026-11-21T16:30:00.000Z",
-      "home": "Düsseldorfer EG",
-      "away": "Kölner Junghaie",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "U17",
-      "location": "away"
-    },
-    {
-      "date": "21.11.2026",
-      "time": "16:30",
-      "datetime": "2026-11-21T16:30:00.000Z",
-      "home": "Kölner Junghaie 1b",
-      "away": "Düsseldorfer EG 1b",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "U15 B",
-      "location": "home"
-    },
-    {
-      "date": "21.11.2026",
-      "time": "19:15",
-      "datetime": "2026-11-21T19:15:00.000Z",
-      "home": "KEC \"Die Haie\" 1b",
-      "away": "Tornado Women Luxembourg",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "Frauen 2",
-      "location": "home"
-    },
-    {
-      "date": "21.11.2026",
-      "time": "20:00",
-      "datetime": "2026-11-21T20:00:00.000Z",
-      "home": "ESC Dresden",
-      "away": "Kölner Junghaie",
-      "homeScore": null,
-      "awayScore": null,
-      "team": "U20",
-      "location": "away"
-    },
     {
       "date": "22.11.2026",
       "time": "13:15",

@@ -1,7 +1,51 @@
 {
-  "generatedAt": "2026-11-21T10:59:10.019Z",
+  "generatedAt": "2026-11-22T11:18:03.513Z",
   "source": "https://www.junghaie.de/",
   "results": [
+    {
+      "date": "21.11.2026",
+      "time": "20:00",
+      "datetime": "2026-11-21T20:00:00.000Z",
+      "home": "ESC Dresden",
+      "away": "Kölner Junghaie",
+      "homeScore": 1,
+      "awayScore": 3,
+      "team": "U20",
+      "location": "away"
+    },
+    {
+      "date": "21.11.2026",
+      "time": "16:30",
+      "datetime": "2026-11-21T16:30:00.000Z",
+      "home": "Düsseldorfer EG",
+      "away": "Kölner Junghaie",
+      "homeScore": 2,
+      "awayScore": 8,
+      "team": "U17",
+      "location": "away"
+    },
+    {
+      "date": "21.11.2026",
+      "time": "16:30",
+      "datetime": "2026-11-21T16:30:00.000Z",
+      "home": "Kölner Junghaie 1b",
+      "away": "Düsseldorfer EG 1b",
+      "homeScore": 7,
+      "awayScore": 5,
+      "team": "U15 B",
+      "location": "home"
+    },
+    {
+      "date": "21.11.2026",
+      "time": "11:15",
+      "datetime": "2026-11-21T11:15:00.000Z",
+      "home": "ESC Darmstadt",
+      "away": "Kölner Junghaie 1b",
+      "homeScore": 2,
+      "awayScore": 8,
+      "team": "U13 B",
+      "location": "away"
+    },
     {
       "date": "15.11.2026",
       "time": "18:00",
