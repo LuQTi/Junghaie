@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-27T12:12:15.929Z",
+  "generatedAt": "2026-11-28T11:42:48.927Z",
   "source": "https://www.junghaie.de/",
   "standings": [
     {
@@ -366,9 +366,9 @@
       "rank": 5,
       "team": "U15 B",
       "teamName": "EHC Troisdorf",
-      "games": 10,
-      "goalDifference": "-53",
-      "points": 7
+      "games": 11,
+      "goalDifference": "-49",
+      "points": 10
     },
     {
       "rank": 6,
@@ -382,8 +382,8 @@
       "rank": 7,
       "team": "U15 B",
       "teamName": "Iserlohner EC 1b",
-      "games": 6,
-      "goalDifference": "-39",
+      "games": 7,
+      "goalDifference": "-43",
       "points": 4
     },
     {
